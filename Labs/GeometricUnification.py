@@ -47,10 +47,10 @@ class GeometricUnification:
         picName = self.getPictureShortName(smallerPic)
         bigPicName = self.getPictureShortName(biggerPic)
         img = Image.fromarray(blackBackground, mode='L')
-        img.save('./Labs/11/' + picName + '_' + bigPicName + '.png')
+        img.save('./ExEffects/11/' + picName + '_' + bigPicName + '.png')
 
     def getSavingPath(self):
         biggerPic, smallerPic = self.comparePictures()
         picName = self.getPictureShortName(smallerPic)
         bigPicName = self.getPictureShortName(biggerPic)
-        return './Labs/11/' + picName + '_' + bigPicName + '.png'
+        return './ExEffects/11/' + picName + '_' + bigPicName + '.png'

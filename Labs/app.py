@@ -6,4 +6,4 @@ if __name__ == '__main__':
     geo = GeometricUnification('./RawPictures/rys.png', './RawPictures/kobietaDziecko.png')
     geo.geoUnification()
     print('Starting ex. 1.2 Resolution unification of two grey pictures')
-    res = ResolutionUnification('./Labs/11/rys_kobietaDziecko.png', './RawPictures/kobietaDziecko.png')
+    res = ResolutionUnification('./ExEffects/11/rys_kobietaDziecko.png', './RawPictures/kobietaDziecko.png')

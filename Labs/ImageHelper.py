@@ -1,9 +1,8 @@
 import numpy as np
 from PIL import Image
 
-class ImageHelper:
 
-    #im = Image.open('./RawPictures/AndrzejZamoyski.png')
+class ImageHelper:
 
     def __init__(self, name):
         self.name = name
@@ -44,8 +43,3 @@ class ImageHelper:
         width = self.getWidthMatrix()
         length = self.getLengthMatrix()
         imageBuffer = np.zeros((length, width), np.uint8)
-
-
-
-
-
