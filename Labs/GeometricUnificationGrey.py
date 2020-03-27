@@ -4,7 +4,7 @@ from PIL import Image
 from ImageHelper import ImageHelper
 
 
-class GeometricUnification:
+class GeometricUnificationGrey:
 
     def __init__(self, name1, name2):
         self.pic1 = ImageHelper(name1)
@@ -23,7 +23,7 @@ class GeometricUnification:
             smallerPic = self.pic1
         return biggerPic, smallerPic
 
-    def geoUnification(self):
+    def geoUnificationGrey(self):
         biggerPic, smallerPic = self.comparePictures()
         smallerPicMatrix = smallerPic.getMatrix()
         maxLength, maxWidth = biggerPic.getLengthMatrix(), biggerPic.getWidthMatrix()

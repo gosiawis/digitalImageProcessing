@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ExEffects/12/rys_kobietaDziecko_withInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/12/rys_kobietaDziecko_withoutInterpolation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/12/AndrzejZamoyski_kobietaDziecko_withInterpolation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/12/AndrzejZamoyski_kobietaDziecko_withoutInterpolation.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GeometricUnification.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeometricUnification.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ImageHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/ImageHelper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResolutionUnification.py" beforeDir="false" afterPath="$PROJECT_DIR$/ResolutionUnification.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GeometricUnification.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeometricUnificationGrey.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ResolutionUnification.py" beforeDir="false" afterPath="$PROJECT_DIR$/ResolutionUnificationGrey.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,7 +58,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GeometricUnification.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\malgo\Desktop\STUDIA\sem_6\Przetwarzanie obrazów\digitalImageProcessing\Labs\GeometricUnificationGrey.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />

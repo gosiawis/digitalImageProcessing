@@ -1,11 +1,10 @@
 import numpy as np
 from PIL import Image
 
-from GeometricUnification import GeometricUnification
 from ImageHelper import ImageHelper
 
 
-class ResolutionUnification:
+class ResolutionUnificationGrey:
 
     def __init__(self, name1, name2):
         self.pic1 = ImageHelper(name1)
@@ -33,7 +32,7 @@ class ResolutionUnification:
             smallerPic = self.pic1
         return biggerPic, smallerPic
 
-    def resolutionUnification(self):
+    def resolutionUnificationGrey(self):
         biggerPicture, smallerPicture = self.comparePictures()
         self.getPicturesParameters(biggerPicture, smallerPicture)
         scaleFactorLength = float(self.maxLength / self.minLength)
