@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ExEffects/12/rys_kobietaDziecko_withInterpolation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/12/rys_kobietaDziecko_withoutInterpolation.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GeometricUnification.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeometricUnification.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ImageHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/ImageHelper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/11/AndrzejZamoyski_kobietaDziecko.png" beforeDir="false" afterPath="$PROJECT_DIR$/ExEffects/11/AndrzejZamoyski_kobietaDziecko.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/11/fotograf_kobietaDziecko.png" beforeDir="false" afterPath="$PROJECT_DIR$/ExEffects/11/fotograf_kobietaDziecko.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/11/fotograf_rys.png" beforeDir="false" afterPath="$PROJECT_DIR$/ExEffects/11/fotograf_rys.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/11/rys_kobietaDziecko.png" beforeDir="false" afterPath="$PROJECT_DIR$/ExEffects/11/rys_kobietaDziecko.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ResolutionUnification.py" beforeDir="false" afterPath="$PROJECT_DIR$/ResolutionUnification.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

@@ -10,13 +10,6 @@ class GeometricUnification:
         self.pic1 = ImageHelper(name1)
         self.pic2 = ImageHelper(name2)
 
-    def getPictureShortName(self, pic):
-        fullName = pic.getPictureName()
-        lastSlash = fullName.rfind('/')
-        lastDot = fullName.rfind('.')
-        pictureName = fullName[lastSlash + 1: lastDot]
-        return pictureName
-
     def comparePictures(self):
         length1 = self.pic1.getLengthMatrix()
         length2 = self.pic2.getLengthMatrix()
@@ -31,7 +24,6 @@ class GeometricUnification:
         return biggerPic, smallerPic
 
     def geoUnification(self):
-        print('start geometric grey unification')
         biggerPic, smallerPic = self.comparePictures()
         smallerPicMatrix = smallerPic.getMatrix()
         maxLength, maxWidth = biggerPic.getLengthMatrix(), biggerPic.getWidthMatrix()
@@ -44,13 +36,13 @@ class GeometricUnification:
             for l in range(0, minLength):
                 blackBackground[l + startLengthIndex, w + startWidthIndex] = smallerPicMatrix[l, w]
         # save unified picture to png file
-        picName = self.getPictureShortName(smallerPic)
-        bigPicName = self.getPictureShortName(biggerPic)
+        picName = smallerPic.getPictureName()
+        bigPicName = biggerPic.getPictureName()
         img = Image.fromarray(blackBackground, mode='L')
         img.save('./ExEffects/11/' + picName + '_' + bigPicName + '.png')
 
     def getSavingPath(self):
         biggerPic, smallerPic = self.comparePictures()
-        picName = self.getPictureShortName(smallerPic)
-        bigPicName = self.getPictureShortName(biggerPic)
+        picName = smallerPic.getPictureName()
+        bigPicName = biggerPic.getPictureName()
         return './ExEffects/11/' + picName + '_' + bigPicName + '.png'
