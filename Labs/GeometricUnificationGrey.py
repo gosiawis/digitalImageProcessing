@@ -23,20 +23,25 @@ class GeometricUnificationGrey:
             smallerPic = self.pic1
         return biggerPic, smallerPic
 
+    def getPicturesParameters(self, bigger, smaller):
+        self.minLength = smaller.getLengthMatrix()
+        self.minWidth = smaller.getWidthMatrix()
+        self.maxLength = bigger.getLengthMatrix()
+        self.maxWidth = bigger.getWidthMatrix()
+        self.matrix = smaller.getMatrix()
+        self.smallerPictureName = smaller.getPictureName()
+        self.biggerPictureName = bigger.getPictureName()
+
     def geoUnificationGrey(self):
         biggerPic, smallerPic = self.comparePictures()
-        smallerPicMatrix = smallerPic.getMatrix()
-        maxLength, maxWidth = biggerPic.getLengthMatrix(), biggerPic.getWidthMatrix()
-        minLength, minWidth = smallerPic.getLengthMatrix(), smallerPic.getWidthMatrix()
+        self.getPicturesParameters(biggerPic, smallerPic)
         # create black background for smaller picture
-        blackBackground = np.zeros((maxWidth, maxLength), np.uint8)
-        startWidthIndex = int(round((maxWidth - minWidth) / 2))
-        startLengthIndex = int(round((maxLength - minLength) / 2))
-        for w in range(0, minWidth):
-            for l in range(0, minLength):
-                blackBackground[l + startLengthIndex, w + startWidthIndex] = smallerPicMatrix[l, w]
+        blackBackground = np.zeros((self.maxWidth, self.maxLength), np.uint8)
+        startWidthIndex = int(round((self.maxWidth - self.minWidth) / 2))
+        startLengthIndex = int(round((self.maxLength - self.minLength) / 2))
+        for w in range(0, self.minWidth):
+            for l in range(0, self.minLength):
+                blackBackground[l + startLengthIndex, w + startWidthIndex] = self.matrix[l, w]
         # save unified picture to png file
-        picName = smallerPic.getPictureName()
-        bigPicName = biggerPic.getPictureName()
         img = Image.fromarray(blackBackground, mode='L')
-        img.save('./ExEffects/11/' + picName + '_' + bigPicName + '.png')
+        img.save('./ExEffects/11/' + self.smallerPictureName + '_' + self.biggerPictureName + '.png')
