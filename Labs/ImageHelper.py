@@ -25,6 +25,10 @@ class ImageHelper:
         matrix = np.array(self.im)
         return matrix
 
+    def getRGBMatrix(self):
+        loadmatrix = self.im.load()
+        return loadmatrix
+
     def getWidthMatrix(self):
         size = self.im.size
         width = size[0]

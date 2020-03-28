@@ -30,10 +30,15 @@ class ResolutionUnificationGrey:
         elif length1 < length2 or width1 < width2:
             biggerPic = self.pic2
             smallerPic = self.pic1
+        elif length1 == length2 and width1 == width2:
+            return 0, 0
         return biggerPic, smallerPic
 
     def resolutionUnificationGrey(self):
         biggerPicture, smallerPicture = self.comparePictures()
+        if biggerPicture == 0 and smallerPicture == 0:
+            print('Both pictures have the same size')
+            return 0
         self.getPicturesParameters(biggerPicture, smallerPicture)
         scaleFactorLength = float(self.maxLength / self.minLength)
         scaleFactorWidth = float(self.maxWidth / self.minWidth)
@@ -50,6 +55,7 @@ class ResolutionUnificationGrey:
         self.interpolation(result)
         img_interpolation = Image.fromarray(result, mode='L')
         img_interpolation.save('./ExEffects/12/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png')
+        print('Picture saved as ' + self.smallerPictureName + '_' + self.biggerPictureName + '.png')
 
     def interpolation(self, result):
         for l in range(self.maxLength):
