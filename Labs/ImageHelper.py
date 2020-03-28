@@ -4,9 +4,9 @@ from PIL import Image
 
 class ImageHelper:
 
-    def __init__(self, name):
+    def __init__(self, name, pictureType):
         self.name = name
-        self.im = Image.open(name).convert('L')
+        self.im = Image.open(name).convert(pictureType)
 
     def getPicturePath(self):
         return self.name

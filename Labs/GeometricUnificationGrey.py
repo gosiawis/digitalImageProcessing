@@ -7,8 +7,8 @@ from ImageHelper import ImageHelper
 class GeometricUnificationGrey:
 
     def __init__(self, name1, name2):
-        self.pic1 = ImageHelper(name1)
-        self.pic2 = ImageHelper(name2)
+        self.pic1 = ImageHelper(name1, 'L')
+        self.pic2 = ImageHelper(name2, 'L')
 
     def comparePictures(self):
         length1 = self.pic1.getLengthMatrix()
@@ -40,9 +40,3 @@ class GeometricUnificationGrey:
         bigPicName = biggerPic.getPictureName()
         img = Image.fromarray(blackBackground, mode='L')
         img.save('./ExEffects/11/' + picName + '_' + bigPicName + '.png')
-
-    def getSavingPath(self):
-        biggerPic, smallerPic = self.comparePictures()
-        picName = smallerPic.getPictureName()
-        bigPicName = biggerPic.getPictureName()
-        return './ExEffects/11/' + picName + '_' + bigPicName + '.png'

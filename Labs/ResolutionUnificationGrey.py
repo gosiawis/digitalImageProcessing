@@ -7,8 +7,8 @@ from ImageHelper import ImageHelper
 class ResolutionUnificationGrey:
 
     def __init__(self, name1, name2):
-        self.pic1 = ImageHelper(name1)
-        self.pic2 = ImageHelper(name2)
+        self.pic1 = ImageHelper(name1, 'L')
+        self.pic2 = ImageHelper(name2, 'L')
 
     def getPicturesParameters(self, bigger, smaller):
         self.minLength = smaller.getLengthMatrix()
