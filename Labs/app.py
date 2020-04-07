@@ -1,3 +1,4 @@
+from ArithmeticAddition import ArithmeticAddition
 from GeometricUnificationGrey import GeometricUnificationGrey
 from GeometricUnificationRGB import GeometricUnificationRGB
 from ResolutionUnificationGrey import ResolutionUnificationGrey
@@ -16,9 +17,17 @@ if __name__ == '__main__':
     print('Starting ex. 1.3 Geometric unification of two RGB pictures')
     geoRGB = GeometricUnificationRGB('./RawPictures/kawa.png', './RawPictures/morze.png')
     geoRGB.geoUnificationRGB()
-    '''
+    
     print('Starting ex. 1.4 Resolution unification of two RGB pictures')
     resRGB = ResolutionUnificationRGB('./RawPictures/kawa.png', './RawPictures/morze.png')
     resRGB.resolutionUnificationRGB()
     resRGB = ResolutionUnificationRGB('./RawPictures/stogi.png', './RawPictures/morze.png')
     resRGB.resolutionUnificationRGB()
+    
+    print('Starting ex. 2.1 Addition of constant to grey picture')
+    addConstant = ArithmeticAddition(name1='./RawPictures/rys.png', pictureType='L')
+    addConstant.addConstGrey(400)
+    '''
+    print('Starting ex. 2.1 Addition of two grey pictures')
+    addPicture = ArithmeticAddition(name1='./RawPictures/rys.png', name2='./RawPictures/fotograf.png', pictureType='L')
+    addPicture.addPictureGrey()
