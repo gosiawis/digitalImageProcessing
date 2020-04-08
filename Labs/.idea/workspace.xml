@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ArithmeticMultiplicationGrey.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/22/fotograf_constant_100.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/22/fotograf_constant_100_normalized.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/22/fotograf_multiplied_AndrzejZamoyski.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/22/fotograf_multiplied_AndrzejZamoyski_normalized.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/22/fotograf_multiplied_rys.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/22/fotograf_multiplied_rys_normalized.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/22/rys_constant_100.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/22/rys_constant_100_normalized.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/22/rys_constant_20.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/22/rys_constant_20_normalized.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlendingGrey.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/23/fotograf_blended_0.3_AndrzejZamoyski.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/23/fotograf_blended_0.3_AndrzejZamoyski_normalized.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/23/fotograf_blended_0.8_rys.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/23/fotograf_blended_0.8_rys_normalized.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ArithmeticAddition.py" beforeDir="false" afterPath="$PROJECT_DIR$/ArithmeticAdditionGrey.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

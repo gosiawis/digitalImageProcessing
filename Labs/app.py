@@ -1,5 +1,6 @@
 from ArithmeticAdditionGrey import ArithmeticAdditionGrey
 from ArithmeticMultiplicationGrey import ArithmeticMultiplicationGrey
+from BlendingGrey import BlendingGrey
 from GeometricUnificationGrey import GeometricUnificationGrey
 from GeometricUnificationRGB import GeometricUnificationRGB
 from ResolutionUnificationGrey import ResolutionUnificationGrey
@@ -36,7 +37,11 @@ if __name__ == '__main__':
     print('Starting ex. 2.2 Multiplication of grey picture by constant')
     multiplyConstant = ArithmeticMultiplicationGrey(name1='./RawPictures/fotograf.png', pictureType='L')
     multiplyConstant.multiplyConstGrey(100)
-    '''
+    
     print('Starting ex. 2.2 Multiplication of grey picture by another picture')
     multiplyPicture = ArithmeticMultiplicationGrey(name1='./RawPictures/AndrzejZamoyski.png', name2='./RawPictures/fotograf.png',pictureType='L')
     multiplyPicture.multiplyPicturesGrey()
+    '''
+    print('Starting ex. 2.2 Multiplication of grey picture by another picture')
+    blend = BlendingGrey(name1='./RawPictures/fotograf.png', name2='./RawPictures/AndrzejZamoyski.png', pictureType='L')
+    blend.blendPictures(0.3)
