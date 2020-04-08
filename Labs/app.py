@@ -1,4 +1,5 @@
-from ArithmeticAddition import ArithmeticAddition
+from ArithmeticAdditionGrey import ArithmeticAdditionGrey
+from ArithmeticMultiplicationGrey import ArithmeticMultiplicationGrey
 from GeometricUnificationGrey import GeometricUnificationGrey
 from GeometricUnificationRGB import GeometricUnificationRGB
 from ResolutionUnificationGrey import ResolutionUnificationGrey
@@ -25,9 +26,17 @@ if __name__ == '__main__':
     resRGB.resolutionUnificationRGB()
     
     print('Starting ex. 2.1 Addition of constant to grey picture')
-    addConstant = ArithmeticAddition(name1='./RawPictures/rys.png', pictureType='L')
+    addConstant = ArithmeticAdditionGrey(name1='./RawPictures/rys.png', pictureType='L')
     addConstant.addConstGrey(400)
-    '''
+    
     print('Starting ex. 2.1 Addition of two grey pictures')
-    addPicture = ArithmeticAddition(name1='./RawPictures/rys.png', name2='./RawPictures/fotograf.png', pictureType='L')
+    addPicture = ArithmeticAdditionGrey(name1='./RawPictures/rys.png', name2='./RawPictures/fotograf.png', pictureType='L')
     addPicture.addPictureGrey()
+    
+    print('Starting ex. 2.2 Multiplication of grey picture by constant')
+    multiplyConstant = ArithmeticMultiplicationGrey(name1='./RawPictures/fotograf.png', pictureType='L')
+    multiplyConstant.multiplyConstGrey(100)
+    '''
+    print('Starting ex. 2.2 Multiplication of grey picture by another picture')
+    multiplyPicture = ArithmeticMultiplicationGrey(name1='./RawPictures/AndrzejZamoyski.png', name2='./RawPictures/fotograf.png',pictureType='L')
+    multiplyPicture.multiplyPicturesGrey()

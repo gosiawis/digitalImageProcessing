@@ -5,9 +5,9 @@ from ImageHelper import ImageHelper
 from ResolutionUnificationGrey import ResolutionUnificationGrey
 
 
-class ArithmeticAddition:
+class ArithmeticMultiplicationGrey:
 
-    def __init__(self, name1='./RawPictures/AndrzejZamoyski.png', name2='./RawPictures/kobietaDziecko.png',
+    def __init__(self, name1='./RawPictures/rys.png', name2='./RawPictures/fotograf.png',
                  pictureType='L'):
         self.pic1 = ImageHelper(name1, pictureType)
         self.pic2 = ImageHelper(name2, pictureType)
@@ -27,40 +27,33 @@ class ArithmeticAddition:
     def getPictureParameters(self, pic):
         return pic.getLengthMatrix(), pic.getWidthMatrix(), pic.getMatrix(), pic.getPictureName()
 
-    def addConstGrey(self, constant):
+    def multiplyConstGrey(self, constant):
         maxBitsColor = self.checkPictureBits(self.pic1)
         length, width, matrix, pictureName = self.getPictureParameters(self.pic1)
         result = np.ones((length, width), np.uint8)
 
-        sumMax = 0
-        x = 0
         fmin = maxBitsColor
         fmax = 0
 
         for l in range(length):
             for w in range(width):
-                added = matrix[l, w] + constant
-                if sumMax < added:
-                    sumMax = added
-
-        if sumMax > maxBitsColor:
-            x = (sumMax - maxBitsColor) / maxBitsColor
-
-        for l in range(length):
-            for w in range(width):
-                # Rounded up and assignment of value to the result matrix
-                pom = (matrix[l, w] - (matrix[l, w] * x)) + (constant - (constant * x))
-                result[l, w] = np.ceil(pom)
+                pom = matrix[l, w]
+                if pom == maxBitsColor:
+                    result[l, w] = maxBitsColor
+                elif pom == 0:
+                    result[l, w] = 0
+                else:
+                    result[l, w] = np.ceil(((matrix[l, w] * constant) / maxBitsColor))
                 # Search for maximum and minimum
-                if fmin > pom:
-                    fmin = pom
+                if fmin > result[l, w]:
+                    fmin = result[l, w]
 
-                if fmax < pom:
-                    fmax = pom
+                if fmax < result[l, w]:
+                    fmax = result[l, w]
 
         # save picture with added constant to png file (without normalization)
         img = Image.fromarray(result, mode=self.pictureType)
-        img.save('./ExEffects/21/' + str(pictureName) + '_constant_' + str(constant) + '.png')
+        img.save('./ExEffects/22/' + str(pictureName) + '_constant_' + str(constant) + '.png')
         print('Picture saved as ' + str(pictureName) + '_constant_' + str(constant) + '.png')
 
         for l in range(length):
@@ -69,7 +62,7 @@ class ArithmeticAddition:
 
         # save picture with added constant to png file (with normalization)
         img = Image.fromarray(result, mode=self.pictureType)
-        img.save('./ExEffects/21/' + str(pictureName) + '_constant_' + str(constant) + '_normalized.png')
+        img.save('./ExEffects/22/' + str(pictureName) + '_constant_' + str(constant) + '_normalized.png')
         print('Picture saved as ' + str(pictureName) + '_constant_' + str(constant) + '_normalized.png')
 
     def comparePictures(self):
@@ -95,7 +88,7 @@ class ArithmeticAddition:
         pic2 = ImageHelper(pic2Path, self.pictureType)
         return pic1, pic2
 
-    def addPictureGrey(self):
+    def multiplyPicturesGrey(self):
         if self.checkPictureBits(self.pic1) == self.checkPictureBits(self.pic2):
             maxBitsColor = self.checkPictureBits(self.pic2)
         # check if pictures have same sizes, if not unify them
@@ -108,44 +101,36 @@ class ArithmeticAddition:
         length2, width2, matrix2, pictureName2 = self.getPictureParameters(self.pic2)
         pictureName1 = tempName
 
-        sumMax = 0
-        x = 0
-        fmax = 0
+        result = np.ones((length1, width1), np.uint8)
+
         fmin = maxBitsColor
-
-        result = np.zeros((length1, width1), np.uint8)
-
-        for l in range(length1):
-            for w in range(width1):
-                added = int(matrix1[l, w]) + int(matrix2[l, w])
-                if sumMax < added:
-                    sumMax = added
-
-        if sumMax > maxBitsColor:
-            x = (sumMax - maxBitsColor) / maxBitsColor
+        fmax = 0
 
         for l in range(length1):
             for w in range(width1):
-                # Rounded up and assignment of value to the result matrix
-                pom = int(matrix1[l, w] - (matrix1[l, w] * x)) + int(matrix2[l, w] - (matrix2[l, w] * x))
-                result[l, w] = np.ceil(int(pom))
+                if matrix1[l, w] == maxBitsColor:
+                    result[l, w] = matrix2[l, w]
+                elif matrix1[l, w] == 0:
+                    result[l, w] = 0
+                else:
+                    result[l, w] = np.ceil(((int(matrix1[l, w]) * int(matrix2[l, w])) / maxBitsColor))
                 # Search for maximum and minimum
-                if fmin > pom:
-                    fmin = pom
-                if fmax < pom:
-                    fmax = pom
+                if fmin > result[l, w]:
+                    fmin = result[l, w]
 
-        # save picture with added constant to png file (without normalization)
+                if fmax < result[l, w]:
+                    fmax = result[l, w]
+
+        # save picture multiplied by picture to png file (without normalization)
         img = Image.fromarray(result, mode=self.pictureType)
-        img.save('./ExEffects/21/' + str(pictureName1) + '_added_' + str(pictureName2) + '.png')
-        print('Picture saved as ' + str(pictureName1) + '_added_' + str(pictureName2) + '.png')
+        img.save('./ExEffects/22/' + str(pictureName1) + '_multiplied_' + str(pictureName2) + '.png')
+        print('Picture saved as ' + str(pictureName1) + '_multiplied_' + str(pictureName2) + '.png')
 
-        normalized = np.zeros((length1, width1), np.uint8)
         for l in range(length1):
             for w in range(width1):
-                normalized[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
+                result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
 
-        # save picture with added constant to png file (with normalization)
-        img = Image.fromarray(normalized, mode=self.pictureType)
-        img.save('./ExEffects/21/' + str(pictureName1) + '_added_' + str(pictureName2) + '_normalized.png')
-        print('Picture saved as ' + str(pictureName1) + '_added_' + str(pictureName2) + '_normalized.png')
+        # save picture multiplied by picture to png file (with normalization)
+        img = Image.fromarray(result, mode=self.pictureType)
+        img.save('./ExEffects/22/' + str(pictureName1) + '_multiplied_' + str(pictureName2) + '_normalized.png')
+        print('Picture saved as ' + str(pictureName1) + '_multiplied_' + str(pictureName2) + '_normalized.png')
