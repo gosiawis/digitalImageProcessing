@@ -2,24 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DivisionGrey.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/25/fotograf_dividedBy_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/25/fotograf_dividedBy_3_normalized.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/25/fotograf_dividedBy_AndrzejZamoyski.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/25/fotograf_dividedBy_AndrzejZamoyski_normalized.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/25/fotograf_dividedBy_rys.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/25/fotograf_dividedBy_rys_normalized.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/25/rys_dividedBy_15.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/25/rys_dividedBy_15_normalized.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/26/fotograf_root_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/26/fotograf_root_3_normalized.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/26/rys_root_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/26/rys_root_2_normalized.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RootGrey.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/27/AndrzejZamoyski_log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/27/AndrzejZamoyski_log_normalized.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/27/fotograf_log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/27/fotograf_log_normalized.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/27/rys_log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/27/rys_log_normalized.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LogharitmGrey.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ArithmeticAdditionGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdditionGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ArithmeticMultiplicationGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/MultiplicationGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RaiseToPowerGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/RaiseToPowerGrey.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

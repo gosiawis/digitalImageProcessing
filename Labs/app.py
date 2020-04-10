@@ -1,5 +1,6 @@
 from AdditionGrey import AdditionGrey
 from DivisionGrey import DivisionGrey
+from LogharitmGrey import LogharitmGrey
 from MultiplicationGrey import MultiplicationGrey
 from BlendingGrey import BlendingGrey
 from GeometricUnificationGrey import GeometricUnificationGrey
@@ -64,4 +65,8 @@ if __name__ == '__main__':
     print('Starting ex. 2.6 Root of a grey picture')
     root = RootGrey(name='./RawPictures/rys.png')
     root.rootGrey(2)
+    
+    print('Starting ex. 2.7 Logharitm of a grey picture')
+    log = LogharitmGrey(name='./RawPictures/AndrzejZamoyski.png')
+    log.logharitmGrey()
     '''
