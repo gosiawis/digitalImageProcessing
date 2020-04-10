@@ -1,6 +1,7 @@
 import numpy as np
 from PIL import Image
 
+from Comparer import Comparer
 from ImageHelper import ImageHelper
 from ResolutionUnificationGrey import ResolutionUnificationGrey
 
@@ -65,21 +66,6 @@ class ArithmeticMultiplicationGrey:
         img.save('./ExEffects/22/' + str(pictureName) + '_constant_' + str(constant) + '_normalized.png')
         print('Picture saved as ' + str(pictureName) + '_constant_' + str(constant) + '_normalized.png')
 
-    def comparePictures(self):
-        length1 = self.pic1.getLengthMatrix()
-        length2 = self.pic2.getLengthMatrix()
-        width1 = self.pic1.getWidthMatrix()
-        width2 = self.pic2.getWidthMatrix()
-        if length1 > length2 or width1 > width2:
-            biggerPic = self.pic1
-            smallerPic = self.pic2
-        elif length1 < length2 or width1 < width2:
-            biggerPic = self.pic2
-            smallerPic = self.pic1
-        elif length1 == length2 and width1 == width2:
-            return 0, 0
-        return biggerPic, smallerPic
-
     def getUnifiedPictures(self):
         resolutionUni = ResolutionUnificationGrey(self.name1, self.name2)
         resolutionUni.resolutionUnificationGrey()
@@ -92,7 +78,8 @@ class ArithmeticMultiplicationGrey:
         if self.checkPictureBits(self.pic1) == self.checkPictureBits(self.pic2):
             maxBitsColor = self.checkPictureBits(self.pic2)
         # check if pictures have same sizes, if not unify them
-        biggerPicture, smallerPicture = self.comparePictures()
+        compare = Comparer()
+        biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
         if biggerPicture != 0 and smallerPicture != 0:
             self.pic1, self.pic2 = self.getUnifiedPictures()
         # get the values

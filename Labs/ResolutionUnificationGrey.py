@@ -1,6 +1,7 @@
 import numpy as np
 from PIL import Image
 
+from Comparer import Comparer
 from ImageHelper import ImageHelper
 
 
@@ -21,24 +22,10 @@ class ResolutionUnificationGrey:
         self.smallerPictureName = smaller.getPictureName()
         self.biggerPictureName = bigger.getPictureName()
 
-    def comparePictures(self):
-        length1 = self.pic1.getLengthMatrix()
-        length2 = self.pic2.getLengthMatrix()
-        width1 = self.pic1.getWidthMatrix()
-        width2 = self.pic2.getWidthMatrix()
-        if length1 >= length2 or width1 >= width2:
-            biggerPic = self.pic1
-            smallerPic = self.pic2
-        elif length1 < length2 or width1 < width2:
-            biggerPic = self.pic2
-            smallerPic = self.pic1
-        elif length1 == length2 and width1 == width2:
-            return 0, 0
-        return biggerPic, smallerPic
-
     def resolutionUnificationGrey(self):
         print('Begginning of resolution unification for two grey pictures.')
-        biggerPicture, smallerPicture = self.comparePictures()
+        compare = Comparer()
+        biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
         if biggerPicture == 0 and smallerPicture == 0:
             print('Both pictures have the same size')
             return 0
@@ -80,6 +67,7 @@ class ResolutionUnificationGrey:
                     result[l, w] = value / count
 
     def getOutputPaths(self):
-        biggerPicture, smallerPicture = self.comparePictures()
+        compare = Comparer()
+        biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
         biggerPicPath = biggerPicture.getPicturePath()
         return self.output, biggerPicPath

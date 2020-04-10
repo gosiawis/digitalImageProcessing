@@ -1,6 +1,7 @@
 import numpy as np
 from PIL import Image
 
+from Comparer import Comparer
 from ImageHelper import ImageHelper
 
 
@@ -9,21 +10,6 @@ class GeometricUnificationRGB:
     def __init__(self, name1, name2):
         self.pic1 = ImageHelper(name1, 'RGB')
         self.pic2 = ImageHelper(name2, 'RGB')
-
-    def comparePictures(self):
-        length1 = self.pic1.getLengthMatrix()
-        length2 = self.pic2.getLengthMatrix()
-        width1 = self.pic1.getWidthMatrix()
-        width2 = self.pic2.getWidthMatrix()
-        if length1 > length2 or width1 > width2:
-            biggerPic = self.pic1
-            smallerPic = self.pic2
-        elif length1 < length2 or width1 < width2:
-            biggerPic = self.pic2
-            smallerPic = self.pic1
-        elif length1 == length2 and width1 == width2:
-            return 0, 0
-        return biggerPic, smallerPic
 
     def getPicturesParameters(self, bigger, smaller):
         self.minLength = smaller.getLengthMatrix()
@@ -35,7 +21,8 @@ class GeometricUnificationRGB:
         self.biggerPictureName = bigger.getPictureName()
 
     def geoUnificationRGB(self):
-        biggerPic, smallerPic = self.comparePictures()
+        compare = Comparer()
+        biggerPic, smallerPic = compare.comparePictures(self.pic1, self.pic2)
         if biggerPic == 0 and smallerPic == 0:
             print('Both pictures have the same size')
             return 0
