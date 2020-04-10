@@ -1,15 +1,21 @@
 from AdditionGrey import AdditionGrey
 from AdditionRGB import AdditionRGB
+from BlendingRGB import BlendingRGB
 from DivisionGrey import DivisionGrey
+from DivisionRGB import DivisionRGB
 from LogharitmGrey import LogharitmGrey
+from LogharitmRGB import LogharitmRGB
 from MultiplicationGrey import MultiplicationGrey
 from BlendingGrey import BlendingGrey
 from GeometricUnificationGrey import GeometricUnificationGrey
 from GeometricUnificationRGB import GeometricUnificationRGB
+from MultiplicationRGB import MultiplicationRGB
 from RaiseToPowerGrey import RaiseToPowerGrey
+from RaiseToPowerRGB import RaiseToPowerRGB
 from ResolutionUnificationGrey import ResolutionUnificationGrey
 from ResolutionUnificationRGB import ResolutionUnificationRGB
 from RootGrey import RootGrey
+from RootRGB import RootRGB
 
 if __name__ == '__main__':
     '''
@@ -70,7 +76,7 @@ if __name__ == '__main__':
     print('Starting ex. 2.7 Logharitm of a grey picture')
     log = LogharitmGrey(name='./RawPictures/AndrzejZamoyski.png')
     log.logharitmGrey()
-    '''
+    
     print('Starting ex. 3.1 Addition of constant to RGB picture')
     addConstant = AdditionRGB(name1='./RawPictures/stogi.png')
     addConstant.addConstRGB(200)
@@ -78,3 +84,36 @@ if __name__ == '__main__':
     print('Starting ex. 3.1 Addition of two RGB pictures')
     addPicture = AdditionRGB(name1='./RawPictures/morze.png', name2='./RawPictures/stogi.png')
     addPicture.addPictureRGB()
+    
+    print('Starting ex. 3.2 Multiplication of RGB picture by constant')
+    multiConstant = MultiplicationRGB(name1='./RawPictures/morze.png')
+    multiConstant.multiplyConstRGB(50)
+    
+    print('Starting ex. 3.2 Multiplication of two RGB pictures')
+    multiPicture = MultiplicationRGB(name1='./RawPictures/morze.png', name2='./RawPictures/stogi.png')
+    multiPicture.multiplyPicturesRGB()
+    
+    print('Starting ex. 3.3 Blending of two RGB pictures')
+    blend = BlendingRGB(name1='./RawPictures/kawa.png', name2='./RawPictures/morze.png')
+    blend.blendPictures(0.6)
+    
+    print('Starting ex. 3.4 Raising to the constant power of a RGB picture')
+    exp = RaiseToPowerRGB(name='./RawPictures/stogi.png')
+    exp.raiseToPower(10)
+    
+    print('Starting ex. 3.5 Dividing of a RGB picture by a constant')
+    div = DivisionRGB(name1='./RawPictures/kawa.png')
+    div.divideConstRGB(20)
+
+    print('Starting ex. 3.5 Dividing of a RGB picture by another picture')
+    div = DivisionRGB(name1='./RawPictures/morze.png', name2='./RawPictures/kawa.png')
+    div.dividePicturesRGB()
+    
+    print('Starting ex. 3.6 Root of a RGB picture')
+    root = RootRGB(name='./RawPictures/stogi.png')
+    root.rootRGB(20)
+    '''
+    print('Starting ex. 3.7 Logharitm of a RGB picture')
+    log = LogharitmRGB(name='./RawPictures/kawa.png')
+    log.logharitmRGB()
+    

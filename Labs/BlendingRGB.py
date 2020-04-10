@@ -6,9 +6,9 @@ from PictureSaver import PictureSaver
 from ResolutionUnificationRGB import ResolutionUnificationRGB
 
 
-class MultiplicationRGB:
+class BlendingRGB:
 
-    def __init__(self, name1='./RawPictures/kawa.png', name2='./RawPictures/stogi.png',
+    def __init__(self, name1='./RawPictures/morze.png', name2='./RawPictures/kawa.png',
                  pictureType='RGB'):
         self.pic1 = ImageHelper(name1, pictureType)
         self.pic2 = ImageHelper(name2, pictureType)
@@ -16,56 +16,10 @@ class MultiplicationRGB:
         self.name1 = name1
         self.name2 = name2
         self.saver = PictureSaver()
-        self.ex = './ExEffects/3/32/'
+        self.ex = './ExEffects/3/33/'
 
     def getPictureParameters(self, pic):
         return pic.getLength(), pic.getWidth(), pic.getRGBMatrix(), pic.getPictureName()
-
-    def assignRGBvalue(self, value, factor):
-        if value == 255:
-            value = factor
-        elif value == 0:
-            value = 0
-        else:
-            value = (int(value) * int(factor)) / 255
-        return value
-
-    def multiplyConstRGB(self, constant):
-        length, width, matrix, pictureName = self.getPictureParameters(self.pic1)
-        result = np.ones((length, width, 3), np.uint8)
-
-        fmin = 255
-        fmax = 0
-
-        for l in range(length):
-            for w in range(width):
-                R = self.assignRGBvalue(int(matrix[l, w][0]), constant)
-                G = self.assignRGBvalue(int(matrix[l, w][1]), constant)
-                B = self.assignRGBvalue(int(matrix[l, w][2]), constant)
-
-                result[w, l][0] = np.ceil(R)
-                result[w, l][1] = np.ceil(G)
-                result[w, l][2] = np.ceil(B)
-
-                # Search for maximum and minimum
-                if fmin > min([R, G, B]):
-                    fmin = min([R, G, B])
-                if fmax < max([R, G, B]):
-                    fmax = max([R, G, B])
-
-        # save picture with added constant to png file (without normalization)
-        path = self.ex + str(pictureName) + '_constant_' + str(constant) + '.png'
-        self.saver.savePictureFromArray(result, self.pictureType, path)
-
-        for l in range(length):
-            for w in range(width):
-                result[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
-                result[l, w][1] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
-                result[l, w][2] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
-
-        # save picture with added constant to png file (with normalization)
-        path = self.ex + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
-        self.saver.savePictureFromArray(result, self.pictureType, path)
 
     def getUnifiedPictures(self):
         resolutionUni = ResolutionUnificationRGB(self.name1, self.name2)
@@ -75,7 +29,7 @@ class MultiplicationRGB:
         pic2 = ImageHelper(pic2Path, self.pictureType)
         return pic1, pic2
 
-    def multiplyPicturesRGB(self):
+    def blendPictures(self, alfa):
         compare = Comparer()
         biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
         if biggerPicture != 0 and smallerPicture != 0:
@@ -93,9 +47,9 @@ class MultiplicationRGB:
 
         for l in range(length1):
             for w in range(width1):
-                R = self.assignRGBvalue(int(matrix1[l, w][0]), int(matrix2[l, w][0]))
-                G = self.assignRGBvalue(int(matrix1[l, w][1]), int(matrix2[l, w][1]))
-                B = self.assignRGBvalue(int(matrix1[l, w][2]), int(matrix2[l, w][2]))
+                R = (float(matrix1[l, w][0]) * alfa) + (float(matrix2[l, w][0]) * (1 - alfa))
+                G = (float(matrix1[l, w][1]) * alfa) + (float(matrix2[l, w][1]) * (1 - alfa))
+                B = (float(matrix1[l, w][2]) * alfa) + (float(matrix2[l, w][2]) * (1 - alfa))
 
                 result[w, l][0] = np.ceil(R)
                 result[w, l][1] = np.ceil(G)
@@ -108,7 +62,7 @@ class MultiplicationRGB:
                     fmax = max([R, G, B])
 
         # save picture multiplied by picture to png file (without normalization)
-        path = self.ex + str(pictureName1) + '_multiplied_' + str(pictureName2) + '.png'
+        path = self.ex + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
         for l in range(length1):
@@ -118,5 +72,5 @@ class MultiplicationRGB:
                 result[l, w][2] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
 
         # save picture multiplied by picture to png file (with normalization)
-        path = self.ex + str(pictureName1) + '_multiplied_' + str(pictureName2) + '_normalized.png'
+        path = self.ex + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '_normalized.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
