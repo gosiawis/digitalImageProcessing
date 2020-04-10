@@ -11,6 +11,7 @@ class LogharitmGrey:
         self.pic = ImageHelper(name, self.pictureType)
         self.name = name
         self.saver = PictureSaver()
+        self.ex = './ExEffects/2/27/'
 
     def checkPictureBits(self, pic):
         matrix = pic.getGreyMatrix()
@@ -53,7 +54,7 @@ class LogharitmGrey:
                     fmax = pom
 
         # save picture raised to constant power to png file (without normalization)
-        path = './ExEffects/27/' + str(pictureName) + '_log.png'
+        path = self.ex + str(pictureName) + '_log.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
         for l in range(length):
@@ -61,5 +62,5 @@ class LogharitmGrey:
                 result[l, w] = maxBitsColor * ((result[l, w] - fmin) / (fmax - fmin))
 
         # save picture raised to constant power to png file (with normalization)
-        path = './ExEffects/27/' + str(pictureName) + '_log_normalized.png'
+        path = self.ex + str(pictureName) + '_log_normalized.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)

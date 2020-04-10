@@ -16,6 +16,7 @@ class GeometricUnificationRGB:
         self.matrix = self.smallerPicture.getRGBMatrix()
         self.maxLength, self.maxWidth, self.biggerPictureName = self.biggerPicture.getPictureParameters()
         self.minLength, self.minWidth, self.smallerPictureName = self.smallerPicture.getPictureParameters()
+        self.ex = './ExEffects/1/13/'
 
     def geoUnificationRGB(self):
         if self.biggerPicture == 0 and self.smallerPicture == 0:
@@ -29,7 +30,7 @@ class GeometricUnificationRGB:
             for l in range(0, self.minLength):
                 result[l + startLengthIndex, w + startWidthIndex] = self.matrix[w, l]
         # save unified picture to png file
-        path = './ExEffects/13/' + self.smallerPictureName + '_' + self.biggerPictureName + '.png'
+        path = self.ex + self.smallerPictureName + '_' + self.biggerPictureName + '.png'
         self.saver.savePictureFromArray(result, 'RGB', path)
 
 

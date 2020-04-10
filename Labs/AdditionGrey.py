@@ -16,6 +16,7 @@ class AdditionGrey:
         self.name1 = name1
         self.name2 = name2
         self.saver = PictureSaver()
+        self.ex = './ExEffects/2/21/'
 
     def checkPictureBits(self, pic):
         matrix = pic.getGreyMatrix()
@@ -122,7 +123,7 @@ class AdditionGrey:
                     fmax = pom
 
         # save picture with added constant to png file (without normalization)
-        path = './ExEffects/21/' + str(pictureName1) + '_added_' + str(pictureName2) + '.png'
+        path = self.ex + str(pictureName1) + '_added_' + str(pictureName2) + '.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
         normalized = np.zeros((length1, width1), np.uint8)
@@ -131,5 +132,5 @@ class AdditionGrey:
                 normalized[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
 
         # save picture with added constant to png file (with normalization)
-        path = './ExEffects/21/' + str(pictureName1) + '_added_' + str(pictureName2) + '_normalized.png'
+        path = self.ex + str(pictureName1) + '_added_' + str(pictureName2) + '_normalized.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)

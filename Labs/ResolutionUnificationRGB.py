@@ -17,6 +17,7 @@ class ResolutionUnificationRGB:
         self.matrix = self.smallerPicture.getRGBMatrix()
         self.maxLength, self.maxWidth, self.biggerPictureName = self.biggerPicture.getPictureParameters()
         self.minLength, self.minWidth, self.smallerPictureName = self.smallerPicture.getPictureParameters()
+        self.ex = './ExEffects/1/14/'
 
     def resolutionUnificationRGB(self):
         if self.biggerPicture == 0 and self.smallerPicture == 0:
@@ -33,7 +34,7 @@ class ResolutionUnificationRGB:
                 elif w % 2 == 1:
                     result[int(round(scaleFactorLength * l)), int(scaleFactorWidth * w)] = self.matrix[w, l]
 
-        path = './ExEffects/14/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withoutInterpolation.png'
+        path = self.ex + self.smallerPictureName + '_' + self.biggerPictureName + '_withoutInterpolation.png'
         self.saver.savePictureFromArray(result, 'RGB', path)
 
         for l in range(self.maxLength):
@@ -52,6 +53,13 @@ class ResolutionUnificationRGB:
                                 n += 1
                     result[l, w] = (r/n, g/n, b/n)
 
-        path = './ExEffects/14/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png'
+        path = self.ex + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png'
+        self.outputPath = path
         self.saver.savePictureFromArray(result, 'RGB', path)
+
+    def getOutputPaths(self):
+        compare = Comparer()
+        biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
+        biggerPicPath = biggerPicture.getPicturePath()
+        return self.outputPath, biggerPicPath
 

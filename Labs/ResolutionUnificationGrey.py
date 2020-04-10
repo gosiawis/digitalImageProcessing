@@ -18,6 +18,7 @@ class ResolutionUnificationGrey:
         self.matrix = self.smallerPicture.getGreyMatrix()
         self.maxLength, self.maxWidth, self.biggerPictureName = self.biggerPicture.getPictureParameters()
         self.minLength, self.minWidth, self.smallerPictureName = self.smallerPicture.getPictureParameters()
+        self.ex = './ExEffects/1/12/'
 
 
     def resolutionUnificationGrey(self):
@@ -37,7 +38,7 @@ class ResolutionUnificationGrey:
                 elif w % 2 == 1:
                     result[int(round(scaleFactorLength * l)), int(scaleFactorWidth * w)] = self.matrix[l, w]
 
-        path = './ExEffects/12/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withoutInterpolation.png'
+        path = self.ex + self.smallerPictureName + '_' + self.biggerPictureName + '_withoutInterpolation.png'
         self.saver.savePictureFromArray(result, 'L', path)
 
         #interpolation
@@ -55,7 +56,7 @@ class ResolutionUnificationGrey:
                                 count += 1
                     result[l, w] = value / count
 
-        path = './ExEffects/12/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png'
+        path = self.ex + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png'
         self.outputPath = path
         self.saver.savePictureFromArray(result, 'L', path)
         print('Finished resolution unification.')

@@ -9,7 +9,7 @@ class RootGrey:
 
     def rootGrey(self, power):
         pictureName = self.pic.getPictureName()
-        path1 = './ExEffects/26/' + str(pictureName) + '_root_' + str(power) + '.png'
-        path2 = './ExEffects/26/' + str(pictureName) + '_root_' + str(power) + '_normalized.png'
+        path1 = './ExEffects/2/26/' + str(pictureName) + '_root_' + str(power) + '.png'
+        path2 = './ExEffects/2/26/' + str(pictureName) + '_root_' + str(power) + '_normalized.png'
         factorial = 1 / power
         self.pow.raiseToPowerFactorial(path1, path2, factorial)

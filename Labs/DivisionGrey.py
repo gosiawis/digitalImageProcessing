@@ -15,6 +15,7 @@ class DivisionGrey:
         self.name1 = name1
         self.name2 = name2
         self.saver = PictureSaver()
+        self.ex = './ExEffects/2/25/'
 
     def checkPictureBits(self, pic):
         matrix = pic.getGreyMatrix()
@@ -54,7 +55,7 @@ class DivisionGrey:
                     fmax = pom
 
         # save picture with added constant to png file (without normalization)
-        path = './ExEffects/25/' + str(pictureName) + '_dividedBy_' + str(constant) + '.png'
+        path = self.ex + str(pictureName) + '_dividedBy_' + str(constant) + '.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
         for l in range(length):
@@ -62,7 +63,7 @@ class DivisionGrey:
                 result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
 
         # save picture with added constant to png file (with normalization)
-        path = './ExEffects/25/' + str(pictureName) + '_dividedBy_' + str(constant) + '_normalized.png'
+        path = self.ex + str(pictureName) + '_dividedBy_' + str(constant) + '_normalized.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
     def getUnifiedPictures(self):
@@ -110,7 +111,7 @@ class DivisionGrey:
                     fmax = pom
 
         # save picture multiplied by picture to png file (without normalization)
-        path = './ExEffects/25/' + str(pictureName1) + '_dividedBy_' + str(pictureName2) + '.png'
+        path = self.ex + str(pictureName1) + '_dividedBy_' + str(pictureName2) + '.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
         for l in range(length1):
@@ -118,5 +119,5 @@ class DivisionGrey:
                 result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
 
         # save picture multiplied by picture to png file (with normalization)
-        path = './ExEffects/25/' + str(pictureName1) + '_dividedBy_' + str(pictureName2) + '_normalized.png'
+        path = self.ex + str(pictureName1) + '_dividedBy_' + str(pictureName2) + '_normalized.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)

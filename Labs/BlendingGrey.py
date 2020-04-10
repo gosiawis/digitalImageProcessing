@@ -21,6 +21,7 @@ class BlendingGrey:
         self.name1 = name1
         self.name2 = name2
         self.saver = PictureSaver()
+        self.ex = './ExEffects/2/23/'
 
     def checkPictureBits(self, pic):
         matrix = pic.getGreyMatrix()
@@ -73,7 +74,7 @@ class BlendingGrey:
                     fmax = pom
 
         # save picture multiplied by picture to png file (without normalization)
-        path = './ExEffects/23/' + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '.png'
+        path = self.ex + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
         for l in range(length1):
@@ -81,5 +82,5 @@ class BlendingGrey:
                 result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
 
         # save picture multiplied by picture to png file (with normalization)
-        path = './ExEffects/23/' + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '_normalized.png'
+        path = self.ex + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '_normalized.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)

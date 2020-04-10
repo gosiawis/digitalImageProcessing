@@ -11,6 +11,7 @@ class RaiseToPowerGrey:
         self.pic = ImageHelper(name, self.pictureType)
         self.name = name
         self.saver = PictureSaver()
+        self.ex = './ExEffects/2/24/'
 
     def checkPictureBits(self, pic):
         matrix = pic.getGreyMatrix()
@@ -55,7 +56,7 @@ class RaiseToPowerGrey:
                     fmax = pom
 
         # save picture raised to constant power to png file (without normalization)
-        path = './ExEffects/24/' + str(pictureName) + '_power_' + str(power) + '.png'
+        path = self.ex + str(pictureName) + '_power_' + str(power) + '.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
         for l in range(length):
@@ -63,7 +64,7 @@ class RaiseToPowerGrey:
                 result[l, w] = maxBitsColor * ((result[l, w] - fmin) / (fmax - fmin))
 
         # save picture raised to constant power to png file (with normalization)
-        path = './ExEffects/24/' + str(pictureName) + '_power_' + str(power) + '_normalized.png'
+        path = self.ex + str(pictureName) + '_power_' + str(power) + '_normalized.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
     def raiseToPowerFactorial(self, path1, path2, power):

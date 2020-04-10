@@ -1,5 +1,4 @@
 import numpy as np
-from PIL import Image
 
 from Comparer import Comparer
 from ImageHelper import ImageHelper
@@ -17,6 +16,7 @@ class GeometricUnificationGrey:
         self.matrix = self.smallerPicture.getGreyMatrix()
         self.maxLength, self.maxWidth, self.biggerPictureName = self.biggerPicture.getPictureParameters()
         self.minLength, self.minWidth, self.smallerPictureName = self.smallerPicture.getPictureParameters()
+        self.ex = './ExEffects/1/11/'
 
     def geoUnificationGrey(self):
         if self.biggerPicture == 0 and self.smallerPicture == 0:
@@ -30,5 +30,5 @@ class GeometricUnificationGrey:
             for l in range(0, self.minLength):
                 result[l + startLengthIndex, w + startWidthIndex] = self.matrix[l, w]
         # save unified picture to png file
-        path = './ExEffects/11/' + self.smallerPictureName + '_' + self.biggerPictureName + '.png'
+        path = self.ex + self.smallerPictureName + '_' + self.biggerPictureName + '.png'
         self.saver.savePictureFromArray(result, 'L', path)

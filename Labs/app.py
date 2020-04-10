@@ -1,4 +1,5 @@
 from AdditionGrey import AdditionGrey
+from AdditionRGB import AdditionRGB
 from DivisionGrey import DivisionGrey
 from LogharitmGrey import LogharitmGrey
 from MultiplicationGrey import MultiplicationGrey
@@ -70,3 +71,10 @@ if __name__ == '__main__':
     log = LogharitmGrey(name='./RawPictures/AndrzejZamoyski.png')
     log.logharitmGrey()
     '''
+    print('Starting ex. 3.1 Addition of constant to RGB picture')
+    addConstant = AdditionRGB(name1='./RawPictures/stogi.png')
+    addConstant.addConstRGB(200)
+
+    print('Starting ex. 3.1 Addition of two RGB pictures')
+    addPicture = AdditionRGB(name1='./RawPictures/morze.png', name2='./RawPictures/stogi.png')
+    addPicture.addPictureRGB()
