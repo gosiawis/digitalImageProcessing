@@ -12,23 +12,16 @@ class GeometricUnificationGrey:
         self.saver = PictureSaver()
         self.pic1 = ImageHelper(name1, 'L')
         self.pic2 = ImageHelper(name2, 'L')
-
-    def getPicturesParameters(self, bigger, smaller):
-        self.minLength = smaller.getLengthMatrix()
-        self.minWidth = smaller.getWidthMatrix()
-        self.maxLength = bigger.getLengthMatrix()
-        self.maxWidth = bigger.getWidthMatrix()
-        self.matrix = smaller.getMatrix()
-        self.smallerPictureName = smaller.getPictureName()
-        self.biggerPictureName = bigger.getPictureName()
+        compare = Comparer()
+        self.biggerPicture, self.smallerPicture = compare.comparePictures(self.pic1, self.pic2)
+        self.matrix = self.smallerPicture.getGreyMatrix()
+        self.maxLength, self.maxWidth, self.biggerPictureName = self.biggerPicture.getPictureParameters()
+        self.minLength, self.minWidth, self.smallerPictureName = self.smallerPicture.getPictureParameters()
 
     def geoUnificationGrey(self):
-        compare = Comparer()
-        biggerPic, smallerPic = compare.comparePictures(self.pic1, self.pic2)
-        if biggerPic == 0 and smallerPic == 0:
+        if self.biggerPicture == 0 and self.smallerPicture == 0:
             print('Both pictures have the same size')
             return 0
-        self.getPicturesParameters(biggerPic, smallerPic)
         # create black background for smaller picture
         result = np.zeros((self.maxLength, self.maxWidth), np.uint8)
         startWidthIndex = int(round((self.maxWidth - self.minWidth) / 2))

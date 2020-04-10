@@ -9,8 +9,7 @@ from ResolutionUnificationGrey import ResolutionUnificationGrey
 
 class ArithmeticAdditionGrey:
 
-    def __init__(self, name1='./RawPictures/rys.png', name2='./RawPictures/fotograf.png',
-                 pictureType='L'):
+    def __init__(self, name1='./RawPictures/rys.png', name2='./RawPictures/fotograf.png', pictureType='L'):
         self.pic1 = ImageHelper(name1, pictureType)
         self.pic2 = ImageHelper(name2, pictureType)
         self.pictureType = pictureType
@@ -19,7 +18,7 @@ class ArithmeticAdditionGrey:
         self.saver = PictureSaver()
 
     def checkPictureBits(self, pic):
-        matrix = pic.getMatrix()
+        matrix = pic.getGreyMatrix()
         if matrix.dtype == 'uint8':
             return 255
         elif matrix.dtype == 'uint4':
@@ -27,12 +26,10 @@ class ArithmeticAdditionGrey:
         else:
             raise Exception('You need to upload GREY picture with uint8 or uint4 encoding')
 
-    def getPictureParameters(self, pic):
-        return pic.getLengthMatrix(), pic.getWidthMatrix(), pic.getMatrix(), pic.getPictureName()
-
     def addConstGrey(self, constant):
         maxBitsColor = self.checkPictureBits(self.pic1)
-        length, width, matrix, pictureName = self.getPictureParameters(self.pic1)
+        length, width, pictureName = self.pic1.getPictureParameters()
+        matrix = self.pic1.getGreyMatrix()
         result = np.ones((length, width), np.uint8)
 
         sumMax = 0
@@ -91,8 +88,10 @@ class ArithmeticAdditionGrey:
             self.pic1, self.pic2 = self.getUnifiedPictures()
         # get the values
         tempName = smallerPicture.getPictureName()
-        length1, width1, matrix1, pictureName1 = self.getPictureParameters(self.pic1)
-        length2, width2, matrix2, pictureName2 = self.getPictureParameters(self.pic2)
+        length1, width1, pictureName1 = self.pic1.getPictureParameters()
+        matrix1 = self.pic1.getGreyMatrix()
+        length2, width2, pictureName2 = self.pic2.getPictureParameters()
+        matrix2 = self.pic2.getGreyMatrix()
         pictureName1 = tempName
 
         sumMax = 0

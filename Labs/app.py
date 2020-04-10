@@ -33,6 +33,7 @@ if __name__ == '__main__':
     print('Starting ex. 2.1 Addition of two grey pictures')
     addPicture = ArithmeticAdditionGrey(name1='./RawPictures/rys.png', name2='./RawPictures/fotograf.png', pictureType='L')
     addPicture.addPictureGrey()
+    '''
     
     print('Starting ex. 2.2 Multiplication of grey picture by constant')
     multiplyConstant = ArithmeticMultiplicationGrey(name1='./RawPictures/fotograf.png', pictureType='L')
@@ -41,7 +42,7 @@ if __name__ == '__main__':
     print('Starting ex. 2.2 Multiplication of grey picture by another picture')
     multiplyPicture = ArithmeticMultiplicationGrey(name1='./RawPictures/AndrzejZamoyski.png', name2='./RawPictures/fotograf.png',pictureType='L')
     multiplyPicture.multiplyPicturesGrey()
-    '''
+
     print('Starting ex. 2.2 Multiplication of grey picture by another picture')
     blend = BlendingGrey(name1='./RawPictures/fotograf.png', name2='./RawPictures/AndrzejZamoyski.png', pictureType='L')
     blend.blendPictures(0.3)

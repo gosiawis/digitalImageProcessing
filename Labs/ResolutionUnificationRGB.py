@@ -12,23 +12,16 @@ class ResolutionUnificationRGB:
         self.saver = PictureSaver()
         self.pic1 = ImageHelper(name1, 'RGB')
         self.pic2 = ImageHelper(name2, 'RGB')
-
-    def getPicturesParameters(self, bigger, smaller):
-        self.minLength = smaller.getLengthMatrix()
-        self.minWidth = smaller.getWidthMatrix()
-        self.maxLength = bigger.getLengthMatrix()
-        self.maxWidth = bigger.getWidthMatrix()
-        self.matrix = smaller.getRGBMatrix()
-        self.smallerPictureName = smaller.getPictureName()
-        self.biggerPictureName = bigger.getPictureName()
+        compare = Comparer()
+        self.biggerPicture, self.smallerPicture = compare.comparePictures(self.pic1, self.pic2)
+        self.matrix = self.smallerPicture.getRGBMatrix()
+        self.maxLength, self.maxWidth, self.biggerPictureName = self.biggerPicture.getPictureParameters()
+        self.minLength, self.minWidth, self.smallerPictureName = self.smallerPicture.getPictureParameters()
 
     def resolutionUnificationRGB(self):
-        compare = Comparer()
-        biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
-        if biggerPicture == 0 and smallerPicture == 0:
+        if self.biggerPicture == 0 and self.smallerPicture == 0:
             print('Both pictures have the same size')
             return 0
-        self.getPicturesParameters(biggerPicture, smallerPicture)
         scaleFactorLength = float(self.maxLength / self.minLength)
         scaleFactorWidth = float(self.maxWidth / self.minWidth)
         result = np.full((self.maxLength, self.maxWidth, 3), 1, np.uint8)

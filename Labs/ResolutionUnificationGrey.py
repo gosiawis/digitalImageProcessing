@@ -1,5 +1,4 @@
 import numpy as np
-from PIL import Image
 
 from Comparer import Comparer
 from ImageHelper import ImageHelper
@@ -14,27 +13,22 @@ class ResolutionUnificationGrey:
         self.pic2 = ImageHelper(name2, 'L')
         self.name1 = name1
         self.name2 = name2
+        compare = Comparer()
+        self.biggerPicture, self.smallerPicture = compare.comparePictures(self.pic1, self.pic2)
+        self.matrix = self.smallerPicture.getGreyMatrix()
+        self.maxLength, self.maxWidth, self.biggerPictureName = self.biggerPicture.getPictureParameters()
+        self.minLength, self.minWidth, self.smallerPictureName = self.smallerPicture.getPictureParameters()
 
-    def getPicturesParameters(self, bigger, smaller):
-        self.minLength = smaller.getLengthMatrix()
-        self.minWidth = smaller.getWidthMatrix()
-        self.maxLength = bigger.getLengthMatrix()
-        self.maxWidth = bigger.getWidthMatrix()
-        self.matrix = smaller.getMatrix()
-        self.smallerPictureName = smaller.getPictureName()
-        self.biggerPictureName = bigger.getPictureName()
 
     def resolutionUnificationGrey(self):
         print('Begginning of resolution unification for two grey pictures.')
-        compare = Comparer()
-        biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
-        if biggerPicture == 0 and smallerPicture == 0:
+        if self.biggerPicture == 0 and self.smallerPicture == 0:
             print('Both pictures have the same size')
             return 0
-        self.getPicturesParameters(biggerPicture, smallerPicture)
         scaleFactorLength = float(self.maxLength / self.minLength)
         scaleFactorWidth = float(self.maxWidth / self.minWidth)
         result = np.zeros((self.maxLength, self.maxWidth), np.uint8)
+
         # Fill values of result
         for l in range(self.minLength):
             for w in range(self.minWidth):
@@ -62,7 +56,7 @@ class ResolutionUnificationGrey:
                     result[l, w] = value / count
 
         path = './ExEffects/12/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png'
-        self.outputPat = path
+        self.outputPath = path
         self.saver.savePictureFromArray(result, 'L', path)
         print('Finished resolution unification.')
 
@@ -70,4 +64,4 @@ class ResolutionUnificationGrey:
         compare = Comparer()
         biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
         biggerPicPath = biggerPicture.getPicturePath()
-        return self.outputPat, biggerPicPath
+        return self.outputPath, biggerPicPath

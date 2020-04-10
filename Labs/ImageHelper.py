@@ -18,10 +18,7 @@ class ImageHelper:
         pictureName = fullName[lastSlash + 1: lastDot]
         return pictureName
 
-    def getImageParameters(self):
-        return self.im.format, self.im.size, self.im.mode
-
-    def getMatrix(self):
+    def getGreyMatrix(self):
         matrix = np.array(self.im)
         return matrix
 
@@ -29,12 +26,18 @@ class ImageHelper:
         loadmatrix = self.im.load()
         return loadmatrix
 
-    def getWidthMatrix(self):
+    def getWidth(self):
         size = self.im.size
         width = size[0]
         return width
 
-    def getLengthMatrix(self):
+    def getLength(self):
         size = self.im.size
         length = size[1]
         return length
+
+    def getPictureParameters(self):
+        length = self.getLength()
+        width = self.getWidth()
+        pictureName = self.getPictureName()
+        return length, width, pictureName

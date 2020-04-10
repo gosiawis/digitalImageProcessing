@@ -23,7 +23,7 @@ class BlendingGrey:
         self.saver = PictureSaver()
 
     def checkPictureBits(self, pic):
-        matrix = pic.getMatrix()
+        matrix = pic.getGreyMatrix()
         if matrix.dtype == 'uint8':
             return 255
         elif matrix.dtype == 'uint4':
@@ -32,7 +32,7 @@ class BlendingGrey:
             raise Exception('You need to upload GREY picture with uint8 or uint4 encoding')
 
     def getPictureParameters(self, pic):
-        return pic.getLengthMatrix(), pic.getWidthMatrix(), pic.getMatrix(), pic.getPictureName()
+        return pic.getLength(), pic.getWidth(), pic.getGreyMatrix(), pic.getPictureName()
 
     def getUnifiedPictures(self):
         resolutionUni = ResolutionUnificationGrey(self.name1, self.name2)
