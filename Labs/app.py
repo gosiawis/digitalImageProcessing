@@ -3,6 +3,7 @@ from ArithmeticMultiplicationGrey import ArithmeticMultiplicationGrey
 from BlendingGrey import BlendingGrey
 from GeometricUnificationGrey import GeometricUnificationGrey
 from GeometricUnificationRGB import GeometricUnificationRGB
+from RaiseToPowerGrey import RaiseToPowerGrey
 from ResolutionUnificationGrey import ResolutionUnificationGrey
 from ResolutionUnificationRGB import ResolutionUnificationRGB
 
@@ -33,7 +34,6 @@ if __name__ == '__main__':
     print('Starting ex. 2.1 Addition of two grey pictures')
     addPicture = ArithmeticAdditionGrey(name1='./RawPictures/rys.png', name2='./RawPictures/fotograf.png', pictureType='L')
     addPicture.addPictureGrey()
-    '''
     
     print('Starting ex. 2.2 Multiplication of grey picture by constant')
     multiplyConstant = ArithmeticMultiplicationGrey(name1='./RawPictures/fotograf.png', pictureType='L')
@@ -43,6 +43,11 @@ if __name__ == '__main__':
     multiplyPicture = ArithmeticMultiplicationGrey(name1='./RawPictures/AndrzejZamoyski.png', name2='./RawPictures/fotograf.png',pictureType='L')
     multiplyPicture.multiplyPicturesGrey()
 
-    print('Starting ex. 2.2 Multiplication of grey picture by another picture')
+    print('Starting ex. 2.3 Blending of two grey pictures')
     blend = BlendingGrey(name1='./RawPictures/fotograf.png', name2='./RawPictures/AndrzejZamoyski.png', pictureType='L')
     blend.blendPictures(0.3)
+    
+    print('Starting ex. 2.4 Raising to the constant power of a grey picture')
+    exp = RaiseToPowerGrey(name='./RawPictures/rys.png')
+    exp.raiseToPower(3)
+    '''
