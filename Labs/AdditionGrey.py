@@ -7,7 +7,7 @@ from PictureSaver import PictureSaver
 from ResolutionUnificationGrey import ResolutionUnificationGrey
 
 
-class ArithmeticAdditionGrey:
+class AdditionGrey:
 
     def __init__(self, name1='./RawPictures/rys.png', name2='./RawPictures/fotograf.png', pictureType='L'):
         self.pic1 = ImageHelper(name1, pictureType)
