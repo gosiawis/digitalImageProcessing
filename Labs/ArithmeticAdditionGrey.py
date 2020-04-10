@@ -3,6 +3,7 @@ from PIL import Image
 
 from Comparer import Comparer
 from ImageHelper import ImageHelper
+from PictureSaver import PictureSaver
 from ResolutionUnificationGrey import ResolutionUnificationGrey
 
 
@@ -15,6 +16,7 @@ class ArithmeticAdditionGrey:
         self.pictureType = pictureType
         self.name1 = name1
         self.name2 = name2
+        self.saver = PictureSaver()
 
     def checkPictureBits(self, pic):
         matrix = pic.getMatrix()
@@ -60,18 +62,16 @@ class ArithmeticAdditionGrey:
                     fmax = pom
 
         # save picture with added constant to png file (without normalization)
-        img = Image.fromarray(result, mode=self.pictureType)
-        img.save('./ExEffects/21/' + str(pictureName) + '_constant_' + str(constant) + '.png')
-        print('Picture saved as ' + str(pictureName) + '_constant_' + str(constant) + '.png')
+        path = './ExEffects/21/' + str(pictureName) + '_constant_' + str(constant) + '.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
 
         for l in range(length):
             for w in range(width):
                 result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
 
         # save picture with added constant to png file (with normalization)
-        img = Image.fromarray(result, mode=self.pictureType)
-        img.save('./ExEffects/21/' + str(pictureName) + '_constant_' + str(constant) + '_normalized.png')
-        print('Picture saved as ' + str(pictureName) + '_constant_' + str(constant) + '_normalized.png')
+        path = './ExEffects/21/' + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
 
     def getUnifiedPictures(self):
         resolutionUni = ResolutionUnificationGrey(self.name1, self.name2)
@@ -123,9 +123,8 @@ class ArithmeticAdditionGrey:
                     fmax = pom
 
         # save picture with added constant to png file (without normalization)
-        img = Image.fromarray(result, mode=self.pictureType)
-        img.save('./ExEffects/21/' + str(pictureName1) + '_added_' + str(pictureName2) + '.png')
-        print('Picture saved as ' + str(pictureName1) + '_added_' + str(pictureName2) + '.png')
+        path = './ExEffects/21/' + str(pictureName1) + '_added_' + str(pictureName2) + '.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
 
         normalized = np.zeros((length1, width1), np.uint8)
         for l in range(length1):
@@ -133,6 +132,5 @@ class ArithmeticAdditionGrey:
                 normalized[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
 
         # save picture with added constant to png file (with normalization)
-        img = Image.fromarray(normalized, mode=self.pictureType)
-        img.save('./ExEffects/21/' + str(pictureName1) + '_added_' + str(pictureName2) + '_normalized.png')
-        print('Picture saved as ' + str(pictureName1) + '_added_' + str(pictureName2) + '_normalized.png')
+        path = './ExEffects/21/' + str(pictureName1) + '_added_' + str(pictureName2) + '_normalized.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)

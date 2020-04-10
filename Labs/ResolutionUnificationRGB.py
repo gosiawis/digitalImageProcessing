@@ -3,11 +3,13 @@ from PIL import Image
 
 from Comparer import Comparer
 from ImageHelper import ImageHelper
+from PictureSaver import PictureSaver
 
 
 class ResolutionUnificationRGB:
 
     def __init__(self, name1, name2):
+        self.saver = PictureSaver()
         self.pic1 = ImageHelper(name1, 'RGB')
         self.pic2 = ImageHelper(name2, 'RGB')
 
@@ -37,15 +39,10 @@ class ResolutionUnificationRGB:
                     result[int(scaleFactorLength * l), int(round(scaleFactorWidth * w))] = self.matrix[w, l]
                 elif w % 2 == 1:
                     result[int(round(scaleFactorLength * l)), int(scaleFactorWidth * w)] = self.matrix[w, l]
-        img = Image.fromarray(result, mode='RGB')
-        img.save('./ExEffects/14/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withoutInterpolation.png')
-        print('Picture saved as ' + self.smallerPictureName + '_' + self.biggerPictureName + '_withoutInterpolation.png')
-        self.interpolation(result)
-        img_interpolation = Image.fromarray(result, mode='RGB')
-        img_interpolation.save('./ExEffects/14/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png')
-        print('Picture saved as ' + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png')
 
-    def interpolation(self, result):
+        path = './ExEffects/14/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withoutInterpolation.png'
+        self.saver.savePictureFromArray(result, 'RGB', path)
+
         for l in range(self.maxLength):
             for w in range(self.maxWidth):
                 r, g, b = 0, 0, 0
@@ -61,3 +58,7 @@ class ResolutionUnificationRGB:
                                 b += result[lSave, wSave][2]
                                 n += 1
                     result[l, w] = (r/n, g/n, b/n)
+
+        path = './ExEffects/14/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png'
+        self.saver.savePictureFromArray(result, 'RGB', path)
+

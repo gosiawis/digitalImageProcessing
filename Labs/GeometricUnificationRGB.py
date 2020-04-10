@@ -3,11 +3,13 @@ from PIL import Image
 
 from Comparer import Comparer
 from ImageHelper import ImageHelper
+from PictureSaver import PictureSaver
 
 
 class GeometricUnificationRGB:
 
     def __init__(self, name1, name2):
+        self.saver = PictureSaver()
         self.pic1 = ImageHelper(name1, 'RGB')
         self.pic2 = ImageHelper(name2, 'RGB')
 
@@ -35,8 +37,7 @@ class GeometricUnificationRGB:
             for l in range(0, self.minLength):
                 result[l + startLengthIndex, w + startWidthIndex] = self.matrix[w, l]
         # save unified picture to png file
-        img = Image.fromarray(result, mode='RGB')
-        img.save('./ExEffects/13/' + self.smallerPictureName + '_' + self.biggerPictureName + '.png')
-        print('Picture saved as ' + self.smallerPictureName + '_' + self.biggerPictureName + '.png')
+        path = './ExEffects/13/' + self.smallerPictureName + '_' + self.biggerPictureName + '.png'
+        self.saver.savePictureFromArray(result, 'RGB', path)
 
 

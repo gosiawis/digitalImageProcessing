@@ -3,10 +3,15 @@ from PIL import Image
 
 from Comparer import Comparer
 from ImageHelper import ImageHelper
+from PictureSaver import PictureSaver
 from ResolutionUnificationGrey import ResolutionUnificationGrey
 
 
 class BlendingGrey:
+
+    pictureType: str
+    name1: str
+    name2: str
 
     def __init__(self, name1='./RawPictures/rys.png', name2='./RawPictures/fotograf.png',
                  pictureType='L'):
@@ -15,6 +20,7 @@ class BlendingGrey:
         self.pictureType = pictureType
         self.name1 = name1
         self.name2 = name2
+        self.saver = PictureSaver()
 
     def checkPictureBits(self, pic):
         matrix = pic.getMatrix()
@@ -67,15 +73,13 @@ class BlendingGrey:
                     fmax = pom
 
         # save picture multiplied by picture to png file (without normalization)
-        img = Image.fromarray(result, mode=self.pictureType)
-        img.save('./ExEffects/23/' + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '.png')
-        print('Picture saved as ' + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '.png')
+        path = './ExEffects/23/' + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
 
         for l in range(length1):
             for w in range(width1):
                 result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
 
         # save picture multiplied by picture to png file (with normalization)
-        img = Image.fromarray(result, mode=self.pictureType)
-        img.save('./ExEffects/23/' + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '_normalized.png')
-        print('Picture saved as ' + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '_normalized.png')
+        path = './ExEffects/23/' + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '_normalized.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)

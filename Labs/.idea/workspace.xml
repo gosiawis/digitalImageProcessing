@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Comparer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PictureSaver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ArithmeticAdditionGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/ArithmeticAdditionGrey.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ArithmeticMultiplicationGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/ArithmeticMultiplicationGrey.py" afterDir="false" />

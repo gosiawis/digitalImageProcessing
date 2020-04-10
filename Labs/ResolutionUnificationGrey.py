@@ -3,11 +3,13 @@ from PIL import Image
 
 from Comparer import Comparer
 from ImageHelper import ImageHelper
+from PictureSaver import PictureSaver
 
 
 class ResolutionUnificationGrey:
 
     def __init__(self, name1, name2):
+        self.saver = PictureSaver()
         self.pic1 = ImageHelper(name1, 'L')
         self.pic2 = ImageHelper(name2, 'L')
         self.name1 = name1
@@ -40,18 +42,11 @@ class ResolutionUnificationGrey:
                     result[int(scaleFactorLength * l), int(round(scaleFactorWidth * w))] = self.matrix[l, w]
                 elif w % 2 == 1:
                     result[int(round(scaleFactorLength * l)), int(scaleFactorWidth * w)] = self.matrix[l, w]
-        img = Image.fromarray(result, mode='L')
-        img.save(
-            './ExEffects/12/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withoutInterpolation.png')
-        self.interpolation(result)
-        img_interpolation = Image.fromarray(result, mode='L')
-        self.output = './ExEffects/12/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png'
-        img_interpolation.save(
-            './ExEffects/12/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png')
-        print('Picture saved as ' + self.smallerPictureName + '_' + self.biggerPictureName + '.png')
-        print('Finished resolution unification.')
 
-    def interpolation(self, result):
+        path = './ExEffects/12/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withoutInterpolation.png'
+        self.saver.savePictureFromArray(result, 'L', path)
+
+        #interpolation
         for l in range(self.maxLength):
             for w in range(self.maxWidth):
                 value = 0
@@ -66,8 +61,13 @@ class ResolutionUnificationGrey:
                                 count += 1
                     result[l, w] = value / count
 
+        path = './ExEffects/12/' + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png'
+        self.outputPat = path
+        self.saver.savePictureFromArray(result, 'L', path)
+        print('Finished resolution unification.')
+
     def getOutputPaths(self):
         compare = Comparer()
         biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
         biggerPicPath = biggerPicture.getPicturePath()
-        return self.output, biggerPicPath
+        return self.outputPat, biggerPicPath
