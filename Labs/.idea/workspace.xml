@@ -2,32 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Angle.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/41/fotograf_moved_[10,160].png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/41/kawa_moved_[30,80].png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/41/stogi_moved_[100,10].png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/42/AndrzejZamoyski_heterogenous_[3,1]_witInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/42/AndrzejZamoyski_heterogenous_[3,1]_withoutInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/42/AndrzejZamoyski_homogenous_0.75_withInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/42/AndrzejZamoyski_homogenous_0.75_withoutInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/42/kawa_heterogenous_[1,2]_witInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/42/kawa_heterogenous_[1,2]_withoutInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/42/kawa_homogenous_1.5_withInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/42/kawa_homogenous_1.5_withoutInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/42/stogi_heterogenous_[2,1]_witInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/42/stogi_heterogenous_[2,1]_withoutInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/42/stogi_homogenous_2_withInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/42/stogi_homogenous_2_withoutInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/43/AndrzejZamoyski_angle_30_withInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/43/AndrzejZamoyski_angle_30_withoutInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/43/kawa_angle_45_withInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/43/kawa_angle_45_withoutInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/43/morze_angle_60_withInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/43/morze_angle_60_withoutInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scaling.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Vector.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CutPiece.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/4/44/kawa_X.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/4/44/kawa_Y.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/4/44/kawa_diagonal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/4/44/kawa_horizontal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/4/44/morze_X.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/4/44/morze_Y.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/4/44/morze_diagonal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/4/44/morze_horizontal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/4/45/kawa.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Symetry.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdditionGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdditionGrey.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Angle.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

@@ -53,7 +53,7 @@ class Angle:
 
     def angleRGB(self, angle):
         length, width, pictureName = self.pic.getPictureParameters()
-        matrix = self.pic.getGreyMatrix()
+        matrix = self.pic.getRGBMatrix()
         result = np.ones((length, width, 3), np.uint8)
         angleRadians = np.radians(angle)
 

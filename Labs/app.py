@@ -2,6 +2,7 @@ from AdditionGrey import AdditionGrey
 from AdditionRGB import AdditionRGB
 from Angle import Angle
 from BlendingRGB import BlendingRGB
+from CutPiece import CutPiece
 from DivisionGrey import DivisionGrey
 from DivisionRGB import DivisionRGB
 from LogharitmGrey import LogharitmGrey
@@ -18,6 +19,7 @@ from ResolutionUnificationRGB import ResolutionUnificationRGB
 from RootGrey import RootGrey
 from RootRGB import RootRGB
 from Scaling import Scaling
+from Symetry import Symetry
 from Vector import Vector
 
 if __name__ == '__main__':
@@ -128,13 +130,18 @@ if __name__ == '__main__':
     sc = Scaling(name='./RawPictures/AndrzejZamoyski.png', pictureType='L')
     sc.homogenousScaling(0.75)
     sc.heterogenousScaling(3, 1)
-    '''
-    print('Starting ex. 4.3 Angle')
-    a = Angle(name='./RawPictures/AndrzejZamoyski.png', pictureType='L')
-    a.angleMove(30)
+    
     print('Starting ex. 4.3 Angle')
     a = Angle(name='./RawPictures/kawa.png', pictureType='RGB')
     a.angleMove(45)
-    print('Starting ex. 4.3 Angle')
-    a = Angle(name='./RawPictures/morze.png', pictureType='RGB')
-    a.angleMove(60)
+    
+    print('Starting ex. 4.4 Symetry')
+    sym = Symetry(name='./RawPictures/morze.png', pictureType='RGB')
+    sym.symetryX()
+    sym.symetryY()
+    sym.symetryLineDiagonal()
+    sym.symetryLineHorizontal()
+    '''
+    print('Starting ex. 4.5 Cut part of a picture')
+    cut = CutPiece(name='./RawPictures/kawa.png', pictureType='RGB')
+    cut.cutPiece(10, 20, 10, 20)
