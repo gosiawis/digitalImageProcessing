@@ -60,7 +60,7 @@ class AdditionGrey:
                     fmax = pom
 
         # save picture with added constant to png file (without normalization)
-        path = './ExEffects/21/' + str(pictureName) + '_constant_' + str(constant) + '.png'
+        path = self.ex + str(pictureName) + '_constant_' + str(constant) + '.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
         for l in range(length):
@@ -68,7 +68,7 @@ class AdditionGrey:
                 result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
 
         # save picture with added constant to png file (with normalization)
-        path = './ExEffects/21/' + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
+        path = self.ex + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
     def getUnifiedPictures(self):

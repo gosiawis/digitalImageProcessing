@@ -1,5 +1,6 @@
 from AdditionGrey import AdditionGrey
 from AdditionRGB import AdditionRGB
+from Angle import Angle
 from BlendingRGB import BlendingRGB
 from DivisionGrey import DivisionGrey
 from DivisionRGB import DivisionRGB
@@ -16,6 +17,8 @@ from ResolutionUnificationGrey import ResolutionUnificationGrey
 from ResolutionUnificationRGB import ResolutionUnificationRGB
 from RootGrey import RootGrey
 from RootRGB import RootRGB
+from Scaling import Scaling
+from Vector import Vector
 
 if __name__ == '__main__':
     '''
@@ -112,8 +115,26 @@ if __name__ == '__main__':
     print('Starting ex. 3.6 Root of a RGB picture')
     root = RootRGB(name='./RawPictures/stogi.png')
     root.rootRGB(20)
-    '''
+    
     print('Starting ex. 3.7 Logharitm of a RGB picture')
     log = LogharitmRGB(name='./RawPictures/kawa.png')
     log.logharitmRGB()
     
+    print('Starting ex. 4.1 Move by vector')
+    vec = Vector(name='./RawPictures/kawa.png', pictureType='RGB')
+    vec.relocateVector(30, 80)
+    
+    print('Starting ex. 4.2 Scaling')
+    sc = Scaling(name='./RawPictures/AndrzejZamoyski.png', pictureType='L')
+    sc.homogenousScaling(0.75)
+    sc.heterogenousScaling(3, 1)
+    '''
+    print('Starting ex. 4.3 Angle')
+    a = Angle(name='./RawPictures/AndrzejZamoyski.png', pictureType='L')
+    a.angleMove(30)
+    print('Starting ex. 4.3 Angle')
+    a = Angle(name='./RawPictures/kawa.png', pictureType='RGB')
+    a.angleMove(45)
+    print('Starting ex. 4.3 Angle')
+    a = Angle(name='./RawPictures/morze.png', pictureType='RGB')
+    a.angleMove(60)
