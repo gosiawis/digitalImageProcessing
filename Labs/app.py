@@ -19,7 +19,7 @@ from ResolutionUnificationRGB import ResolutionUnificationRGB
 from RootGrey import RootGrey
 from RootRGB import RootRGB
 from Scaling import Scaling
-from Symetry import Symetry
+from Symmetry import Symmetry
 from Vector import Vector
 
 if __name__ == '__main__':
@@ -135,13 +135,15 @@ if __name__ == '__main__':
     a = Angle(name='./RawPictures/kawa.png', pictureType='RGB')
     a.angleMove(45)
     
-    print('Starting ex. 4.4 Symetry')
-    sym = Symetry(name='./RawPictures/morze.png', pictureType='RGB')
-    sym.symetryX()
-    sym.symetryY()
-    sym.symetryLineDiagonal()
-    sym.symetryLineHorizontal()
-    '''
+    print('Starting ex. 4.4 Symmetry')
+    sym = Symmetry(name='./RawPictures/morze.png', pictureType='RGB')
+    sym.symmetryX()
+    sym.symmetryY()
+    sym.symmetryLineDiagonal()
+    sym.symmetryLineHorizontal()
+    
     print('Starting ex. 4.5 Cut part of a picture')
-    cut = CutPiece(name='./RawPictures/kawa.png', pictureType='RGB')
-    cut.cutPiece(10, 20, 10, 20)
+    cut = CutPiece(name='./RawPictures/morze.png', pictureType='RGB')
+    cut.cutPiece(160, 400, 300, 500)
+    '''
+

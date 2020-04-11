@@ -12,16 +12,12 @@ class CutPiece:
         self.saver = PictureSaver()
         self.ex = './ExEffects/4/45/'
 
-    def cutPiece(self, xMin, xMax, yMin, yMax):
+    def cutPiece(self, yMin, yMax, xMin, xMax):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
-        result = np.ones((length, width, 3), np.uint8)
-        for l in range(length):
-            for w in range(width):
-                if l in range(length + yMin, length + yMax) and w in range(xMin, xMax):
-                    result[l, w] = 0
-                else:
-                    result[l, w] = matrix[l, w]
+        for x in range(length - xMax, length - xMin + 1):
+            for y in range(yMin, yMax+1):
+                matrix[x, y] = (0, 0, 0)
 
-        path = self.ex + str(pictureName) + '.png'
-        self.saver.savePictureFromArray(result, self.pictureType, path)
+        path = self.ex + str(pictureName) + '_(' + str(yMin) + ',' + str(yMax) + '),(' + str(xMin) + ',' + str(xMax) + ').png'
+        self.saver.savePictureFromArray(matrix, self.pictureType, path)

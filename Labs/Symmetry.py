@@ -4,7 +4,7 @@ from ImageHelper import ImageHelper
 from PictureSaver import PictureSaver
 
 
-class Symetry:
+class Symmetry:
     def __init__(self, name='./RawPictures/kawa.png', pictureType='RGB'):
         self.pic = ImageHelper(name, pictureType)
         self.pictureType = pictureType
@@ -12,7 +12,7 @@ class Symetry:
         self.saver = PictureSaver()
         self.ex = './ExEffects/4/44/'
 
-    def symetryX(self):
+    def symmetryX(self):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getRGBMatrix()
         result = np.ones((length, width, 3), np.uint8)
@@ -25,7 +25,7 @@ class Symetry:
         path = self.ex + str(pictureName) + '_X.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
-    def symetryY(self):
+    def symmetryY(self):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getRGBMatrix()
         result = np.ones((length, width, 3), np.uint8)
@@ -38,7 +38,7 @@ class Symetry:
         path = self.ex + str(pictureName) + '_Y.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
-    def symetryLineHorizontal(self):
+    def symmetryLineHorizontal(self):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getRGBMatrix()
         result = np.ones((length, width, 3), np.uint8)
@@ -55,7 +55,7 @@ class Symetry:
         path = self.ex + str(pictureName) + '_horizontal.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
-    def symetryLineDiagonal(self):
+    def symmetryLineDiagonal(self):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getRGBMatrix()
         result = np.ones((length, width, 3), np.uint8)
