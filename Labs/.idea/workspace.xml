@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/45/kawa_(70,140),(160,200).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/45/morze_(160,400),(300,500).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/4/45/stogi_(600,1000),(160,400).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Histogram.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CopyPiece.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/4/46/kawa_(70,140),(160,200).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/4/46/morze_(160,400),(300,500).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/4/46/stogi_(600,1000),(160,400).png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CutPiece.py" beforeDir="false" afterPath="$PROJECT_DIR$/CutPiece.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExEffects/4/45/kawa.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Symetry.py" beforeDir="false" afterPath="$PROJECT_DIR$/Symmetry.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -179,6 +176,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/CopyPiece.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

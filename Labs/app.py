@@ -2,6 +2,7 @@ from AdditionGrey import AdditionGrey
 from AdditionRGB import AdditionRGB
 from Angle import Angle
 from BlendingRGB import BlendingRGB
+from CopyPiece import CopyPiece
 from CutPiece import CutPiece
 from DivisionGrey import DivisionGrey
 from DivisionRGB import DivisionRGB
@@ -146,4 +147,13 @@ if __name__ == '__main__':
     cut = CutPiece(name='./RawPictures/morze.png', pictureType='RGB')
     cut.cutPiece(160, 400, 300, 500)
     '''
+    print('Starting ex. 4.6 Copy part of a picture')
+    copy = CopyPiece(name='./RawPictures/morze.png', pictureType='RGB')
+    copy.copyPiece(160, 400, 300, 500)
+    print('Starting ex. 4.6 Copy part of a picture')
+    copy = CopyPiece(name='./RawPictures/stogi.png', pictureType='RGB')
+    copy.copyPiece(600, 1000, 160, 400)
+    print('Starting ex. 4.6 Copy part of a picture')
+    copy = CopyPiece(name='./RawPictures/kawa.png', pictureType='RGB')
+    copy.copyPiece(70, 140, 160, 200)
 
