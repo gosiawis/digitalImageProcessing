@@ -2,13 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ExEffects/5/51/morze-szare_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/51/stogi-szare_histogram.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/ExEffects/5/52/morze-szare_histogram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/5/52/morze-szare_moved_100.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RawPictures/morze-szare.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RawPictures/stogi-szare.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Labs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Labs.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/52/stogi-szare_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/52/stogi-szare_moved_-50.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/52/stogi-szare_moved_-50_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/52/stogi-szare_moved_100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/52/stogi-szare_moved_100_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/53/morze-szare_extended.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/53/morze-szare_extended_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/53/morze-szare_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/53/stogi-szare_extended.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/53/stogi-szare_extended_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/53/stogi-szare_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/54/morze-szare_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/54/morze-szare_local.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/54/morze-szare_local_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/54/stogi-szare_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/54/stogi-szare_local.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/54/stogi-szare_local_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/55/stogi-szare_global.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/55/stogi-szare_global_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/5/55/stogi-szare_histogram.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExEffects/5/51/morze-szare_histogram.png" beforeDir="false" afterPath="$PROJECT_DIR$/ExEffects/5/51/morze-szare_histogram.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExEffects/5/52/morze-szare_moved_100_histogram.png" beforeDir="false" afterPath="$PROJECT_DIR$/ExEffects/5/52/morze-szare_moved_100_histogram.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Histogram.py" beforeDir="false" afterPath="$PROJECT_DIR$/Histogram.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -88,7 +106,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Histogram.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\malgo\Desktop\STUDIA\sem_6\Przetwarzanie obrazów\digitalImageProcessing\Labs\HistogramGrey.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
