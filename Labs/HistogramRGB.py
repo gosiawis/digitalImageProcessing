@@ -7,7 +7,7 @@ from PictureSaver import PictureSaver
 
 
 class HistogramRGB:
-    def __init__(self, name='./RawPictures/kawa.png', pictureType='RGB'):
+    def __init__(self, name='./RawPictures/morze.png', pictureType='RGB'):
         self.pic = ImageHelper(name, pictureType)
         self.pictureType = pictureType
         self.name = name
@@ -120,33 +120,37 @@ class HistogramRGB:
         path = str(ex) + str(pictureName) + '_extended.png'
         self.savePicture(result, path)
 
-    def oneThresholdHistogram(self):
+    def oneThresholdLocalHistogram(self, dim=3):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         # save basic histogram of modified picture
         ex = './ExEffects/6/64/'
         path = str(ex) + str(pictureName) + '_histogram.png'
         self.calculateHistogram(matrix, path)
+
         result = np.zeros((length, width, 3), np.uint8)
 
-        added = [0] * 3
-        mean = [0] * 3
+        low, up = -(int(dim / 2)), (int(dim / 2))
 
         for color in range(3):
             for l in range(length):
                 for w in range(width):
-                    added[color] += matrix[l, w][color]
-            mean[color] = int(round(added[color] / (length * width)))
-
-        for color in range(3):
-            for l in range(length):
-                for w in range(width):
+                    n = 0
+                    threshold = 0
                     pom = matrix[l, w][color]
-                    result[l, w][color] = 0 if (pom < mean[color]) else 255
 
-        path = str(ex) + str(pictureName) + '_oneThreshold_histogram.png'
+                    for lOff in range(low, up):
+                        for wOff in range(low, up):
+                            lSafe = l if ((l + lOff) > (low + length)) else (l + lOff)
+                            wSafe = w if ((w + wOff) > (low + width)) else (w + wOff)
+                            threshold += matrix[lSafe, wSafe][color]
+                            n += 1
+                    threshold = int(round(threshold / n))
+                    result[l, w][color] = 0 if (pom < threshold) else 255
+
+        path = str(ex) + str(pictureName) + '_oneThresholdLocal_histogram.png'
         self.calculateHistogram(result, path)
-        path = str(ex) + str(pictureName) + '_oneThreshold.png'
+        path = str(ex) + str(pictureName) + '_oneThresholdLocal.png'
         self.savePicture(result, path)
 
     def multiThresholdHistogram(self, bins):
@@ -161,7 +165,7 @@ class HistogramRGB:
         vMax = [0] * 3
         vMin = [255] * 3
 
-        for color in range(2):
+        for color in range(3):
             for l in range(length):
                 for w in range(width):
                     pom = matrix[l, w][color]
@@ -171,22 +175,22 @@ class HistogramRGB:
                         vMin[color] = pom
 
         scale = [0] * 3
-        for k in range(3):
-            scale[k] = vMax[k] / (bins - 1)
+        for color in range(3):
+            scale[color] = vMax[color] / (bins - 1)
 
-        for color in range(2):
+        for color in range(3):
             for l in range(length):
                 for w in range(width):
-                    pom = ((int(matrix[l, w][color]) - vMin[color]) * 255) / (vMax[color] - vMin[color])
+                    pom = int(round(matrix[l, w][color] / scale[color])) * scale[color]
                     if pom > 255:
                         pom = 255
                     elif pom < 0:
                         pom = 0
                     result[l, w][color] = pom
 
-        path = str(ex) + str(pictureName) + '_extended_histogram.png'
+        path = str(ex) + str(pictureName) + '_' + str(bins) + 'Threshold_histogram.png'
         self.calculateHistogram(result, path)
-        path = str(ex) + str(pictureName) + '_extended.png'
+        path = str(ex) + str(pictureName) + '_' + str(bins) + 'Threshold.png'
         self.savePicture(result, path)
 
     def localHistogram(self):
@@ -248,18 +252,19 @@ class HistogramRGB:
         self.savePicture(result, path)
 
 if __name__ == '__main__':
-    plot = HistogramRGB()
     '''
     pictureName = plot.pic.getPictureName()
     matrix = plot.pic.getGreyMatrix()
     path = './ExEffects/6/61/' + str(pictureName) + '_histogram.png'
     plot.calculateHistogram(matrix, path)
     plot.moveHistogram(-50)
-    '''
     plot.extendHistogram()
     plot.oneThresholdHistogram()
-    '''
+    plot.multiThresholdHistogram(4)
     plot.localHistogram()
     plot.globalHistogram()
     '''
-
+    plot = HistogramRGB()
+    plot.oneThresholdLocalHistogram()
+    plot2 = HistogramRGB('./RawPictures/kawa.png')
+    plot2.oneThresholdLocalHistogram()
