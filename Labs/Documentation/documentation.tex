@@ -1,0 +1,134 @@
+\documentclass[a4paper,12pt, titlepage]{report}
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+\usepackage{pythonhighlight}
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,CE]{Chapter \thechapter}
+\fancyfoot[CO,RE]{Author Name}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\def\uczelnia{{Uniwersytet Kardynała Stefana Wyszyńskiego w~Warszawie}\\
+Wydział Matematyczno-Przyrodniczy \\ Szkoła Nauk Ścisłych}
+\def\nralbumu{107418}
+\title{Przetwarzanie obrazów\\Sprawozdanie z laboratorium}
+\author{Małgorzata Wiśniewska}
+\date{Warszawa, 2020} 
+
+\begin{document}
+\maketitle
+\tableofcontents
+\chapter{Wstęp}
+\section{Format obrazów}
+\section{Instrukcja obsługi programu}
+
+\chapter{Operacje ujednolicania obrazów}
+Operacje ujednolicania obrazów dzieli się na dwa etapy. Pierwszym etapem jest ujednolicanie geometryczne, drugim jest ujednolicenie rozdzielczościowe. W prezentowanym programie ujednolicane są dwa obrazy, w taki sposób, że mniejszy z nich jest doprowadzany do takiego samego rozmiaru jak większy. Skutkuje to wygenerowaniem nowego obrazu o zwiększonej ilości piksli niż początkowa wartość. Dzięki zastosowaniu tego typu ujednolicania w efekcie nie następuje widoczny spadek jakości. 
+\section{Ujednolicanie obrazów szarych geometryczne}
+\textbf{Opis algorytmu}
+\par Operacje geometrycznego ujednolicania polega na wyrównaniu liczby piksli w kolumnach i wierszach w obu obrazach, poprzez zwiększenie liczby piksli w kolumnach i wierszach mniejszego z obrazów.
+\begin{enumerate}
+\item Wybierz największą wysokość i największą szerokość spośród obu obrazów.
+\item Jeśli dany obraz ma mniejszą wysokość lub szerokość, wypełnij różnicę pikslami o wartości 1, tak, żeby wysokość i szerokość obu obrazów była równa.
+\end{enumerate}
+\section{Ujednolicanie obrazów szarych rozdzielczościowe}
+\section{Ujednolicanie obrazów RGB geometryczne}
+\section{Ujednolicanie obrazów RGB rozdzielczościowe}
+
+\chapter{Operacje sumowania arytmetycznego obrazów szarych}
+\section{Sumowanie obrazów szarych}
+\subsection{Sumowanie obrazu z określoną stałą}
+\subsection{Sumowanie dwóch obrazów}
+\section{Mnożenie obrazów szarych}
+\subsection{Mnożenie obrazu przez określoną stałą}
+\subsection{Mnożenieobrazu przez inny obraz}
+\section{Mieszanie obrazów z określonym współczynnikiem}
+\section{Potęgowanie obrazu z zadaną potęgą}
+\section{Dzielenie obrazów szarych}
+\subsection{Dzielenie obrazu przez zadaną stałą}
+\subsection{Dzielenie obrazu przez inny obraz}
+\section{Pierwiastkowanie obrazu}
+\section{Logarytmowanie obrazu}
+
+\chapter{Operacje sumowania arytmetycznego obrazów barwowych}
+\section{Sumowanie obrazów barwowych}
+\subsection{Sumowanie obrazu z określoną stałą}
+\subsection{Sumowanie dwóch obrazów}
+\section{Mnożenie obrazów barwowych}
+\subsection{Mnożenie obrazu przez określoną stałą}
+\subsection{Mnożenieobrazu przez inny obraz}
+\section{Mieszanie obrazów z określonym współczynnikiem}
+\section{Potęgowanie obrazu z zadaną potęgą}
+\section{Dzielenie obrazów barwowych}
+\subsection{Dzielenie obrazu przez zadaną stałą}
+\subsection{Dzielenie obrazu przez inny obraz}
+\section{Pierwiastkowanie obrazu}
+\section{Logarytmowanie obrazu}
+
+\chapter{Operacje geometryczne na obrazie}
+\section{Przemieszczanie obrazu o zadany wektor}
+\section{Skalowanie obrazu}
+\subsection{Skalowanie jednorodne}
+\subsection{Skalowanie niejednorodne}
+\section{Obracanie obrazu o dowolny kąt}
+\section{Symetrie obrazu}
+\subsection{Symetra względem osi OX}
+\subsection{Symetria względem osi OY}
+\subsection{Symetria względem zadanej prostej}
+\section{Wycinanie fragmentów obrazów}
+\section{Kopiowanie fragmentów obrazów}
+
+\chapter{Operacje na histogramie obrazu szarego}
+\section{Obliczanie histogramu}
+\section{Przemieszczanie histogramu}
+\section{Rozciąganie histogramu}
+\section{Progowanie lokalne}
+\section{Progowanie globalne}
+
+\chapter{Operacje na histogramie obrazu barwowego}
+\section{Obliczanie histogramu}
+\section{Przemieszczanie histogramu}
+\section{Rozciąganie histogramu}
+\section{Progowanie 1 progowe lokalne}
+\section{Progowanie 1 progowe globalne}
+\section{Progowanie wieloprogowe lokalne}
+\section{Progowanie wieloprogowe globalne}
+
+\end{document}
