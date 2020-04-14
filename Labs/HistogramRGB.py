@@ -130,7 +130,7 @@ class HistogramRGB:
 
         result = np.zeros((length, width, 3), np.uint8)
 
-        low, up = -(int(dim / 2)), (int(dim / 2))
+        low, up = -(int(dim / 2)), (int(dim / 2) + 1)
 
         for color in range(3):
             for l in range(length):
@@ -138,7 +138,6 @@ class HistogramRGB:
                     n = 0
                     threshold = 0
                     pom = matrix[l, w][color]
-
                     for lOff in range(low, up):
                         for wOff in range(low, up):
                             lSafe = l if ((l + lOff) > (low + length)) else (l + lOff)
@@ -153,7 +152,7 @@ class HistogramRGB:
         path = str(ex) + str(pictureName) + '_oneThresholdLocal.png'
         self.savePicture(result, path)
 
-    def multiThresholdHistogram(self, bins):
+    def multiThresholdLocalHistogram(self, dim=3, bins=4):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         # save basic histogram of modified picture
@@ -162,93 +161,99 @@ class HistogramRGB:
         self.calculateHistogram(matrix, path)
         result = np.zeros((length, width, 3), np.uint8)
 
-        vMax = [0] * 3
-        vMin = [255] * 3
+        low, up = -(int(dim / 2)), (int(dim / 2) + 1)
+
+        for l in range(length):
+            for w in range(width):
+                pom = matrix[l, w]
+                vMax = [0] * 3
+                vMin = [255] * 3
+                for lOff in range(low, up):
+                    for wOff in range(low, up):
+                        lSafe = l if ((l + lOff) > (low + length)) else (l + lOff)
+                        wSafe = w if ((w + wOff) > (low + width)) else (w + wOff)
+                        pom = matrix[lSafe, wSafe]
+                        for k in range(3):
+                            vMax[k] = max(vMax[k], pom[k])
+                            vMin[k] = min(vMin[k], pom[k])
+                scale = [0] * 3
+                for k in range(3):
+                    scale[k] = vMax[k] / (bins - 1)
+                    if scale[k] == 0:
+                        scale[k] = 1
+                for k in range(3):
+                    pom[k] = int(round(pom[k] / scale[k])) * scale[k]
+                result[l, w] = pom
+
+        path = str(ex) + str(pictureName) + '_' + str(bins) + 'ThresholdLocal_histogram.png'
+        self.calculateHistogram(result, path)
+        path = str(ex) + str(pictureName) + '_' + str(bins) + 'ThresholdLocal.png'
+        self.savePicture(result, path)
+
+    def oneThresholdGlobalHistogram(self):
+        length, width, pictureName = self.pic.getPictureParameters()
+        matrix = self.pic.getGreyMatrix()
+        # save basic histogram of modified picture
+        ex = './ExEffects/6/66/'
+        path = str(ex) + str(pictureName) + '_histogram.png'
+        self.calculateHistogram(matrix, path)
+
+        result = np.zeros((length, width, 3), np.uint8)
+        added = [0] * 3
+        mean = [0] * 3
 
         for color in range(3):
             for l in range(length):
                 for w in range(width):
                     pom = matrix[l, w][color]
-                    if pom > vMax[color] and pom != 255:
+                    added[color] += pom
+            mean[color] = int(round(added[color] / (length * width)))
+
+        for color in range(3):
+            for l in range(length):
+                for w in range(width):
+                    pom = matrix[l, w][color]
+                    result[l, w][color] = 0 if (pom < mean[color]) else 255
+
+        path = str(ex) + str(pictureName) + '_oneThresholdGlobal_histogram.png'
+        self.calculateHistogram(result, path)
+        path = str(ex) + str(pictureName) + '_oneThresholdGlobal.png'
+        self.savePicture(result, path)
+
+    def multiThresholdGlobalHistogram(self, bins=4):
+        length, width, pictureName = self.pic.getPictureParameters()
+        matrix = self.pic.getGreyMatrix()
+        # save basic histogram of modified picture
+        ex = './ExEffects/6/67/'
+        path = str(ex) + str(pictureName) + '_histogram.png'
+        self.calculateHistogram(matrix, path)
+
+        result = np.zeros((length, width, 3), np.uint8)
+        vMax = [0] * 3
+        vMin = [255] * 3
+        scale = [0] * 3
+
+        for color in range(3):
+            for l in range(length):
+                for w in range(width):
+                    pom = matrix[l, w][color]
+                    if pom > vMax[color]:
                         vMax[color] = pom
-                    if pom < vMin[color]:
+                    if pom > vMin[color]:
                         vMin[color] = pom
 
-        scale = [0] * 3
         for color in range(3):
             scale[color] = vMax[color] / (bins - 1)
 
         for color in range(3):
             for l in range(length):
                 for w in range(width):
-                    pom = int(round(matrix[l, w][color] / scale[color])) * scale[color]
-                    if pom > 255:
-                        pom = 255
-                    elif pom < 0:
-                        pom = 0
-                    result[l, w][color] = pom
+                    pom = matrix[l, w][color]
+                    result[l, w][color] = int(round(pom) / scale[color]) * scale[color]
 
-        path = str(ex) + str(pictureName) + '_' + str(bins) + 'Threshold_histogram.png'
+        path = str(ex) + str(pictureName) + '_multiThresholdGlobal_histogram.png'
         self.calculateHistogram(result, path)
-        path = str(ex) + str(pictureName) + '_' + str(bins) + 'Threshold.png'
-        self.savePicture(result, path)
-
-    def localHistogram(self):
-        length, width, pictureName = self.pic.getPictureParameters()
-        matrix = self.pic.getGreyMatrix()
-        # save basic histogram of modified picture
-        ex = './ExEffects/5/54/'
-        path = str(ex) + str(pictureName) + '_histogram.png'
-        self.calculateHistogram(matrix, path)
-        result = np.zeros((length, width), np.uint8)
-
-        left, right = -(int(round(3 / 2))), int(round(3 / 2) + 1)
-
-        for l in range(length):
-            for w in range(width):
-                n = 0
-                threshold = 0
-                pom = matrix[l, w]
-
-                for lOff in range(left, right):
-                    for wOff in range(left, right):
-                        lSafe = l if ((l + lOff) > (left + length)) else (l + lOff)
-                        wSafe = w if ((w + wOff) > (left + width)) else (w + wOff)
-                        threshold += matrix[lSafe, wSafe]
-                        n += 1
-                threshold = int(round(threshold / n))
-                result[l, w] = 0 if (pom < threshold) else 255
-
-        path = str(ex) + str(pictureName) + '_local_histogram.png'
-        self.calculateHistogram(result, path)
-        path = str(ex) + str(pictureName) + '_local.png'
-        self.savePicture(result, path)
-
-    def globalHistogram(self):
-        length, width, pictureName = self.pic.getPictureParameters()
-        matrix = self.pic.getGreyMatrix()
-        # save basic histogram of modified picture
-        ex = './ExEffects/5/55/'
-        path = str(ex) + str(pictureName) + '_histogram.png'
-        self.calculateHistogram(matrix, path)
-        result = np.zeros((length, width), np.uint8)
-
-        sum = 0
-
-        for l in range(length):
-            for w in range(width):
-                sum += matrix[l, w]
-
-        mean = int(round(sum / (length * width)))
-
-        for l in range(length):
-            for w in range(width):
-                pom = matrix[l, w]
-                result[l, w] = 0 if (pom < mean) else 255
-
-        path = str(ex) + str(pictureName) + '_global_histogram.png'
-        self.calculateHistogram(result, path)
-        path = str(ex) + str(pictureName) + '_global.png'
+        path = str(ex) + str(pictureName) + '_multiThresholdGlobal.png'
         self.savePicture(result, path)
 
 if __name__ == '__main__':
@@ -259,12 +264,12 @@ if __name__ == '__main__':
     plot.calculateHistogram(matrix, path)
     plot.moveHistogram(-50)
     plot.extendHistogram()
-    plot.oneThresholdHistogram()
-    plot.multiThresholdHistogram(4)
+    plot.oneThresholdLocalHistogram()
+    plot.multiThresholdLocalHistogram()
     plot.localHistogram()
     plot.globalHistogram()
     '''
     plot = HistogramRGB()
-    plot.oneThresholdLocalHistogram()
+    plot.multiThresholdGlobalHistogram()
     plot2 = HistogramRGB('./RawPictures/kawa.png')
-    plot2.oneThresholdLocalHistogram()
+    plot2.multiThresholdGlobalHistogram()
