@@ -2,17 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ExEffects/6/61/kawa_histogram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/6/61/morze_histogram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/6/61/stogi_histogram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/6/62/kawa_histogram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/6/62/kawa_moved_100.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/6/62/kawa_moved_100_histogram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/6/62/morze_histogram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/6/62/morze_moved_-50.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ExEffects/6/62/morze_moved_-50_histogram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HistogramRGB.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/6/63/kawa_extended.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/6/63/kawa_extended_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/6/63/kawa_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/6/63/morze_extended.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/6/63/morze_extended_histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExEffects/6/63/morze_histogram.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HistogramRGB.py" beforeDir="false" afterPath="$PROJECT_DIR$/HistogramRGB.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -7,7 +7,7 @@ from PictureSaver import PictureSaver
 
 
 class HistogramRGB:
-    def __init__(self, name='./RawPictures/morze.png', pictureType='RGB'):
+    def __init__(self, name='./RawPictures/kawa.png', pictureType='RGB'):
         self.pic = ImageHelper(name, pictureType)
         self.pictureType = pictureType
         self.name = name
@@ -88,30 +88,32 @@ class HistogramRGB:
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         # save basic histogram of modified picture
-        ex = './ExEffects/5/53/'
+        ex = './ExEffects/6/63/'
         path = str(ex) + str(pictureName) + '_histogram.png'
         self.calculateHistogram(matrix, path)
-        result = np.zeros((length, width), np.uint8)
+        result = np.zeros((length, width, 3), np.uint8)
 
-        vMax = 0
-        vMin = 255
+        vMax = [0] * 3
+        vMin = [255] * 3
 
-        for l in range(length):
-            for w in range(width):
-                pom = matrix[l, w]
-                if pom > vMax and pom != 255:
-                    vMax = pom
-                if pom < vMin:
-                    vMin = pom
+        for color in range(0, 2):
+            for l in range(length):
+                for w in range(width):
+                    pom = matrix[l, w][color]
+                    if pom > vMax[color] and pom != 255:
+                        vMax[color] = pom
+                    if pom < vMin[color]:
+                        vMin[color] = pom
 
-        for l in range(length):
-            for w in range(width):
-                pom = ((int(matrix[l, w]) - vMin) * 255) / (vMax - vMin)
-                if pom > 255:
-                    pom = 255
-                elif pom < 0:
-                    pom = 0
-                result[l, w] = pom
+        for color in range(0, 2):
+            for l in range(length):
+                for w in range(width):
+                    pom = ((int(matrix[l, w][color]) - vMin[color]) * 255) / (vMax[color] - vMin[color])
+                    if pom > 255:
+                        pom = 255
+                    elif pom < 0:
+                        pom = 0
+                    result[l, w][color] = pom
 
         path = str(ex) + str(pictureName) + '_extended_histogram.png'
         self.calculateHistogram(result, path)
