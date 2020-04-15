@@ -571,8 +571,89 @@ def multiplyConstGrey(self, constant):
     path = self.ex + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
     self.saver.savePictureFromArray(result, self.pictureType, path)
 \end{lstlisting}
+
 \section{Mnożenie obrazu przez inny obraz}
+\subsection*{Opis algorytmu}
+\par Algorytm mnożenia obrazu szarego przez drugi szary obraz o tych samych wymiarach \(MxN\) i strukturze ich macierzy polega na przemnożeniu wartości piksla z pierwszego obrazu przez wartość odpowiadającego piksla z drugiego obrazu. Po operacji mnożenia następuje normalizacja obrazu. Dla każdego piksla pierwszego obrazu wykonaj następujące czynności:
+\begin{enumerate}
+\item Jeżeli wartość piksla \(P1[l,w]\) jest równa 255 to składowa wynikowa otrzymuje wartość odpowiadającego piksla drugiego obrazu \(P2[l,w]\).
+\item Jeżeli wartość piksla \(P1[l,w]\) jest równa 0 to składowa wynikowa otrzymuje wartość 0.
+\item Jeżeli wartość piksla \(P1[l,w]\) jest inna niż 255 lub 0 to składowa wynikowa otrzymuje wartość poprzez pomnożenie wartości piksla \(P1[l,w]\) przez odpowiadający piksel \(P2[l,w]\), podzielenie przez 255 i zaokrąglenie do liczby całkowitej.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/12/fotograf_rys_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/rys.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/22/fotograf_multiplied_rys.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/22/fotograf_multiplied_rys_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy 1, szary obraz wejściowy 2 [Od lewej, rząd 2] Obraz po sumowaniu obrazów 1 i 2, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/12/fotograf_AndrzejZamoyski_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/AndrzejZamoyski.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/22/fotograf_multiplied_AndrzejZamoyski.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/22/fotograf_multiplied_AndrzejZamoyski_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy 1, szary obraz wejściowy 2 [Od lewej, rząd 2] Obraz po sumowaniu obrazów 1 i 2, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def multiplyPicturesGrey(self):
+    if self.checkPictureBits(self.pic1) == self.checkPictureBits(self.pic2):
+        maxBitsColor = self.checkPictureBits(self.pic2)
+    # check if pictures have same sizes, if not unify them
+    compare = Comparer()
+    biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
+    if biggerPicture != 0 and smallerPicture != 0:
+        self.pic1, self.pic2 = self.getUnifiedPictures()
+    # get the values
+    tempName = smallerPicture.getPictureName()
+    length1, width1, matrix1, pictureName1 = self.getPictureParameters(self.pic1)
+    length2, width2, matrix2, pictureName2 = self.getPictureParameters(self.pic2)
+    pictureName1 = tempName
+
+    result = np.ones((length1, width1), np.uint8)
+
+    fmin = maxBitsColor
+    fmax = 0
+
+    for l in range(length1):
+        for w in range(width1):
+            if matrix1[l, w] == maxBitsColor:
+                result[l, w] = matrix2[l, w]
+            elif matrix1[l, w] == 0:
+                result[l, w] = 0
+            else:
+                result[l, w] = np.ceil(((int(matrix1[l, w]) * int(matrix2[l, w])) / maxBitsColor))
+            # Search for maximum and minimum
+            if fmin > result[l, w]:
+                fmin = result[l, w]
+
+            if fmax < result[l, w]:
+                fmax = result[l, w]
+
+    # save picture multiplied by picture to png file (without normalization)
+    path = self.ex + str(pictureName1) + '_multiplied_' + str(pictureName2) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+
+    for l in range(length1):
+        for w in range(width1):
+            result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
+
+    # save picture multiplied by picture to png file (with normalization)
+    path = self.ex + str(pictureName1) + '_multiplied_' + str(pictureName2) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Mieszanie obrazów z określonym współczynnikiem}
+
 \section{Potęgowanie obrazu z zadaną potęgą}
 \section{Dzielenie obrazów szarych przez zadaną stałą}
 \section{Dzielenie obrazu przez inny obraz}
