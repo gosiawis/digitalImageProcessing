@@ -8,14 +8,14 @@ from ResolutionUnificationRGB import ResolutionUnificationRGB
 
 class AdditionRGB:
 
-    def __init__(self, name1='./RawPictures/kawa.png', name2='./RawPictures/stogi.png', pictureType='RGB'):
+    def __init__(self, name1='./Documentation/images/RawPictures/kawa.png', name2='./Documentation/images/RawPictures/stogi.png', pictureType='RGB'):
         self.pic1 = ImageHelper(name1, pictureType)
         self.pic2 = ImageHelper(name2, pictureType)
         self.pictureType = pictureType
         self.name1 = name1
         self.name2 = name2
         self.saver = PictureSaver()
-        self.ex = './ExEffects/3/31/'
+        self.ex = './Documentation/images/ExEffects/3/31/'
 
     def addConstRGB(self, constant):
         length, width, pictureName = self.pic1.getPictureParameters()

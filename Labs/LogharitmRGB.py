@@ -6,12 +6,12 @@ from PictureSaver import PictureSaver
 
 class LogharitmRGB:
 
-    def __init__(self, name='./RawPictures/rys.png'):
+    def __init__(self, name='./Documentation/images/RawPictures/rys.png'):
         self.pictureType = 'RGB'
         self.pic = ImageHelper(name, self.pictureType)
         self.name = name
         self.saver = PictureSaver()
-        self.ex = './ExEffects/3/37/'
+        self.ex = './Documentation/images/ExEffects/3/37/'
 
     def logharitmRGB(self):
         length, width, pictureName = self.pic.getPictureParameters()

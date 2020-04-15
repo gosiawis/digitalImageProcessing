@@ -9,14 +9,14 @@ from ResolutionUnificationGrey import ResolutionUnificationGrey
 
 class AdditionGrey:
 
-    def __init__(self, name1='./RawPictures/rys.png', name2='./RawPictures/fotograf.png', pictureType='L'):
+    def __init__(self, name1='./Documentation/images/RawPictures/rys.png', name2='./Documentation/images/RawPictures/fotograf.png', pictureType='L'):
         self.pic1 = ImageHelper(name1, pictureType)
         self.pic2 = ImageHelper(name2, pictureType)
         self.pictureType = pictureType
         self.name1 = name1
         self.name2 = name2
         self.saver = PictureSaver()
-        self.ex = './ExEffects/2/21/'
+        self.ex = './Documentation/images/ExEffects/2/21/'
 
     def checkPictureBits(self, pic):
         matrix = pic.getGreyMatrix()

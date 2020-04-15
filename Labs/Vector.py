@@ -5,12 +5,12 @@ from PictureSaver import PictureSaver
 
 
 class Vector:
-    def __init__(self, name='./RawPictures/kawa.png', pictureType='RGB'):
+    def __init__(self, name='./Documentation/images/RawPictures/kawa.png', pictureType='RGB'):
         self.pic = ImageHelper(name, pictureType)
         self.pictureType = pictureType
         self.name = name
         self.saver = PictureSaver()
-        self.ex = './ExEffects/4/41/'
+        self.ex = './Documentation/images/ExEffects/4/41/'
 
     def relocateVector(self, x, y):
         if self.pictureType == 'RGB':

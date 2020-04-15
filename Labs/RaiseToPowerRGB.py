@@ -6,12 +6,12 @@ from PictureSaver import PictureSaver
 
 class RaiseToPowerRGB:
 
-    def __init__(self, name='./RawPictures/stogi.png'):
+    def __init__(self, name='./Documentation/images/RawPictures/stogi.png'):
         self.pictureType = 'RGB'
         self.pic = ImageHelper(name, self.pictureType)
         self.name = name
         self.saver = PictureSaver()
-        self.ex = './ExEffects/3/34/'
+        self.ex = './Documentation/images/ExEffects/3/34/'
 
     def raiseToPower(self, power):
         length, width, pictureName = self.pic.getPictureParameters()

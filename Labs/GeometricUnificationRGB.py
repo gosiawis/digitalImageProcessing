@@ -16,7 +16,7 @@ class GeometricUnificationRGB:
         self.matrix = self.smallerPicture.getRGBMatrix()
         self.maxLength, self.maxWidth, self.biggerPictureName = self.biggerPicture.getPictureParameters()
         self.minLength, self.minWidth, self.smallerPictureName = self.smallerPicture.getPictureParameters()
-        self.ex = './ExEffects/1/13/'
+        self.ex = './Documentation/images/ExEffects/1/13/'
 
     def geoUnificationRGB(self):
         if self.biggerPicture == 0 and self.smallerPicture == 0:

@@ -7,7 +7,7 @@ from PictureSaver import PictureSaver
 
 
 class HistogramGrey:
-    def __init__(self, name='./RawPictures/stogi-szare.png', pictureType='L'):
+    def __init__(self, name='./Documentation/images/RawPictures/stogi-szare.png', pictureType='L'):
         self.pic = ImageHelper(name, pictureType)
         self.pictureType = pictureType
         self.name = name
@@ -47,7 +47,7 @@ class HistogramGrey:
     def moveHistogram(self, const):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
-        ex = './ExEffects/5/52/'
+        ex = './Documentation/images/ExEffects/5/52/'
         path = str(ex) + str(pictureName) + '_histogram.png'
         self.calculateHistogram(matrix, path)
         result = np.zeros((length, width), np.uint8)
@@ -70,7 +70,7 @@ class HistogramGrey:
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         # save basic histogram of modified picture
-        ex = './ExEffects/5/53/'
+        ex = './Documentation/images/ExEffects/5/53/'
         path = str(ex) + str(pictureName) + '_histogram.png'
         self.calculateHistogram(matrix, path)
         result = np.zeros((length, width), np.uint8)
@@ -104,7 +104,7 @@ class HistogramGrey:
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         # save basic histogram of modified picture
-        ex = './ExEffects/5/54/'
+        ex = './Documentation/images/ExEffects/5/54/'
         path = str(ex) + str(pictureName) + '_histogram.png'
         self.calculateHistogram(matrix, path)
         result = np.zeros((length, width), np.uint8)
@@ -135,7 +135,7 @@ class HistogramGrey:
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         # save basic histogram of modified picture
-        ex = './ExEffects/5/55/'
+        ex = './Documentation/images/ExEffects/5/55/'
         path = str(ex) + str(pictureName) + '_histogram.png'
         self.calculateHistogram(matrix, path)
         result = np.zeros((length, width), np.uint8)
@@ -163,7 +163,7 @@ if __name__ == '__main__':
     '''
     pictureName = plot.pic.getPictureName()
     matrix = plot.pic.getGreyMatrix()
-    path = './ExEffects/5/51/' + str(pictureName) + '_histogram.png'
+    path = './Documentation/images/ExEffects/5/51/' + str(pictureName) + '_histogram.png'
     plot.calculateHistogram(matrix, path)
     plot.moveHistogram(100)
     plot.extendHistogram()

@@ -5,26 +5,26 @@ from PictureSaver import PictureSaver
 
 
 class Scaling:
-    def __init__(self, name='./RawPictures/kawa.png', pictureType='RGB'):
+    def __init__(self, name='./Documentation/images/RawPictures/kawa.png', pictureType='RGB'):
         self.pic = ImageHelper(name, pictureType)
         self.pictureType = pictureType
         self.name = name
         self.saver = PictureSaver()
-        self.ex = './ExEffects/4/42/'
+        self.ex = './Documentation/images/ExEffects/4/42/'
 
-    def homogenousScaling(self, x):
+    def homogeneousScaling(self, x):
         if self.pictureType == 'RGB':
-            self.homogenousScalingRGB(x)
+            self.homogeneousScalingRAB(x)
         elif self.pictureType == 'L':
-            self.homogenousScalingGrey(x)
+            self.homogeneousScalingGrey(x)
 
-    def heterogenousScaling(self, x, y):
+    def heterogeneousScaling(self, x, y):
         if self.pictureType == 'RGB':
             self.heterogenousScalingRGB(x, y)
         elif self.pictureType == 'L':
-            self.heterogenousScalingGrey(x, y)
+            self.heterogeneousScalingGrey(x, y)
 
-    def homogenousScalingGrey(self, scale):
+    def homogeneousScalingGrey(self, scale):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         result = np.ones((length, width), np.uint8)
@@ -34,7 +34,7 @@ class Scaling:
                 if scale * l < length and scale * w < width:
                     result[int(scale * l), int(scale * w)] = matrix[l, w]
 
-        path = self.ex + str(pictureName) + '_homogenous_' + str(scale) + '_withoutInterpolation.png'
+        path = self.ex + str(pictureName) + '_homogeneous_' + str(scale) + '_withoutInterpolation.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
         for l in range(length):
@@ -51,10 +51,10 @@ class Scaling:
                                 count += 1
                     result[l, w] = value / count
 
-        path = self.ex + str(pictureName) + '_homogenous_' + str(scale) + '_withInterpolation.png'
+        path = self.ex + str(pictureName) + '_homogeneous_' + str(scale) + '_withInterpolation.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
-    def homogenousScalingRGB(self, scale):
+    def homogeneousScalingRAB(self, scale):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getRGBMatrix()
         result = np.zeros((length, width, 3), np.uint8)
@@ -64,7 +64,7 @@ class Scaling:
                 if scale * l < length and scale * w < width:
                     result[int(scale * w), int(scale * l)] = matrix[l, w]
 
-        path = self.ex + str(pictureName) + '_homogenous_' + str(scale) + '_withoutInterpolation.png'
+        path = self.ex + str(pictureName) + '_homogeneous_' + str(scale) + '_withoutInterpolation.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
         for l in range(length):
@@ -84,10 +84,10 @@ class Scaling:
                                 n += 1
                     result[l, w] = (r / n, g / n, b / n)
 
-        path = self.ex + str(pictureName) + '_homogenous_' + str(scale) + '_withInterpolation.png'
+        path = self.ex + str(pictureName) + '_homogeneous_' + str(scale) + '_withInterpolation.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
-    def heterogenousScalingGrey(self, scaleY, scaleX):
+    def heterogeneousScalingGrey(self, scaleY, scaleX):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         result = np.ones((length, width), np.uint8)
@@ -97,7 +97,7 @@ class Scaling:
                 if scaleY * l < length and scaleX * w < width:
                     result[int(scaleY * l), int(scaleX * w)] = matrix[l, w]
 
-        path = self.ex + str(pictureName) + '_heterogenous_[' + str(scaleY) + ',' + str(scaleX) + ']_withoutInterpolation.png'
+        path = self.ex + str(pictureName) + '_heterogeneous_[' + str(scaleY) + ',' + str(scaleX) + ']_withoutInterpolation.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
         for l in range(length):
@@ -114,7 +114,7 @@ class Scaling:
                                 count += 1
                     result[l, w] = value / count
 
-        path = self.ex + str(pictureName) + '_heterogenous_[' + str(scaleY) + ',' + str(scaleX) + ']_witInterpolation.png'
+        path = self.ex + str(pictureName) + '_heterogeneous_[' + str(scaleY) + ',' + str(scaleX) + ']_witInterpolation.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
     def heterogenousScalingRGB(self, scaleY, scaleX):
@@ -127,7 +127,7 @@ class Scaling:
                 if scaleY * l < length and scaleX * w < width:
                     result[int(scaleX * w), int(scaleY * l)] = matrix[l, w]
 
-        path = self.ex + str(pictureName) + '_heterogenous_[' + str(scaleY) + ',' + str(
+        path = self.ex + str(pictureName) + '_heterogeneous_[' + str(scaleY) + ',' + str(
             scaleX) + ']_withoutInterpolation.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
@@ -148,6 +148,6 @@ class Scaling:
                                 n += 1
                     result[l, w] = (r / n, g / n, b / n)
 
-        path = self.ex + str(pictureName) + '_heterogenous_[' + str(scaleY) + ',' + str(
+        path = self.ex + str(pictureName) + '_heterogeneous_[' + str(scaleY) + ',' + str(
             scaleX) + ']_witInterpolation.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)

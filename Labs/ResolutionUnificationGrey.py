@@ -18,11 +18,11 @@ class ResolutionUnificationGrey:
         self.matrix = self.smallerPicture.getGreyMatrix()
         self.maxLength, self.maxWidth, self.biggerPictureName = self.biggerPicture.getPictureParameters()
         self.minLength, self.minWidth, self.smallerPictureName = self.smallerPicture.getPictureParameters()
-        self.ex = './ExEffects/1/12/'
+        self.ex = './Documentation/images/ExEffects/1/12/'
 
 
     def resolutionUnificationGrey(self):
-        print('Begginning of resolution unification for two grey pictures.')
+        print('Beginning of resolution unification for two grey pictures.')
         if self.biggerPicture == 0 and self.smallerPicture == 0:
             print('Both pictures have the same size')
             return 0
