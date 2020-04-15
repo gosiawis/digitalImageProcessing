@@ -31,6 +31,8 @@ if __name__ == '__main__':
     stogi = './Documentation/images/RawPictures/stogi.png'
     rys = './Documentation/images/RawPictures/rys.png'
     fotograf = './Documentation/images/RawPictures/fotograf.png'
+    morze_szare = './Documentation/images/RawPictures/morze-szare.png'
+    stogi_szare = './Documentation/images/RawPictures/stogi-szare.png'
 
     '''
     print('Starting ex. 1.1 Geometric unification of two grey pictures')
@@ -50,13 +52,13 @@ if __name__ == '__main__':
     resRGB.resolutionUnificationRGB()
     resRGB = ResolutionUnificationRGB(stogi, morze)
     resRGB.resolutionUnificationRGB()
-    
+    '''
     print('Starting ex. 2.1 Addition of constant to grey picture')
     addConstant = AdditionGrey(name1=rys, pictureType='L')
     addConstant.addConstGrey(400)
-    
+    '''
     print('Starting ex. 2.1 Addition of two grey pictures')
-    addPicture = AdditionGrey(name1=rys, name2=fotograf, pictureType='L')
+    addPicture = AdditionGrey(name1=stogi_szare, name2=morze_szare, pictureType='L')
     addPicture.addPictureGrey()
     
     print('Starting ex. 2.2 Multiplication of grey picture by constant')
@@ -154,7 +156,7 @@ if __name__ == '__main__':
     print('Starting ex. 4.5 Cut part of a picture')
     cut = CutPiece(name=morze, pictureType='RGB')
     cut.cutPiece(160, 400, 300, 500)
-    '''
+    
     print('Starting ex. 4.6 Copy part of a picture')
     copy = CopyPiece(name=morze, pictureType='RGB')
     copy.copyPiece(160, 400, 300, 500)
@@ -164,4 +166,5 @@ if __name__ == '__main__':
     print('Starting ex. 4.6 Copy part of a picture')
     copy = CopyPiece(name=kawa, pictureType='RGB')
     copy.copyPiece(70, 140, 160, 200)
+    '''
 

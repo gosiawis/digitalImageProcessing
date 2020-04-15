@@ -345,21 +345,242 @@ def resolutionUnificationGrey(self):
 \end{lstlisting}
 
 \chapter{Operacje sumowania arytmetycznego obrazów szarych}
-\section{Sumowanie obrazów szarych}
-\subsection{Sumowanie obrazu z określoną stałą}
-\subsection{Sumowanie dwóch obrazów}
-\section{Mnożenie obrazów szarych}
-\subsection{Mnożenie obrazu przez określoną stałą}
-\subsection{Mnożenieobrazu przez inny obraz}
+Operacje arytmtyczne między pikslami dwóch obrazów sa wykorzystywane w wielu działach przetwarzania obrazów. Przeprowadza się je wykonując operacje na pojedynczych pikslach. Po operacjach arytmetycznych zwykle konieczne jest normalizowanie obrazu wynikowego. W zadaniach do normalizacji wykorzystano wzór:
+\[f{norm}=Z{rep}[(f-f{min})/(f{max}-f{min})]\]
+
+\section{Sumowanie obrazów szarych z określoną stałą}
+\subsection*{Opis algorytmu}
+\par Algorytm sumowowania obrazu szarego z określoną stałą polega na daodaniu do każdej wartości pojedynczego piksla określonej stałej. Po operacji sumowania następuje normalizacja obrazu.
+\begin{enumerate}
+\item Policz sumy wartości każdego piksla ze stałą. Jeżeli suma przekracza 255 to konieczne jest
+\begin{itemize}
+\item Wybranie największej sumę piksla ze stałą - \(Q{max}\) 
+\item Obliczenie \(D{max}\) ze wzoru: \(D{max}[l,w]=(Q{max}[l,w]-255)\)
+\item Obliczenie \(X=D{max}/255\)
+\end{itemize}
+\item Policz sumę ze wzoru: \(Q[l,w]=P[l,w]-(P[l, w]*X)+const-(const*X)\)
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/fotograf.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/21/fotograf_constant_70.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/21/fotograf_constant_70_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, obraz po sumowaniu ze stałą 70, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/rys.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/21/rys_constant_400.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/21/rys_constant_400_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, obraz po sumowaniu ze stałą 400, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def addConstGrey(self, constant):
+    maxBitsColor = self.checkPictureBits(self.pic1)
+    length, width, pictureName = self.pic1.getPictureParameters()
+    matrix = self.pic1.getGreyMatrix()
+    result = np.ones((length, width), np.uint8)
+    sumMax = 0
+    x = 0
+    fmin = maxBitsColor
+    fmax = 0
+    for l in range(length):
+        for w in range(width):
+            added = matrix[l, w] + constant
+            if sumMax < added:
+                sumMax = added
+    if sumMax > maxBitsColor:
+        x = (sumMax - maxBitsColor) / maxBitsColor
+    for l in range(length):
+        for w in range(width):
+            # Rounded up and assignment of value to the result matrix
+            pom = (matrix[l, w] - (matrix[l, w] * x)) + (constant - (constant * x))
+            result[l, w] = np.ceil(pom)
+            # Search for maximum and minimum
+            if fmin > pom:
+                fmin = pom
+            if fmax < pom:
+                fmax = pom
+    # save picture with added constant to png file (without normalization)
+    path = self.ex + str(pictureName) + '_constant_' + str(constant) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+    for l in range(length):
+        for w in range(width):
+            result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
+    # save picture with added constant to png file (with normalization)
+    path = self.ex + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
+\section{Sumowanie dwóch obrazów szarych}
+\subsection*{Opis algorytmu}
+\par Algorytm sumowowania obrazu szarego z drugim obrazem szarym jest określone tylko o tych samych wymiarach \(MxN\) i strukturze ich macierzy. Algorytm sumowania obrazu z obrazem polega na dodaniu do wartości piksla z  pierwszego obrazu, wartości odpowiadającego piksla z drugiego obrazu. Po operacji sumowania następuje normalizacja obrazu. Operacja dodawania obrazów są użyteczne przy uśrednianiu obrazów, w celu zredukowania na nich szumu.
+\begin{enumerate}
+\item Policz sumy wartości każdego piksla obrazu pierwszego \(P1[l,w]\) z odpowiadającym pikslem drugiego obrazu \(P2[l,w]\). Jeżeli suma przekracza 255 to konieczne jest
+\begin{itemize}
+\item Wybranie największej sumy odpowiadających piksli dwóch obrazów - \(Q{max}\) 
+\item Obliczenie \(D{max}\) ze wzoru: \(D{max}[l,w]=(Q{max}[l,w]-255)\)
+\item Obliczenie \(X=D{max}/255\)
+\end{itemize}
+\item Policz sumę ze wzoru: \(Q[l,w]=P1[l,w]-(P1[l,w]*X)+P2[l,w]-(P2[l,w]*X)\)
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/12/AndrzejZamoyski_rys_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/rys.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/21/AndrzejZamoyski_added_rys.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/21/AndrzejZamoyski_added_rys_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy 1, szary obraz wejściowy 2 [Od lewej, rząd 2] Obraz po sumowaniu obrazów 1 i 2, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/12/morze-szare_stogi-szare_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi-szare.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/21/morze-szare_added_stogi-szare.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/21/morze-szare_added_stogi-szare_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy 1, szary obraz wejściowy 2 [Od lewej, rząd 2] Obraz po sumowaniu obrazów 1 i 2, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def addPictureGrey(self):
+    if self.checkPictureBits(self.pic1) == self.checkPictureBits(self.pic2):
+        maxBitsColor = self.checkPictureBits(self.pic2)
+    # check if pictures have same sizes, if not unify them
+    compare = Comparer()
+    biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
+    if biggerPicture != 0 and smallerPicture != 0:
+        self.pic1, self.pic2 = self.getUnifiedPictures()
+    # get the values
+    tempName = smallerPicture.getPictureName()
+    length1, width1, pictureName1 = self.pic1.getPictureParameters()
+    matrix1 = self.pic1.getGreyMatrix()
+    length2, width2, pictureName2 = self.pic2.getPictureParameters()
+    matrix2 = self.pic2.getGreyMatrix()
+    pictureName1 = tempName
+
+    sumMax = 0
+    x = 0
+    fmax = 0
+    fmin = maxBitsColor
+
+    result = np.zeros((length1, width1), np.uint8)
+
+    for l in range(length1):
+        for w in range(width1):
+            added = int(matrix1[l, w]) + int(matrix2[l, w])
+            if sumMax < added:
+                sumMax = added
+
+    if sumMax > maxBitsColor:
+        x = (sumMax - maxBitsColor) / maxBitsColor
+
+    for l in range(length1):
+        for w in range(width1):
+            # Rounded up and assignment of value to the result matrix
+            pom = int(matrix1[l, w] - (matrix1[l, w] * x)) + int(matrix2[l, w] - (matrix2[l, w] * x))
+            result[l, w] = np.ceil(int(pom))
+            # Search for maximum and minimum
+            if fmin > pom:
+                fmin = pom
+            if fmax < pom:
+                fmax = pom
+
+    # save picture with added constant to png file (without normalization)
+    path = self.ex + str(pictureName1) + '_added_' + str(pictureName2) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+
+    normalized = np.zeros((length1, width1), np.uint8)
+    for l in range(length1):
+        for w in range(width1):
+            normalized[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
+
+    # save picture with added constant to png file (with normalization)
+    path = self.ex + str(pictureName1) + '_added_' + str(pictureName2) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
+\section{Mnożenie obrazów szarych przez określoną stałą}
+\subsection*{Opis algorytmu}
+\par Algorytm mnożenia obrazu szarego przez określoną stałą polega na przemnożeniu każdego elementu obrazu (piksla) przez określoną stałą (skalar). Dla wszystkich piksli w obrazie wykonaj:
+\begin{enumerate}
+\item Jeżeli wartość piksla jest równa 255 to składowa wynikowa otrzymuje wartość stałej.
+\item Jeżeli wartość piksla jest równa 0 to składowa wynikowa otrzymuje wartość 0.
+\item Jeżeli wartość piksla jest inna niż 255 lub 0 to składowa wynikowa otrzymuje wartość poprzez pomnożenie wartości piksla przez skalar, podzielenie przez 255 i zaokrąglenie do liczby całkowitej.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/fotograf.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/22/fotograf_constant_100.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/22/fotograf_constant_100_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, obraz po sumowaniu ze stałą 100, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/rys.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/22/rys_constant_100.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/22/rys_constant_100_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, obraz po sumowaniu ze stałą 100, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def multiplyConstGrey(self, constant):
+    maxBitsColor = self.checkPictureBits(self.pic1)
+    length, width, matrix, pictureName = self.getPictureParameters(self.pic1)
+    result = np.ones((length, width), np.uint8)
+    fmin = maxBitsColor
+    fmax = 0
+    for l in range(length):
+        for w in range(width):
+            pom = matrix[l, w]
+            if pom == maxBitsColor:
+                result[l, w] = maxBitsColor
+            elif pom == 0:
+                result[l, w] = 0
+            else:
+                result[l, w] = np.ceil(((matrix[l, w] * constant) / maxBitsColor))
+            # Search for maximum and minimum
+            if fmin > result[l, w]:
+                fmin = result[l, w]
+            if fmax < result[l, w]:
+                fmax = result[l, w]
+    # save picture with added constant to png file (without normalization)
+    path = self.ex + str(pictureName) + '_constant_' + str(constant) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+    for l in range(length):
+        for w in range(width):
+            result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
+    # save picture with added constant to png file (with normalization)
+    path = self.ex + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+\section{Mnożenie obrazu przez inny obraz}
 \section{Mieszanie obrazów z określonym współczynnikiem}
 \section{Potęgowanie obrazu z zadaną potęgą}
-\section{Dzielenie obrazów szarych}
-\subsection{Dzielenie obrazu przez zadaną stałą}
-\subsection{Dzielenie obrazu przez inny obraz}
+\section{Dzielenie obrazów szarych przez zadaną stałą}
+\section{Dzielenie obrazu przez inny obraz}
 \section{Pierwiastkowanie obrazu}
 \section{Logarytmowanie obrazu}
 
 \chapter{Operacje sumowania arytmetycznego obrazów barwowych}
+
 \section{Sumowanie obrazów barwowych}
 \subsection{Sumowanie obrazu z określoną stałą}
 \subsection{Sumowanie dwóch obrazów}
