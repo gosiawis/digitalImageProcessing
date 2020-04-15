@@ -2,32 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/AdditionGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdditionGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdditionRGB.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdditionRGB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Angle.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlendingGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/BlendingGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlendingRGB.py" beforeDir="false" afterPath="$PROJECT_DIR$/BlendingRGB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CopyPiece.py" beforeDir="false" afterPath="$PROJECT_DIR$/CopyPiece.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CutPiece.py" beforeDir="false" afterPath="$PROJECT_DIR$/CutPiece.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DivisionGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/DivisionGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DivisionRGB.py" beforeDir="false" afterPath="$PROJECT_DIR$/DivisionRGB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GeometricUnificationGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeometricUnificationGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GeometricUnificationRGB.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeometricUnificationRGB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HistogramGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/HistogramGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HistogramRGB.py" beforeDir="false" afterPath="$PROJECT_DIR$/HistogramRGB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LogharitmGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogharitmGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LogharitmRGB.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogharitmRGB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiplicationGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/MultiplicationGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiplicationRGB.py" beforeDir="false" afterPath="$PROJECT_DIR$/MultiplicationRGB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RaiseToPowerGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/RaiseToPowerGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RaiseToPowerRGB.py" beforeDir="false" afterPath="$PROJECT_DIR$/RaiseToPowerRGB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResolutionUnificationGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/ResolutionUnificationGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResolutionUnificationRGB.py" beforeDir="false" afterPath="$PROJECT_DIR$/ResolutionUnificationRGB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RootGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/RootGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RootRGB.py" beforeDir="false" afterPath="$PROJECT_DIR$/RootRGB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scaling.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scaling.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Symmetry.py" beforeDir="false" afterPath="$PROJECT_DIR$/Symmetry.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vector.py" beforeDir="false" afterPath="$PROJECT_DIR$/Vector.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

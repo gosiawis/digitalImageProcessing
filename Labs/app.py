@@ -24,136 +24,144 @@ from Symmetry import Symmetry
 from Vector import Vector
 
 if __name__ == '__main__':
+    kobietaDziecko = './Documentation/images/RawPictures/kobietaDziecko.png'
+    andrzej = './Documentation/images/RawPictures/AndrzejZamoyski.png'
+    kawa = './Documentation/images/RawPictures/kawa.png'
+    morze = './Documentation/images/RawPictures/morze.png'
+    stogi = './Documentation/images/RawPictures/stogi.png'
+    rys = './Documentation/images/RawPictures/rys.png'
+    fotograf = './Documentation/images/RawPictures/fotograf.png'
+    
     '''
     print('Starting ex. 1.1 Geometric unification of two grey pictures')
-    geo = GeometricUnificationGrey('./Documentation/images/RawPictures/kobietaDziecko.png', './Documentation/images/RawPictures/AndrzejZamoyski.png')
+    geo = GeometricUnificationGrey(kobietaDziecko, andrzej)
     geo.geoUnificationGrey()
     
     print('Starting ex. 1.2 Resolution unification of two grey pictures')
-    res = ResolutionUnificationGrey('./Documentation/images/RawPictures/AndrzejZamoyski.png', './Documentation/images/RawPictures/kobietaDziecko.png')
+    res = ResolutionUnificationGrey(andrzej, kobietaDziecko)
     res.resolutionUnificationGrey()
     
     print('Starting ex. 1.3 Geometric unification of two RGB pictures')
-    geoRGB = GeometricUnificationRGB('./RawPictures/kawa.png', './RawPictures/morze.png')
+    geoRGB = GeometricUnificationRGB(kawa, morze)
     geoRGB.geoUnificationRGB()
     
     print('Starting ex. 1.4 Resolution unification of two RGB pictures')
-    resRGB = ResolutionUnificationRGB('./RawPictures/kawa.png', './RawPictures/morze.png')
+    resRGB = ResolutionUnificationRGB(kawa, morze)
     resRGB.resolutionUnificationRGB()
-    resRGB = ResolutionUnificationRGB('./RawPictures/stogi.png', './RawPictures/morze.png')
+    resRGB = ResolutionUnificationRGB(stogi, morze)
     resRGB.resolutionUnificationRGB()
     
     print('Starting ex. 2.1 Addition of constant to grey picture')
-    addConstant = AdditionGrey(name1='./RawPictures/rys.png', pictureType='L')
+    addConstant = AdditionGrey(name1=rys, pictureType='L')
     addConstant.addConstGrey(400)
     
     print('Starting ex. 2.1 Addition of two grey pictures')
-    addPicture = AdditionGrey(name1='./RawPictures/rys.png', name2='./RawPictures/fotograf.png', pictureType='L')
+    addPicture = AdditionGrey(name1=rys, name2=fotograf, pictureType='L')
     addPicture.addPictureGrey()
     
     print('Starting ex. 2.2 Multiplication of grey picture by constant')
-    multiplyConstant = MultiplicationGrey(name1='./RawPictures/fotograf.png', pictureType='L')
+    multiplyConstant = MultiplicationGrey(name1=fotograf, pictureType='L')
     multiplyConstant.multiplyConstGrey(100)
     
     print('Starting ex. 2.2 Multiplication of grey picture by another picture')
-    multiplyPicture = MultiplicationGrey(name1='./RawPictures/AndrzejZamoyski.png', name2='./RawPictures/fotograf.png',pictureType='L')
+    multiplyPicture = MultiplicationGrey(name1=andrzej, name2=fotograf, pictureType='L')
     multiplyPicture.multiplyPicturesGrey()
 
     print('Starting ex. 2.3 Blending of two grey pictures')
-    blend = BlendingGrey(name1='./RawPictures/fotograf.png', name2='./RawPictures/AndrzejZamoyski.png', pictureType='L')
+    blend = BlendingGrey(name1=fotograf, name2=andrzej, pictureType='L')
     blend.blendPictures(0.3)
     
     print('Starting ex. 2.4 Raising to the constant power of a grey picture')
-    exp = RaiseToPowerGrey(name='./RawPictures/rys.png')
+    exp = RaiseToPowerGrey(name=rys)
     exp.raiseToPower(3)
     
     print('Starting ex. 2.5 Dividing of a grey picture by a constant')
-    div = DivisionGrey(name1='./RawPictures/fotograf.png')
+    div = DivisionGrey(name1=fotograf)
     div.divideConstGrey(3)
     
     print('Starting ex. 2.5 Dividing of a grey picture by another picture')
-    div = DivisionGrey(name1='./RawPictures/fotograf.png', name2='./RawPictures/rys.png')
+    div = DivisionGrey(name1=fotograf, name2=rys)
     div.dividePicturesGrey()
     
     print('Starting ex. 2.6 Root of a grey picture')
-    root = RootGrey(name='./RawPictures/rys.png')
+    root = RootGrey(name=rys)
     root.rootGrey(2)
     
     print('Starting ex. 2.7 Logharitm of a grey picture')
-    log = LogharitmGrey(name='./RawPictures/AndrzejZamoyski.png')
+    log = LogharitmGrey(name=andrzej)
     log.logharitmGrey()
     
     print('Starting ex. 3.1 Addition of constant to RGB picture')
-    addConstant = AdditionRGB(name1='./RawPictures/stogi.png')
+    addConstant = AdditionRGB(name1=stogi)
     addConstant.addConstRGB(200)
 
     print('Starting ex. 3.1 Addition of two RGB pictures')
-    addPicture = AdditionRGB(name1='./RawPictures/morze.png', name2='./RawPictures/stogi.png')
+    addPicture = AdditionRGB(name1=morze, name2=stogi)
     addPicture.addPictureRGB()
     
     print('Starting ex. 3.2 Multiplication of RGB picture by constant')
-    multiConstant = MultiplicationRGB(name1='./RawPictures/morze.png')
+    multiConstant = MultiplicationRGB(name1=morze)
     multiConstant.multiplyConstRGB(50)
     
     print('Starting ex. 3.2 Multiplication of two RGB pictures')
-    multiPicture = MultiplicationRGB(name1='./RawPictures/morze.png', name2='./RawPictures/stogi.png')
+    multiPicture = MultiplicationRGB(name1=morze, name2=stogi)
     multiPicture.multiplyPicturesRGB()
     
     print('Starting ex. 3.3 Blending of two RGB pictures')
-    blend = BlendingRGB(name1='./RawPictures/kawa.png', name2='./RawPictures/morze.png')
+    blend = BlendingRGB(name1=kawa, name2=morze)
     blend.blendPictures(0.6)
     
     print('Starting ex. 3.4 Raising to the constant power of a RGB picture')
-    exp = RaiseToPowerRGB(name='./RawPictures/stogi.png')
+    exp = RaiseToPowerRGB(name=stogi)
     exp.raiseToPower(10)
     
     print('Starting ex. 3.5 Dividing of a RGB picture by a constant')
-    div = DivisionRGB(name1='./RawPictures/kawa.png')
+    div = DivisionRGB(name1=kawa)
     div.divideConstRGB(20)
 
     print('Starting ex. 3.5 Dividing of a RGB picture by another picture')
-    div = DivisionRGB(name1='./RawPictures/morze.png', name2='./RawPictures/kawa.png')
+    div = DivisionRGB(name1=morze, name2=kawa)
     div.dividePicturesRGB()
     
     print('Starting ex. 3.6 Root of a RGB picture')
-    root = RootRGB(name='./RawPictures/stogi.png')
+    root = RootRGB(name=stogi)
     root.rootRGB(20)
     
     print('Starting ex. 3.7 Logharitm of a RGB picture')
-    log = LogharitmRGB(name='./RawPictures/kawa.png')
+    log = LogharitmRGB(name=kawa)
     log.logharitmRGB()
     
     print('Starting ex. 4.1 Move by vector')
-    vec = Vector(name='./RawPictures/kawa.png', pictureType='RGB')
+    vec = Vector(name=kawa, pictureType='RGB')
     vec.relocateVector(30, 80)
     
     print('Starting ex. 4.2 Scaling')
-    sc = Scaling(name='./RawPictures/AndrzejZamoyski.png', pictureType='L')
-    sc.homogenousScaling(0.75)
-    sc.heterogenousScaling(3, 1)
+    sc = Scaling(name=andrzej, pictureType='L')
+    sc.homogeneousScaling(0.75)
+    sc.heterogeneousScaling(3, 1)
     
     print('Starting ex. 4.3 Angle')
-    a = Angle(name='./RawPictures/kawa.png', pictureType='RGB')
+    a = Angle(name=kawa, pictureType='RGB')
     a.angleMove(45)
     
     print('Starting ex. 4.4 Symmetry')
-    sym = Symmetry(name='./RawPictures/morze.png', pictureType='RGB')
+    sym = Symmetry(name=morze, pictureType='RGB')
     sym.symmetryX()
     sym.symmetryY()
     sym.symmetryLineDiagonal()
     sym.symmetryLineHorizontal()
     
     print('Starting ex. 4.5 Cut part of a picture')
-    cut = CutPiece(name='./RawPictures/morze.png', pictureType='RGB')
+    cut = CutPiece(name=morze, pictureType='RGB')
     cut.cutPiece(160, 400, 300, 500)
     '''
     print('Starting ex. 4.6 Copy part of a picture')
-    copy = CopyPiece(name='./RawPictures/morze.png', pictureType='RGB')
+    copy = CopyPiece(name=morze, pictureType='RGB')
     copy.copyPiece(160, 400, 300, 500)
     print('Starting ex. 4.6 Copy part of a picture')
-    copy = CopyPiece(name='./RawPictures/stogi.png', pictureType='RGB')
+    copy = CopyPiece(name=stogi, pictureType='RGB')
     copy.copyPiece(600, 1000, 160, 400)
     print('Starting ex. 4.6 Copy part of a picture')
-    copy = CopyPiece(name='./RawPictures/kawa.png', pictureType='RGB')
+    copy = CopyPiece(name=kawa, pictureType='RGB')
     copy.copyPiece(70, 140, 160, 200)
 
