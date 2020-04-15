@@ -1,0 +1,63 @@
+\babel@toc {polish}{}
+\contentsline {chapter}{\numberline {1}Wstęp}{3}%
+\contentsline {section}{\numberline {1.1}Format obrazów}{3}%
+\contentsline {section}{\numberline {1.2}Instrukcja obsługi programu}{3}%
+\contentsline {chapter}{\numberline {2}Operacje ujednolicania obrazów}{4}%
+\contentsline {section}{\numberline {2.1}Ujednolicanie obrazów szarych geometryczne}{4}%
+\contentsline {section}{\numberline {2.2}Ujednolicanie obrazów szarych rozdzielczościowe}{7}%
+\contentsline {section}{\numberline {2.3}Ujednolicanie obrazów RGB geometryczne}{9}%
+\contentsline {section}{\numberline {2.4}Ujednolicanie obrazów RGB rozdzielczościowe}{12}%
+\contentsline {chapter}{\numberline {3}Operacje sumowania arytmetycznego obrazów szarych}{15}%
+\contentsline {section}{\numberline {3.1}Sumowanie obrazów szarych}{15}%
+\contentsline {subsection}{\numberline {3.1.1}Sumowanie obrazu z określoną stałą}{15}%
+\contentsline {subsection}{\numberline {3.1.2}Sumowanie dwóch obrazów}{15}%
+\contentsline {section}{\numberline {3.2}Mnożenie obrazów szarych}{15}%
+\contentsline {subsection}{\numberline {3.2.1}Mnożenie obrazu przez określoną stałą}{15}%
+\contentsline {subsection}{\numberline {3.2.2}Mnożenieobrazu przez inny obraz}{15}%
+\contentsline {section}{\numberline {3.3}Mieszanie obrazów z określonym współczynnikiem}{15}%
+\contentsline {section}{\numberline {3.4}Potęgowanie obrazu z zadaną potęgą}{15}%
+\contentsline {section}{\numberline {3.5}Dzielenie obrazów szarych}{15}%
+\contentsline {subsection}{\numberline {3.5.1}Dzielenie obrazu przez zadaną stałą}{15}%
+\contentsline {subsection}{\numberline {3.5.2}Dzielenie obrazu przez inny obraz}{15}%
+\contentsline {section}{\numberline {3.6}Pierwiastkowanie obrazu}{15}%
+\contentsline {section}{\numberline {3.7}Logarytmowanie obrazu}{15}%
+\contentsline {chapter}{\numberline {4}Operacje sumowania arytmetycznego obrazów barwowych}{16}%
+\contentsline {section}{\numberline {4.1}Sumowanie obrazów barwowych}{16}%
+\contentsline {subsection}{\numberline {4.1.1}Sumowanie obrazu z określoną stałą}{16}%
+\contentsline {subsection}{\numberline {4.1.2}Sumowanie dwóch obrazów}{16}%
+\contentsline {section}{\numberline {4.2}Mnożenie obrazów barwowych}{16}%
+\contentsline {subsection}{\numberline {4.2.1}Mnożenie obrazu przez określoną stałą}{16}%
+\contentsline {subsection}{\numberline {4.2.2}Mnożenieobrazu przez inny obraz}{16}%
+\contentsline {section}{\numberline {4.3}Mieszanie obrazów z określonym współczynnikiem}{16}%
+\contentsline {section}{\numberline {4.4}Potęgowanie obrazu z zadaną potęgą}{16}%
+\contentsline {section}{\numberline {4.5}Dzielenie obrazów barwowych}{16}%
+\contentsline {subsection}{\numberline {4.5.1}Dzielenie obrazu przez zadaną stałą}{16}%
+\contentsline {subsection}{\numberline {4.5.2}Dzielenie obrazu przez inny obraz}{16}%
+\contentsline {section}{\numberline {4.6}Pierwiastkowanie obrazu}{16}%
+\contentsline {section}{\numberline {4.7}Logarytmowanie obrazu}{16}%
+\contentsline {chapter}{\numberline {5}Operacje geometryczne na obrazie}{17}%
+\contentsline {section}{\numberline {5.1}Przemieszczanie obrazu o zadany wektor}{17}%
+\contentsline {section}{\numberline {5.2}Skalowanie obrazu}{17}%
+\contentsline {subsection}{\numberline {5.2.1}Skalowanie jednorodne}{17}%
+\contentsline {subsection}{\numberline {5.2.2}Skalowanie niejednorodne}{17}%
+\contentsline {section}{\numberline {5.3}Obracanie obrazu o dowolny kąt}{17}%
+\contentsline {section}{\numberline {5.4}Symetrie obrazu}{17}%
+\contentsline {subsection}{\numberline {5.4.1}Symetra względem osi OX}{17}%
+\contentsline {subsection}{\numberline {5.4.2}Symetria względem osi OY}{17}%
+\contentsline {subsection}{\numberline {5.4.3}Symetria względem zadanej prostej}{17}%
+\contentsline {section}{\numberline {5.5}Wycinanie fragmentów obrazów}{17}%
+\contentsline {section}{\numberline {5.6}Kopiowanie fragmentów obrazów}{17}%
+\contentsline {chapter}{\numberline {6}Operacje na histogramie obrazu szarego}{18}%
+\contentsline {section}{\numberline {6.1}Obliczanie histogramu}{18}%
+\contentsline {section}{\numberline {6.2}Przemieszczanie histogramu}{18}%
+\contentsline {section}{\numberline {6.3}Rozciąganie histogramu}{18}%
+\contentsline {section}{\numberline {6.4}Progowanie lokalne}{18}%
+\contentsline {section}{\numberline {6.5}Progowanie globalne}{18}%
+\contentsline {chapter}{\numberline {7}Operacje na histogramie obrazu barwowego}{19}%
+\contentsline {section}{\numberline {7.1}Obliczanie histogramu}{19}%
+\contentsline {section}{\numberline {7.2}Przemieszczanie histogramu}{19}%
+\contentsline {section}{\numberline {7.3}Rozciąganie histogramu}{19}%
+\contentsline {section}{\numberline {7.4}Progowanie 1 progowe lokalne}{19}%
+\contentsline {section}{\numberline {7.5}Progowanie 1 progowe globalne}{19}%
+\contentsline {section}{\numberline {7.6}Progowanie wieloprogowe lokalne}{19}%
+\contentsline {section}{\numberline {7.7}Progowanie wieloprogowe globalne}{19}%

@@ -31,7 +31,7 @@ if __name__ == '__main__':
     stogi = './Documentation/images/RawPictures/stogi.png'
     rys = './Documentation/images/RawPictures/rys.png'
     fotograf = './Documentation/images/RawPictures/fotograf.png'
-    
+
     '''
     print('Starting ex. 1.1 Geometric unification of two grey pictures')
     geo = GeometricUnificationGrey(kobietaDziecko, andrzej)

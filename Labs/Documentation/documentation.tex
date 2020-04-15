@@ -1,7 +1,8 @@
 \documentclass[a4paper,12pt, titlepage]{report}
-
+\usepackage{polski}
+\usepackage[polish]{babel}
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX
-
+\usepackage{placeins}
 \usepackage{graphicx} % support the \includegraphics command and options
 
 % \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
@@ -12,13 +13,19 @@
 \usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
 \usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
-\usepackage{polski}
-\usepackage[utf8]{inputenc}
-\usepackage[polish]{babel}
-\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
-\usepackage{pythonhighlight}
-% These packages are all incorporated in the memoir class to one degree or another...
 
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+\usepackage{lmodern}  % for bold teletype font
+\usepackage{amsmath}  % for \hookrightarrow
+\usepackage{xcolor}   % for \textcolor
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
 %%% HEADERS & FOOTERS
 \usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
 \pagestyle{fancy} % options: empty , plain , fancy
@@ -26,9 +33,6 @@
 \lhead{}\chead{}\rhead{}
 \lfoot{}\cfoot{\thepage}\rfoot{}
 \fancyfoot{}
-\fancyfoot[LE,RO]{\thepage}
-\fancyfoot[LO,CE]{Chapter \thechapter}
-\fancyfoot[CO,RE]{Author Name}
 
 %%% SECTION TITLE APPEARANCE
 \usepackage{sectsty}
@@ -41,11 +45,7 @@
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
 
-\graphicspath{ {../ExEffects/} }
-
-%%% END Article customizations
-
-%%% The "real" document content comes below...
+\graphicspath{ {./images/} }
 
 \def\uczelnia{{Uniwersytet Kardynała Stefana Wyszyńskiego w~Warszawie}\\
 Wydział Matematyczno-Przyrodniczy \\ Szkoła Nauk Ścisłych}
@@ -64,23 +64,285 @@ Wydział Matematyczno-Przyrodniczy \\ Szkoła Nauk Ścisłych}
 \chapter{Operacje ujednolicania obrazów}
 Operacje ujednolicania obrazów dzieli się na dwa etapy. Pierwszym etapem jest ujednolicanie geometryczne, drugim jest ujednolicenie rozdzielczościowe. W prezentowanym programie ujednolicane są dwa obrazy, w taki sposób, że mniejszy z nich jest doprowadzany do takiego samego rozmiaru jak większy. Skutkuje to wygenerowaniem nowego obrazu o zwiększonej ilości piksli niż początkowa wartość. Dzięki zastosowaniu tego typu ujednolicania w efekcie nie następuje widoczny spadek jakości. 
 \section{Ujednolicanie obrazów szarych geometryczne}
-\textbf{Opis algorytmu}
+\subsection*{Opis algorytmu}
 \par Operacje geometrycznego ujednolicania polega na wyrównaniu liczby piksli w kolumnach i wierszach w obu obrazach, poprzez zwiększenie liczby piksli w kolumnach i wierszach mniejszego z obrazów.
 \begin{enumerate}
 \item Wybierz największą wysokość i największą szerokość spośród obu obrazów.
 \item Jeśli dany obraz ma mniejszą wysokość lub szerokość, wypełnij różnicę pikslami o wartości 1, tak, żeby wysokość i szerokość obu obrazów była równa.
 \end{enumerate}
-\begin{figure}%
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
     \centering
-    \subfloat[label 1]{{\includegraphics[width=5cm]{img1} }}%
+    \subfloat[Obraz 1: 256x256]{{\includegraphics[width=0.4\textwidth]{./RawPictures/fotograf.png} }}%
     \qquad
-    \subfloat[label 2]{{\includegraphics[width=5cm]{img2} }}%
-    \caption{2 Figures side by side}%
+    \subfloat[Obraz 2: 512x512]{{\includegraphics[width=0.4\textwidth]{./RawPictures/rys.png} }}%
+    \caption{Obrazy wejściowe}%
+    \label{fig:geo_before_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1: 512x512]{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/11/fotograf_rys.png} }}%
+    \qquad
+    \subfloat[Obraz 2: 512x512]{{\includegraphics[width=0.4\textwidth]{./RawPictures/rys.png} }}%
+    \caption{Obrazy wyjściowe}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1: 369x480]{{\includegraphics[width=0.4\textwidth]{./RawPictures/AndrzejZamoyski.png} }}%
+    \qquad
+    \subfloat[Obraz 2: 623x640]{{\includegraphics[width=0.4\textwidth]{./RawPictures/kobietaDziecko.png} }}%
+    \caption{Obrazy wejściowe}%
+    \label{fig:geo_before_grey2}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1:  623x640]{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/11/AndrzejZamoyski_kobietaDziecko.png} }}%
+    \qquad
+    \subfloat[Obraz 2:  623x640]{{\includegraphics[width=0.4\textwidth]{./RawPictures/kobietaDziecko.png} }}%
+    \caption{Obrazy wyjściowe}%
+    \label{fig:geo_after_grey2}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def geoUnificationGrey(self):
+	# porownaj wielkosc obrazow, jezeli sa tego samego rozmiaru nie rob nic
+	if self.biggerPicture == 0 and self.smallerPicture == 0:
+		print('Both pictures have the same size')
+		return 0
+	# stworz tablice zer do zapisu efektu algorytmu
+	result = np.zeros((self.maxLength, self.maxWidth), np.uint8)
+	startWidthIndex = int(round((self.maxWidth - self.minWidth) / 2))
+	startLengthIndex = int(round((self.maxLength - self.minLength) / 2))
+	for w in range(0, self.minWidth):
+		for l in range(0, self.minLength):
+			result[l + startLengthIndex, w + startWidthIndex] = self.matrix[l, w]
+	#zapisz zunifikowany obraz
+	path = self.ex + self.smallerPictureName + '_' + self.biggerPictureName + '.png'
+	self.saver.savePictureFromArray(result, 'L', path)
+\end{lstlisting}
+
+\section{Ujednolicanie obrazów szarych rozdzielczościowe}
+\subsection*{Opis algorytmu}
+\par Operacja rozdzielczościowego ujednolicania obrazów następuje po ujednoliceniu geometrycznym obrazów wejściowych. Polega na wypełnieniu obrazu pikslami. Brakujące piksle powinny zostać zinterpolowane.
+\begin{enumerate}
+\item Wypełnij cały obraz pikslami o znanej wartości zachowując pewien odstęp między nimi, gdzie odstępem będą piksle o wartości 0.
+\item Każdemu pikslowi o nieznanej wartości przypisz średnią wartość znanych (>0) piksli z jego bezpośredniego otoczenia.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1: 512x512]{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/11/fotograf_rys.png} }}%
+    \qquad
+    \subfloat[Obraz 2: 512x512]{{\includegraphics[width=0.4\textwidth]{./RawPictures/rys.png} }}%
+    \caption{Obrazy wejściowe po ujednoliceniu geometrycznym}%
     \label{fig:example}%
 \end{figure}
-\section{Ujednolicanie obrazów szarych rozdzielczościowe}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1: 512x512]{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/12/fotograf_rys_withoutInterpolation.png} }}%
+    \qquad
+    \subfloat[Obraz 2: 512x512]{{\includegraphics[width=0.4\textwidth]{./RawPictures/rys.png} }}%
+    \caption{Obrazy wyjściowe bez interpolacji}%
+    \label{fig:example}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1: 512x512]{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/12/fotograf_rys_withInterpolation.png} }}%
+    \qquad
+    \subfloat[Obraz 2: 512x512]{{\includegraphics[width=0.4\textwidth]{./RawPictures/rys.png} }}%
+    \caption{Obrazy wyjściowe po interpolacji}%
+    \label{fig:example}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def resolutionUnificationGrey(self):
+    print('Beginning of resolution unification for two grey pictures.')
+    if self.biggerPicture == 0 and self.smallerPicture == 0:
+        print('Both pictures have the same size')
+        return 0
+    scaleFactorLength = float(self.maxLength / self.minLength)
+    scaleFactorWidth = float(self.maxWidth / self.minWidth)
+    result = np.zeros((self.maxLength, self.maxWidth), np.uint8)
+    for l in range(self.minLength):
+        for w in range(self.minWidth):
+            if w % 2 == 0:
+                pomL = int(scaleFactorLength * l)
+                pomW = int(round(scaleFactorWidth * w))
+                result[pomL, pomW] = self.matrix[l, w]
+            elif w % 2 == 1:
+                pomL = int(round(scaleFactorLength * l))
+                pomW = int(scaleFactorWidth * w)
+                result[pomL, pomW] = self.matrix[l, w]
+    # zapisz obraz bez interpolacji
+    path = self.ex + self.smallerPictureName + '_' + self.biggerPictureName + '_withoutInterpolation.png'
+    self.saver.savePictureFromArray(result, 'L', path)
+    # interpolacja
+    for l in range(self.maxLength):
+        for w in range(self.maxWidth):
+            value = 0
+            count = 0
+            if result[l, w] == 0:
+                for lOff in range(-1, 2):
+                    for wOff in range(-1, 2):
+                        lSave = l if ((l + lOff) > (self.maxLength - 2)) | ((l + lOff) < 0) else (l + lOff)
+                        wSave = w if ((w + wOff) > (self.maxWidth - 2)) | ((w + wOff) < 0) else (w + wOff)
+                        if result[lSave, wSave] != 0:
+                            value += result[lSave, wSave]
+                            count += 1
+                result[l, w] = value / count
+    # zapisz obraz po interpolacji
+    path = self.ex + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png'
+    self.saver.savePictureFromArray(result, 'L', path)
+    print('Finished resolution unification.')
+\end{lstlisting}
+
 \section{Ujednolicanie obrazów RGB geometryczne}
+\subsection*{Opis algorytmu}
+\par Operacje geometrycznego ujednolicania polega na wyrównaniu liczby piksli w kolumnach i wierszach w obu obrazach, poprzez zwiększenie liczby piksli w kolumnach i wierszach mniejszego z obrazów.
+\begin{enumerate}
+\item Wybierz największą wysokość i największą szerokość spośród obu obrazów.
+\item Jeśli dany obraz ma mniejszą wysokość lub szerokość, wypełnij różnicę pikslami o wartości 1 dla każdego z kanałów (R,G,B), tak, żeby wysokość i szerokość obu obrazów była równa.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1: 512x512]{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \qquad
+    \subfloat[Obraz 2: 1025x1025]{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \caption{Obrazy wejściowe}%
+    \label{fig:geo_before_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1: 1025x1025]{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/13/morze_stogi.png} }}%
+    \qquad
+    \subfloat[Obraz 2: 1025x1025]{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \caption{Obrazy wyjściowe}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1: 256x256]{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \qquad
+    \subfloat[Obraz 2: 512x512]{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \caption{Obrazy wejściowe}%
+    \label{fig:geo_before_grey2}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1:  512x512]{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/13/kawa_morze.png} }}%
+    \qquad
+    \subfloat[Obraz 2:  512x512]{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \caption{Obrazy wyjściowe}%
+    \label{fig:geo_after_grey2}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def geoUnificationRGB(self):
+    if self.biggerPicture == 0 and self.smallerPicture == 0:
+        print('Both pictures have the same size')
+        return 0
+    # stworz tablice z zerami jako odstawe dla unifikacji
+    result = np.full((self.maxLength, self.maxWidth, 3), 0, np.uint8)
+    startWidthIndex = int(round((self.maxWidth - self.minWidth) / 2))
+    startLengthIndex = int(round((self.maxLength - self.minLength) / 2))
+    for w in range(0, self.minWidth):
+        for l in range(0, self.minLength):
+            result[l + startLengthIndex, w + startWidthIndex] = self.matrix[w, l]
+    # zapisz zunifikowany obraz
+    path = self.ex + self.smallerPictureName + '_' + self.biggerPictureName + '.png'
+    self.saver.savePictureFromArray(result, 'RGB', path)
+\end{lstlisting}
+
 \section{Ujednolicanie obrazów RGB rozdzielczościowe}
+\subsection*{Opis algorytmu}
+\par Operacja rozdzielczościowego ujednolicania obrazów następuje po ujednoliceniu geometrycznym obrazów wejściowych. Polega na wypełnieniu obrazu pikslami. Brakujące piksle powinny zostać zinterpolowane.
+\begin{enumerate}
+\item Wypełnij cały obraz pikslami o znanej wartości zachowując pewien odstęp między nimi, gdzie odstępem będą piksle o wartości 0.
+\item Każdemu pikslowi (ze wszystkich kanałów - R, G, B) o nieznanej wartości przypisz średnią wartość znanych (>0) piksli z jego bezpośredniego otoczenia.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1: 1025x1025]{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/13/morze_stogi.png} }}%
+    \qquad
+    \subfloat[Obraz 2: 1025x1025]{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \caption{Obrazy wejściowe po ujednoliceniu geometrycznym}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1: 1025x1025]{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/14/morze_stogi_withoutInterpolation.png} }}%
+    \qquad
+    \subfloat[Obraz 2: 1025x1025]{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \caption{Obrazy wyjściowe bez interpolacji}%
+    \label{fig:example}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat[Obraz 1: 1025x1025]{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/14/morze_stogi_withInterpolation.png} }}%
+    \qquad
+    \subfloat[Obraz 2: 1025x1025]{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \caption{Obrazy wyjściowe po interpolacji}%
+    \label{fig:example}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def resolutionUnificationGrey(self):
+    print('Beginning of resolution unification for two grey pictures.')
+    if self.biggerPicture == 0 and self.smallerPicture == 0:
+        print('Both pictures have the same size')
+        return 0
+    scaleFactorLength = float(self.maxLength / self.minLength)
+    scaleFactorWidth = float(self.maxWidth / self.minWidth)
+    result = np.zeros((self.maxLength, self.maxWidth), np.uint8)
+    for l in range(self.minLength):
+        for w in range(self.minWidth):
+            if w % 2 == 0:
+                pomL = int(scaleFactorLength * l)
+                pomW = int(round(scaleFactorWidth * w))
+                result[pomL, pomW] = self.matrix[l, w]
+            elif w % 2 == 1:
+                pomL = int(round(scaleFactorLength * l))
+                pomW = int(scaleFactorWidth * w)
+                result[pomL, pomW] = self.matrix[l, w]
+    # zapisz obraz bez interpolacji
+    path = self.ex + self.smallerPictureName + '_' + self.biggerPictureName + '_withoutInterpolation.png'
+    self.saver.savePictureFromArray(result, 'L', path)
+    # interpolacja
+    for l in range(self.maxLength):
+        for w in range(self.maxWidth):
+            value = 0
+            count = 0
+            if result[l, w] == 0:
+                for lOff in range(-1, 2):
+                    for wOff in range(-1, 2):
+                        lSave = l if ((l + lOff) > (self.maxLength - 2)) | ((l + lOff) < 0) else (l + lOff)
+                        wSave = w if ((w + wOff) > (self.maxWidth - 2)) | ((w + wOff) < 0) else (w + wOff)
+                        if result[lSave, wSave] != 0:
+                            value += result[lSave, wSave]
+                            count += 1
+                result[l, w] = value / count
+    # zapisz obraz po interpolacji
+    path = self.ex + self.smallerPictureName + '_' + self.biggerPictureName + '_withInterpolation.png'
+    self.saver.savePictureFromArray(result, 'L', path)
+    print('Finished resolution unification.')
+\end{lstlisting}
 
 \chapter{Operacje sumowania arytmetycznego obrazów szarych}
 \section{Sumowanie obrazów szarych}
