@@ -41,6 +41,8 @@
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
 
+\graphicspath{ {../ExEffects/} }
+
 %%% END Article customizations
 
 %%% The "real" document content comes below...
@@ -68,6 +70,14 @@ Operacje ujednolicania obrazów dzieli się na dwa etapy. Pierwszym etapem jest 
 \item Wybierz największą wysokość i największą szerokość spośród obu obrazów.
 \item Jeśli dany obraz ma mniejszą wysokość lub szerokość, wypełnij różnicę pikslami o wartości 1, tak, żeby wysokość i szerokość obu obrazów była równa.
 \end{enumerate}
+\begin{figure}%
+    \centering
+    \subfloat[label 1]{{\includegraphics[width=5cm]{img1} }}%
+    \qquad
+    \subfloat[label 2]{{\includegraphics[width=5cm]{img2} }}%
+    \caption{2 Figures side by side}%
+    \label{fig:example}%
+\end{figure}
 \section{Ujednolicanie obrazów szarych rozdzielczościowe}
 \section{Ujednolicanie obrazów RGB geometryczne}
 \section{Ujednolicanie obrazów RGB rozdzielczościowe}
