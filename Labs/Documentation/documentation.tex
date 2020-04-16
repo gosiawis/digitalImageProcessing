@@ -14,7 +14,7 @@
 \usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 
-\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+\usepackage[a4paper,width=150mm,top=20mm,bottom=20mm]{geometry}
 \usepackage{lmodern}  % for bold teletype font
 \usepackage{amsmath}  % for \hookrightarrow
 \usepackage{xcolor}   % for \textcolor
@@ -346,7 +346,7 @@ def resolutionUnificationGrey(self):
 
 \chapter{Operacje sumowania arytmetycznego obrazów szarych}
 Operacje arytmtyczne między pikslami dwóch obrazów sa wykorzystywane w wielu działach przetwarzania obrazów. Przeprowadza się je wykonując operacje na pojedynczych pikslach. Po operacjach arytmetycznych zwykle konieczne jest normalizowanie obrazu wynikowego. W zadaniach do normalizacji wykorzystano wzór:
-\[f{norm}=Z{rep}[(f-f{min})/(f{max}-f{min})]\]
+\[f_{norm}=Z_{rep}[(f-f_{min})/(f_{max}-f_{min})]\]
 
 \section{Sumowanie obrazów szarych z określoną stałą}
 \subsection*{Opis algorytmu}
@@ -354,9 +354,9 @@ Operacje arytmtyczne między pikslami dwóch obrazów sa wykorzystywane w wielu 
 \begin{enumerate}
 \item Policz sumy wartości każdego piksla ze stałą. Jeżeli suma przekracza 255 to konieczne jest
 \begin{itemize}
-\item Wybranie największej sumę piksla ze stałą - \(Q{max}\) 
-\item Obliczenie \(D{max}\) ze wzoru: \(D{max}[l,w]=(Q{max}[l,w]-255)\)
-\item Obliczenie \(X=D{max}/255\)
+\item Wybranie największej sumę piksla ze stałą - \(Q_{max}\) 
+\item Obliczenie \(D_{max}\) ze wzoru: \(D_{max}[l,w]=(Q_{max}[l,w]-255)\)
+\item Obliczenie \(X=D_{max}/255\)
 \end{itemize}
 \item Policz sumę ze wzoru: \(Q[l,w]=P[l,w]-(P[l, w]*X)+const-(const*X)\)
 \end{enumerate}
@@ -424,11 +424,11 @@ def addConstGrey(self, constant):
 \begin{enumerate}
 \item Policz sumy wartości każdego piksla obrazu pierwszego \(P1[l,w]\) z odpowiadającym pikslem drugiego obrazu \(P2[l,w]\). Jeżeli suma przekracza 255 to konieczne jest
 \begin{itemize}
-\item Wybranie największej sumy odpowiadających piksli dwóch obrazów - \(Q{max}\) 
-\item Obliczenie \(D{max}\) ze wzoru: \(D{max}[l,w]=(Q{max}[l,w]-255)\)
-\item Obliczenie \(X=D{max}/255\)
+\item Wybranie największej sumy odpowiadających piksli dwóch obrazów - \(Q_{max}\) 
+\item Obliczenie \(D_{max}\) ze wzoru: \(D_{max}[l,w]=(Q_{max}[l,w]-255)\)
+\item Obliczenie \(X=D_{max}/255\)
 \end{itemize}
-\item Policz sumę ze wzoru: \(Q[l,w]=P1[l,w]-(P1[l,w]*X)+P2[l,w]-(P2[l,w]*X)\)
+\item Policz sumę ze wzoru: \[Q[l,w]=P1[l,w]-(P1[l,w]*X)+P2[l,w]-(P2[l,w]*X)\]
 \end{enumerate}
 \subsection*{Efekty wykorzystania algorytmu}
 \begin{figure}[h]
@@ -653,12 +653,448 @@ def multiplyPicturesGrey(self):
 \end{lstlisting}
 
 \section{Mieszanie obrazów z określonym współczynnikiem}
+\subsection*{Opis algorytmu}
+\par Mieszanie dwóch obrazów polega na sumowaniu ich z wagami \(\alpha\) i \(1-\alpha\) według wzoru: \[f_{m}=f\alpha+f^{I}(1-\alpha)\] gdzie \(\alpha\in[0,1]\). Płynna zmiana parametru \(\alpha\) w przedziale \([0,1]\) powoduje efekt przechodzenia obrazu \(f\) w obraz \(f^{I}\).
+\begin{enumerate}
+\item Weź dwa obrazy szare o takim samym rozmiarze (po ujednoliceniu rozdzielczościowym) \(P_{1}\) i \(P_{2}\).
+\item Określ współczynnik mieszania obrazów \(\alpha\) wyrażony jako liczba rzeczywista z przedziału \([0,1]\), gdzie 0 reprezentuje przezroczystość, a 1 reprezentuje nieprzezroczystość.
+\item Dla wszystkich piksli w obrazach wejściowych wykonaj: \[Q[l,w]=\alpha*P_{1}[l,w]+(1-\alpha)*P_{2}[l,w]\]
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/12/fotograf_rys_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/rys.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/23/fotograf_blended_0.8_rys.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/23/fotograf_blended_0.8_rys_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy 1, szary obraz wejściowy 2 [Od lewej, rząd 2] Obraz po mieszaniu ze współczynnikiem \(\alpha=0.8\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/12/fotograf_AndrzejZamoyski_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/AndrzejZamoyski.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/23/fotograf_blended_0.3_AndrzejZamoyski.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/23/fotograf_blended_0.3_AndrzejZamoyski_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy 1, szary obraz wejściowy 2 [Od lewej, rząd 2] Obraz po mieszaniu ze współczynnikiem \(\alpha=0.3\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def getUnifiedPictures(self):
+        resolutionUni = ResolutionUnificationGrey(self.name1, self.name2)
+        resolutionUni.resolutionUnificationGrey()
+        pic1Path, pic2Path = resolutionUni.getOutputPaths()
+        pic1 = ImageHelper(pic1Path, self.pictureType)
+        pic2 = ImageHelper(pic2Path, self.pictureType)
+        return pic1, pic2
+def blendPictures(self, alfa):
+        if self.checkPictureBits(self.pic1) == self.checkPictureBits(self.pic2):
+            maxBitsColor = self.checkPictureBits(self.pic2)
+        # check if pictures have same sizes, if not unify them
+        compare = Comparer()
+        biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
+        if biggerPicture != 0 and smallerPicture != 0:
+            self.pic1, self.pic2 = self.getUnifiedPictures()
+        # get the values
+        tempName = smallerPicture.getPictureName()
+        length1, width1, matrix1, pictureName1 = self.getPictureParameters(self.pic1)
+        length2, width2, matrix2, pictureName2 = self.getPictureParameters(self.pic2)
+        pictureName1 = tempName
+
+        result = np.ones((length1, width1), np.uint8)
+
+        fmin = maxBitsColor
+        fmax = 0
+
+        for l in range(length1):
+            for w in range(width1):
+                pom = float(matrix1[l, w]) * alfa + float(matrix2[l, w]) * (1 - alfa)
+                result[l, w] = np.ceil(pom)
+
+                # Search for maximum and minimum
+                if fmin > pom:
+                    fmin = pom
+                if fmax < pom:
+                    fmax = pom
+
+        # save picture multiplied by picture to png file (without normalization)
+        path = self.ex + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+
+        for l in range(length1):
+            for w in range(width1):
+                result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
+
+        # save picture multiplied by picture to png file (with normalization)
+        path = self.ex + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '_normalized.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
 
 \section{Potęgowanie obrazu z zadaną potęgą}
+\subsection*{Opis algorytmu}
+\par Algorytm potęgowania obrazu szarego do określoną stałej jest szczególnym przypadkiem mnożenia obrazów. Aby uniknąć wykroczenia poza zakres, skorzystano ze znormalizowanego wzoru: \[f_{m}=255*\Big(\frac{f(x,y)}{f_{max}}\Big)^{\alpha},  \alpha>0\]
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/fotograf.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/24/fotograf_power_2.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/24/fotograf_power_2_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, obraz po podniesieniu do potęgi \(\alpha=2\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/rys.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/24/rys_power_3.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/24/rys_power_3_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, obraz po podniesieniu do potęgi \(\alpha=3\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def raiseToPower(self, power):
+        length, width, pictureName = self.pic.getPictureParameters()
+        matrix = self.pic.getGreyMatrix()
+        result = np.zeros((length, width), np.uint8)
+
+        maxPicture = 0
+        fmin = maxBitsColor
+        fmax = 0
+
+        for l in range(length):
+            for w in range(width):
+                pom = matrix[l, w]
+                if maxPicture < pom:
+                    maxPicture = pom
+
+        for l in range(length):
+            for w in range(width):
+                pom = matrix[l, w]
+                if pom == maxBitsColor:
+                    pom = maxBitsColor
+                elif pom == 0:
+                    pom = 0
+                else:
+                    pom = np.power(int(pom) / maxPicture, power) * maxBitsColor
+                result[l, w] = np.ceil(pom)
+                # Search for maximum and minimum
+                if fmin > pom:
+                    fmin = pom
+
+                if fmax < pom:
+                    fmax = pom
+
+        # save picture raised to constant power to png file (without normalization)
+        path = self.ex + str(pictureName) + '_power_' + str(power) + '.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+
+        for l in range(length):
+            for w in range(width):
+                result[l, w] = maxBitsColor * ((result[l, w] - fmin) / (fmax - fmin))
+
+        # save picture raised to constant power to png file (with normalization)
+        path = self.ex + str(pictureName) + '_power_' + str(power) + '_normalized.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Dzielenie obrazów szarych przez zadaną stałą}
+\subsection*{Opis algorytmu}
+\par Algorytm dzielenia obrazu szarego przez określoną stałą służy korekcji cieniowania między poziomami szarości obrazu. Aby zastosować algorytm dla każdego piksla obrazu wykonaj:
+\begin{enumerate}
+\item Policz sumę piksla ze stałą.
+\item Spośród obliczonych sum wybierz \(Q_{max}\) - największą sumę.
+\item Wartość wynikową policz z następującego wzoru: \[Q[l,w]=(S*255)/Q_{max}\]Wynik zaokrąglij w górę do najbliższej liczby całkowitej.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/fotograf.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/25/fotograf_dividedBy_3.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/25/fotograf_dividedBy_3_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, obraz po podzieleniu przez stałą \(\alpha=3\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/rys.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/25/rys_dividedBy_15.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/25/rys_dividedBy_15_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy,obraz po podzieleniu przez stałą \(\alpha=15\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def divideConstGrey(self, constant):
+        length, width, matrix, pictureName = self.getPictureParameters(self.pic1)
+        result = np.zeros((length, width), np.uint8)
+
+        fmin = maxBitsColor
+        fmax = 0
+        sumMax = 0
+
+        for l in range(length):
+            for w in range(width):
+                added = int(matrix[l, w]) + int(constant)
+                if sumMax < added:
+                    sumMax = added
+
+        for l in range(length):
+            for w in range(width):
+                added = int(matrix[l, w]) + int(constant)
+                pom = (added * maxBitsColor) / sumMax
+                result[l, w] = np.ceil(pom)
+                if fmin > pom:
+                    fmin = pom
+                if fmax < pom:
+                    fmax = pom
+
+        # save picture with added constant to png file (without normalization)
+        path = self.ex + str(pictureName) + '_dividedBy_' + str(constant) + '.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+
+        for l in range(length):
+            for w in range(width):
+                result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
+
+        # save picture with added constant to png file (with normalization)
+        path = self.ex + str(pictureName) + '_dividedBy_' + str(constant) + '_normalized.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Dzielenie obrazu przez inny obraz}
+\subsection*{Opis algorytmu}
+\begin{enumerate}
+\item Policz sumę piksla obrazu \(P_{1}\) z odpowiadającym pikslem obrazu \(P_{2}\).
+\item Spośród obliczonych sum wybierz \(Q_{max}\) - największą sumę.
+\item Wartość wynikową policz z następującego wzoru: \[Q[l,w]=(S*255)/Q_{max}\]Wynik zaokrąglij w górę do najbliższej liczby całkowitej.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/12/fotograf_rys_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/rys.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/25/fotograf_dividedBy_rys.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/25/fotograf_dividedBy_rys_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy 1, szary obraz wejściowy 2 [Od lewej, rząd 2] Obraz powstały w wyniku dzielenia obrazów 1 i 2, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/12/fotograf_AndrzejZamoyski_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/AndrzejZamoyski.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/25/fotograf_dividedBy_AndrzejZamoyski.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/2/25/fotograf_dividedBy_AndrzejZamoyski_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy 1, szary obraz wejściowy 2 [Od lewej, rząd 2] Obraz powstały w wyniku dzielenia obrazów 1 i 2, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def getUnifiedPictures(self):
+        resolutionUni = ResolutionUnificationGrey(self.name1, self.name2)
+        resolutionUni.resolutionUnificationGrey()
+        pic1Path, pic2Path = resolutionUni.getOutputPaths()
+        pic1 = ImageHelper(pic1Path, self.pictureType)
+        pic2 = ImageHelper(pic2Path, self.pictureType)
+        return pic1, pic2
+
+def dividePicturesGrey(self):
+        if self.checkPictureBits(self.pic1) == self.checkPictureBits(self.pic2):
+            maxBitsColor = self.checkPictureBits(self.pic2)
+        # check if pictures have same sizes, if not unify them
+        compare = Comparer()
+        biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
+        if biggerPicture != 0 and smallerPicture != 0:
+            self.pic1, self.pic2 = self.getUnifiedPictures()
+        # get the values
+        tempName = smallerPicture.getPictureName()
+        length1, width1, matrix1, pictureName1 = self.getPictureParameters(self.pic1)
+        length2, width2, matrix2, pictureName2 = self.getPictureParameters(self.pic2)
+        pictureName1 = tempName
+
+        result = np.ones((length1, width1), np.uint8)
+
+        fmin = maxBitsColor
+        fmax = 0
+        sumMax = 0
+
+        for l in range(length1):
+            for w in range(width1):
+                added = int(matrix1[l, w]) + int(matrix2[l, w])
+                if sumMax < added:
+                    sumMax = added
+
+        for l in range(length1):
+            for w in range(width1):
+                added = int(matrix1[l, w]) + int(matrix2[l, w])
+                pom = (added * maxBitsColor) / sumMax
+                result[l, w] = np.ceil(pom)
+                if fmin > pom:
+                    fmin = pom
+                if fmax < pom:
+                    fmax = pom
+
+        # save picture multiplied by picture to png file (without normalization)
+        path = self.ex + str(pictureName1) + '_dividedBy_' + str(pictureName2) + '.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+
+        for l in range(length1):
+            for w in range(width1):
+                result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
+
+        # save picture multiplied by picture to png file (with normalization)
+        path = self.ex + str(pictureName1) + '_dividedBy_' + str(pictureName2) + '_normalized.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Pierwiastkowanie obrazu}
+\subsection*{Opis algorytmu}
+\par Algorytm pierwiastkowania obrazu szarego jest szczególnym przypadkiem wykorzystania algorytmu potęgowania obrazu przez określoną stałą, która jest ułamkiem. Aby uniknąć wykroczenia poza zakres, skorzystano ze znormalizowanego wzoru: \[f_{m}=255*\Big(\frac{f(x,y)}{f_{max}}\Big)^{\alpha},  \alpha>0\]
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/fotograf.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/26/fotograf_root_3.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/26/fotograf_root_3_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, obraz po podniesieniu do potęgi \(\alpha=1/3\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/rys.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/26/rys_root_2.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/26/rys_root_2_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, obraz po podniesieniu do potęgi \(\alpha=1/2\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def rootGrey(self, power):
+        factorial = 1 / power
+        length, width, pictureName = self.pic.getPictureParameters()
+        matrix = self.pic.getGreyMatrix()
+        result = np.zeros((length, width), np.uint8)
+
+        maxPicture = 0
+        fmin = maxBitsColor
+        fmax = 0
+
+        for l in range(length):
+            for w in range(width):
+                pom = matrix[l, w]
+                if maxPicture < pom:
+                    maxPicture = pom
+
+        for l in range(length):
+            for w in range(width):
+                pom = matrix[l, w]
+                if pom == maxBitsColor:
+                    pom = maxBitsColor
+                elif pom == 0:
+                    pom = 0
+                else:
+                    pom = np.power(int(pom) / maxPicture, factorial) * maxBitsColor
+                result[l, w] = np.ceil(pom)
+                # Search for maximum and minimum
+                if fmin > pom:
+                    fmin = pom
+
+                if fmax < pom:
+                    fmax = pom
+
+        # save picture raised to constant power to png file (without normalization)
+        path = self.ex + str(pictureName) + '_root_' + str(factorial) + '.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+
+        for l in range(length):
+            for w in range(width):
+                result[l, w] = maxBitsColor * ((result[l, w] - fmin) / (fmax - fmin))
+
+        # save picture raised to constant power to png file (with normalization)
+        path = self.ex + str(pictureName) + '_root_' + str(factorial) + '_normalized.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Logarytmowanie obrazu}
+\subsection*{Opis algorytmu}
+\par Algorytm logarytmowania obrazu szarego powoduje rozjaśnienie i zróżnicowanie najciemniejszych obszarów obrazu. Aby uniknąć wykroczenia poza zakres, skorzystano ze znormalizowanego wzoru: \[f_{m}=255*\Big(\frac{log(1+f(x,y))}{log(1+f_{max})}\Big)\]Przsunięcie funkcji obrazu o 1 w górę wynika z nieokreśloności logarytmu w zerze.
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/fotograf.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/27/fotograf_log.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/27/fotograf_log_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, obraz po logarytmowaniu logarytmem naturalnym, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/rys.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/27/rys_log.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/2/27/rys_log_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, obraz po logarytmowaniu logarytmem naturalnym, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def logharitmGrey(self):
+        length, width, pictureName = self.pic.getPictureParameters()
+        matrix = self.pic.getGreyMatrix()
+        result = np.zeros((length, width), np.uint8)
+
+        maxPicture = 0
+        fmin = maxBitsColor
+        fmax = 0
+
+        for l in range(length):
+            for w in range(width):
+                pom = matrix[l, w]
+                if maxPicture < pom:
+                    maxPicture = pom
+
+        for l in range(length):
+            for w in range(width):
+                pom = matrix[l, w]
+                if pom == 0:
+                    pom = 0
+                else:
+                    pom = (np.log(1 + pom) / np.log(1 + maxPicture)) * maxBitsColor
+                result[l, w] = np.ceil(pom)
+                # Search for maximum and minimum
+                if fmin > pom:
+                    fmin = pom
+
+                if fmax < pom:
+                    fmax = pom
+
+        # save picture raised to constant power to png file (without normalization)
+        path = self.ex + str(pictureName) + '_log.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+
+        for l in range(length):
+            for w in range(width):
+                result[l, w] = maxBitsColor * ((result[l, w] - fmin) / (fmax - fmin))
+
+        # save picture raised to constant power to png file (with normalization)
+        path = self.ex + str(pictureName) + '_log_normalized.png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
 
 \chapter{Operacje sumowania arytmetycznego obrazów barwowych}
 
