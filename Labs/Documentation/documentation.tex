@@ -1622,8 +1622,83 @@ def raiseToPower(self, power):
     self.saver.savePictureFromArray(result, self.pictureType, path)
 \end{lstlisting}
 
-\section{Dzielenie obrazów barwowych}
-\subsection{Dzielenie obrazu przez zadaną stałą}
+\section{Dzielenie obrazów barwowych przez zadaną stałą}
+\subsection*{Opis algorytmu}
+\par Algorytm dzielenia obrazu barwowego przez określoną stałą służy korekcji cieniowania między poziomami szarości obrazu. Aby zastosować algorytm dla każdego piksla obrazu wykonaj:
+\begin{enumerate}
+\item Policz sumy warytości składowych barwowych piksla ze stałą.
+\item Spośród obliczonych sum wybierz \(Q_{max}=max(R_{S},G_{S},B_{S})\) - największą sumę.
+\item Wartość wynikową policz z następującego wzoru: \[Q_{R}[l,w]=(R_{S}*255)/Q_{max}\]\[Q_{G}[l,w]=(G_{S}*255)/Q_{max}\]\[Q_{B}[l,w]=(B_{S}*255)/Q_{max}\]Wynik zaokrąglij w górę do najbliższej liczby całkowitej.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/35/kawa_dividedBy_7.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/35/kawa_dividedBy_7_normalized.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po podzieleniu przez stałą \(\alpha=7\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/35/stogi_dividedBy_3.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/35/stogi_dividedBy_3_normalized.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy,obraz po podzieleniu przez stałą \(\alpha=3\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def divideConstRGB(self, constant):
+    length, width, matrix, pictureName = self.getPictureParameters(self.pic1)
+    result = np.zeros((length, width, 3), np.uint8)
+
+    fmin = 255
+    fmax = 0
+    sumMax = 0
+
+    for l in range(length):
+        for w in range(width):
+            R = int(matrix[l, w][0]) + int(constant)
+            G = int(matrix[l, w][1]) + int(constant)
+            B = int(matrix[l, w][2]) + int(constant)
+            if sumMax < max([R, G, B]):
+                sumMax = max([R, G, B])
+
+    for l in range(length):
+        for w in range(width):
+            R_pom = int(matrix[l, w][0]) + int(constant)
+            G_pom = int(matrix[l, w][1]) + int(constant)
+            B_pom = int(matrix[l, w][2]) + int(constant)
+
+            R = (R_pom * 255) / sumMax
+            G = (G_pom * 255) / sumMax
+            B = (B_pom * 255) / sumMax
+
+            result[w, l][0] = np.ceil(R)
+            result[w, l][1] = np.ceil(G)
+            result[w, l][2] = np.ceil(B)
+            # Search for maximum and minimum
+            if fmin > min([R, G, B]):
+                fmin = min([R, G, B])
+            if fmax < max([R, G, B]):
+                fmax = max([R, G, B])
+
+    path = self.ex + str(pictureName) + '_dividedBy_' + str(constant) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+
+    for l in range(length):
+        for w in range(width):
+            result[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
+            result[l, w][1] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
+            result[l, w][2] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
+
+    path = self.ex + str(pictureName) + '_dividedBy_' + str(constant) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \subsection{Dzielenie obrazu przez inny obraz}
 \section{Pierwiastkowanie obrazu}
 \section{Logarytmowanie obrazu}
