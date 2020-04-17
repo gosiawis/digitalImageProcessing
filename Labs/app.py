@@ -52,11 +52,11 @@ if __name__ == '__main__':
     resRGB.resolutionUnificationRGB()
     resRGB = ResolutionUnificationRGB(stogi, morze)
     resRGB.resolutionUnificationRGB()
-    '''
+    
     print('Starting ex. 2.1 Addition of constant to grey picture')
     addConstant = AdditionGrey(name1=rys, pictureType='L')
     addConstant.addConstGrey(400)
-    '''
+    
     print('Starting ex. 2.1 Addition of two grey pictures')
     addPicture = AdditionGrey(name1=stogi_szare, name2=morze_szare, pictureType='L')
     addPicture.addPictureGrey()
@@ -112,11 +112,11 @@ if __name__ == '__main__':
     print('Starting ex. 3.3 Blending of two RGB pictures')
     blend = BlendingRGB(name1=kawa, name2=morze)
     blend.blendPictures(0.6)
-    
+    '''
     print('Starting ex. 3.4 Raising to the constant power of a RGB picture')
     exp = RaiseToPowerRGB(name=stogi)
-    exp.raiseToPower(10)
-    
+    exp.raiseToPower(5)
+    '''
     print('Starting ex. 3.5 Dividing of a RGB picture by a constant')
     div = DivisionRGB(name1=kawa)
     div.divideConstRGB(20)

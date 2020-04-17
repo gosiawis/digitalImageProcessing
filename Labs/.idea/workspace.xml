@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Documentation/documentation.synctex(busy)" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/1/12/morze-szare_stogi-szare_withInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/1/12/morze-szare_stogi-szare_withoutInterpolation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/2/21/morze-szare_added_stogi-szare.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/2/21/morze-szare_added_stogi-szare_normalized.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/documentation.aux" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/documentation.aux" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Documentation/documentation.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/documentation.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Documentation/documentation.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/documentation.synctex.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Documentation/documentation.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/documentation.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/documentation.toc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/documentation.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/2/21/fotograf_added_rys.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/2/21/fotograf_added_rys_normalized.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

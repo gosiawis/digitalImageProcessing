@@ -1097,15 +1097,531 @@ def logharitmGrey(self):
 \end{lstlisting}
 
 \chapter{Operacje sumowania arytmetycznego obrazów barwowych}
+Operacje arytmtyczne między pikslami dwóch obrazów sa wykorzystywane w wielu działach przetwarzania obrazów. Przeprowadza się je wykonując operacje na pojedynczych pikslach. Po operacjach arytmetycznych zwykle konieczne jest normalizowanie obrazu wynikowego. W zadaniach poruszamy się po przestrzeni barw RGB, a do normalizacji wykorzystano wzór:
+\[f_{norm}=Z_{rep}[(f-f_{min})/(f_{max}-f_{min})]\]
 
-\section{Sumowanie obrazów barwowych}
-\subsection{Sumowanie obrazu z określoną stałą}
-\subsection{Sumowanie dwóch obrazów}
-\section{Mnożenie obrazów barwowych}
-\subsection{Mnożenie obrazu przez określoną stałą}
-\subsection{Mnożenieobrazu przez inny obraz}
+\section{Sumowanie obrazów barwowych z określoną stałą}
+\subsection*{Opis algorytmu}
+\par Algorytm sumowowania obrazu barwowego z określoną stałą polega na dodaniu do 3 kanałów (RGB) każdego pojedynczego piksla określonej stałej. Po operacji sumowania następuje normalizacja obrazu.
+\begin{enumerate}
+\item Policz sumy wartości każdego piksla w każdym z kanałów ze stałą. Jeżeli suma przekracza 255 to konieczne jest
+\begin{itemize}
+\item Wybranie największej sumę piksla ze stałą - \(Q_{max}\) 
+\item Obliczenie \(D_{max}\) ze wzoru: \(D_{max}[l,w]=(Q_{max}[l,w]-255)\)
+\item Obliczenie \(X=D_{max}/255\)
+\end{itemize}
+\item Policz sumę ze wzoru: \[Q_{R}[l,w]=P_{R}[l,w]-(P_{R}[l, w]*X)+const-(const*X)-1\]\[Q_{G}[l,w]=P_{G}[l,w]-(P_{G}[l, w]*X)+const-(const*X)-1\]\[Q_{B}[l,w]=P_{B}[l,w]-(P_{B}[l, w]*X)+const-(const*X)-1\]
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/31/kawa_constant_20.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/31/kawa_constant_20_normalized.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po sumowaniu ze stałą 20, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/31/stogi_constant_200.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/31/stogi_constant_200_normalized.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, obraz po sumowaniu ze stałą 200, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def addConstRGB(self, constant):
+    length, width, pictureName = self.pic1.getPictureParameters()
+    matrix = self.pic1.getRGBMatrix()
+    result = np.zeros((length, width, 3), np.uint8)
+
+    sumMax = 0
+    x = 0
+    fmin = 255
+    fmax = 0
+
+    for l in range(length):
+        for w in range(width):
+            R = int(matrix[l, w][0]) + int(constant)
+            G = int(matrix[l, w][1]) + int(constant)
+            B = int(matrix[l, w][2]) + int(constant)
+            if sumMax < max([R, G, B]):
+                sumMax = max([R, G, B])
+
+    if sumMax > 255:
+        x = (sumMax - 255) / 255
+
+    for l in range(length):
+        for w in range(width):
+            R = (int(matrix[l, w][0]) - (int(matrix[l, w][0]) * x)) + (int(constant) - (int(constant) * x))
+            G = (int(matrix[l, w][1]) - (int(matrix[l, w][1]) * x)) + (int(constant) - (int(constant) * x))
+            B = (int(matrix[l, w][2]) - (int(matrix[l, w][2]) * x)) + (int(constant) - (int(constant) * x))
+            result[w, l][0] = np.ceil(R)
+            result[w, l][1] = np.ceil(G)
+            result[w, l][2] = np.ceil(B)
+            # Search for maximum and minimum
+            if fmin > min([R, G, B]):
+                fmin = min([R, G, B])
+            if fmax < max([R, G, B]):
+                fmax = max([R, G, B])
+
+    # save picture with added constant to png file (without normalization)
+    path = self.ex + str(pictureName) + '_constant_' + str(constant) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+
+    for l in range(length):
+        for w in range(width):
+            result[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
+            result[l, w][1] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
+            result[l, w][2] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
+
+    # save picture with added constant to png file (with normalization)
+    path = self.ex + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
+\section{Sumowanie dwóch obrazów barwowych}
+\subsection*{Opis algorytmu}
+\par Algorytm sumowowania obrazu barwowego z drugim obrazem barwowym jest określone tylko dla obrazów o tych samych wymiarach \(MxN\) i strukturze ich macierzy. Algorytm sumowania obrazu z obrazem polega na dodaniu do wartości piksla z  pierwszego obrazu, wartości odpowiadającego piksla z drugiego obrazu. Po operacji sumowania następuje normalizacja obrazu. Operacja dodawania obrazów są użyteczne przy uśrednianiu obrazów, w celu zredukowania na nich szumu.
+\begin{enumerate}
+\item Policz sumy wartości składowych barwowych każdego piksla obrazu pierwszego \(P1[l,w]\) z odpowiadającym pikslem drugiego obrazu \(P2[l,w]\)
+\item Wybierz największą sumę \(Q_{max}=max(R_{S},G_{S},B_{S})\)
+\item Policz sumę ze wzoru: \[Q_{R}[l,w]=(R_{S}*255)/Q_{max}\]\[Q_{G}[l,w]=(G_{S}*255)/Q_{max}\]\[Q_{B}[l,w]=(B_{S}*255)/Q_{max}\]Wynik zaokrąglij do najbliższej górnej liczby całkowitej.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/14/morze_stogi_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/31/morze_added_stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/31/morze_added_stogi_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy 1, szary obraz wejściowy 2 [Od lewej, rząd 2] Obraz po sumowaniu obrazów 1 i 2, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/14/kawa_stogi_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/31/kawa_added_stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/31/kawa_added_stogi_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy 1, szary obraz wejściowy 2 [Od lewej, rząd 2] Obraz po sumowaniu obrazów 1 i 2, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def getUnifiedPictures(self):
+    resolutionUni = ResolutionUnificationRGB(self.name1, self.name2)
+    resolutionUni.resolutionUnificationRGB()
+    pic1Path, pic2Path = resolutionUni.getOutputPaths()
+    pic1 = ImageHelper(pic1Path, self.pictureType)
+    pic2 = ImageHelper(pic2Path, self.pictureType)
+    return pic1, pic2
+
+def addPictureRGB(self):
+    compare = Comparer()
+    biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
+    if biggerPicture != 0 and smallerPicture != 0:
+        self.pic1, self.pic2 = self.getUnifiedPictures()
+    # get the values
+    tempName = smallerPicture.getPictureName()
+    length1, width1, pictureName1 = self.pic1.getPictureParameters()
+    matrix1 = self.pic1.getRGBMatrix()
+    length2, width2, pictureName2 = self.pic2.getPictureParameters()
+    matrix2 = self.pic2.getRGBMatrix()
+    pictureName1 = tempName
+
+    sumMax = 0
+    x = 0
+    fmax = 0
+    fmin = 255
+
+    result = np.zeros((length1, width1, 3), np.uint8)
+
+    for l in range(length1):
+        for w in range(width1):
+            R = int(matrix1[l, w][0]) + int(matrix2[l, w][0])
+            G = int(matrix1[l, w][1]) + int(matrix2[l, w][1])
+            B = int(matrix1[l, w][2]) + int(matrix2[l, w][2])
+            if sumMax < max([R, G, B]):
+                sumMax = max([R, G, B])
+
+    if sumMax > 255:
+        x = (sumMax - 255) / 255
+
+    for l in range(length1):
+        for w in range(width1):
+            R = (int(matrix1[l, w][0]) - (int(matrix1[l, w][0]) * x)) + (int(matrix2[l, w][0]) - (int(matrix2[l, w][0]) * x))
+            G = (int(matrix1[l, w][1]) - (int(matrix1[l, w][1]) * x)) + (int(matrix2[l, w][1]) - (int(matrix2[l, w][1]) * x))
+            B = (int(matrix1[l, w][2]) - (int(matrix1[l, w][2]) * x)) + (int(matrix2[l, w][2]) - (int(matrix2[l, w][2]) * x))
+            result[w, l][0] = np.ceil(R)
+            result[w, l][1] = np.ceil(G)
+            result[w, l][2] = np.ceil(B)
+            # Search for maximum and minimum
+            if fmin > min([R, G, B]):
+                fmin = min([R, G, B])
+            if fmax < max([R, G, B]):
+                fmax = max([R, G, B])
+
+    # save picture with added picture to png file (without normalization)
+    path = self.ex + str(pictureName1) + '_added_' + str(pictureName2) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+
+    normalized = np.zeros((length1, width1, 3), np.uint8)
+    for l in range(length1):
+        for w in range(width1):
+            normalized[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
+            normalized[l, w][0] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
+            normalized[l, w][0] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
+
+    # save picture with added picture to png file (with normalization)
+    path = self.ex + str(pictureName1) + '_added_' + str(pictureName2) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
+\section{Mnożenie obrazów barwowych przez określoną stałą}
+\subsection*{Opis algorytmu}
+\par Algorytm mnożenia obrazu barwowego przez określoną stałą polega na przemnożeniu każdego elementu obrazu (piksla) przez określoną stałą (skalar). Dla wszystkich piksli w obrazie wykonaj na każdym z trzech kanałów RGB:
+\begin{enumerate}
+\item Jeżeli wartość składowa piksla jest równa 255 to składowa barwowa wynikowa otrzymuje wartość stałej.
+\item Jeżeli wartość składowa piksla jest równa 0 to składowa barwowa wynikowa otrzymuje wartość 0.
+\item Jeżeli wartość piksla jest inna niż 255 lub 0 to składowa wynikowa otrzymuje wartość poprzez pomnożenie wartości składowej piksla przez skalar, podzielenie przez 255 i zaokrąglenie do liczby całkowitej.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/32/morze_constant_50.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/32/morze_constant_50_normalized.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po przmnożeniu ze stałą 50, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/32/stogi_constant_200.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/32/stogi_constant_200_normalized.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po przmnożeniu ze stałą 200, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def assignRGBvalue(self, value, factor):
+    if value == 255:
+        value = factor
+    elif value == 0:
+        value = 0
+    else:
+        value = (int(value) * int(factor)) / 255
+    return value
+
+def multiplyConstRGB(self, constant):
+    length, width, matrix, pictureName = self.getPictureParameters(self.pic1)
+    result = np.ones((length, width, 3), np.uint8)
+
+    fmin = 255
+    fmax = 0
+
+    for l in range(length):
+        for w in range(width):
+            R = self.assignRGBvalue(int(matrix[l, w][0]), constant)
+            G = self.assignRGBvalue(int(matrix[l, w][1]), constant)
+            B = self.assignRGBvalue(int(matrix[l, w][2]), constant)
+
+            result[w, l][0] = np.ceil(R)
+            result[w, l][1] = np.ceil(G)
+            result[w, l][2] = np.ceil(B)
+
+            # Search for maximum and minimum
+            if fmin > min([R, G, B]):
+                fmin = min([R, G, B])
+            if fmax < max([R, G, B]):
+                fmax = max([R, G, B])
+
+    # save picture with added constant to png file (without normalization)
+    path = self.ex + str(pictureName) + '_constant_' + str(constant) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+
+    for l in range(length):
+        for w in range(width):
+            result[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
+            result[l, w][1] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
+            result[l, w][2] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
+
+    # save picture with added constant to png file (with normalization)
+    path = self.ex + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
+\section{Mnożenie obrazu przez inny obraz}
+\subsection*{Opis algorytmu}
+\par Algorytm mnożenia obrazu barwowego przez drugi barwowy obraz o tych samych wymiarach \(MxN\) i strukturze ich macierzy polega na przemnożeniu wartości składowych barwowych piksla z pierwszego obrazu przez odpowiadającą wartość składową barwową piksla z drugiego obrazu. Po operacji mnożenia następuje normalizacja obrazu. Dla każdej wartości składowej barwowej piksla pierwszego obrazu wykonaj następujące czynności:
+\begin{enumerate}
+\item Jeżeli wartość skaładowa barwowa piksla \(P1[l,w]\) jest równa 255 to składowa wynikowa otrzymuje wartość odpowiadającego piksla drugiego obrazu \(P2[l,w]\).
+\item Jeżeli wartość skaładowa barwowa piksla \(P1[l,w]\) jest równa 0 to składowa wynikowa otrzymuje wartość 0.
+\item Jeżeli wartość skaładowa barwowa piksla \(P1[l,w]\) jest inna niż 255 lub 0 to składowa wynikowa otrzymuje wartość poprzez pomnożenie wartości barwowej piksla \(P1[l,w]\) przez odpowiadającą barwową piksla \(P2[l,w]\), podzielenie przez 255 i zaokrąglenie do liczby całkowitej.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/14/morze_stogi_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/32/morze_multiplied_stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/32/morze_multiplied_stogi_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy 1, barwowy obraz wejściowy 2 [Od lewej, rząd 2] Obraz po mnożeniu obrazów 1 i 2, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def getUnifiedPictures(self):
+    resolutionUni = ResolutionUnificationRGB(self.name1, self.name2)
+    resolutionUni.resolutionUnificationRGB()
+    pic1Path, pic2Path = resolutionUni.getOutputPaths()
+    pic1 = ImageHelper(pic1Path, self.pictureType)
+    pic2 = ImageHelper(pic2Path, self.pictureType)
+    return pic1, pic2
+
+def assignRGBvalue(self, value, factor):
+    if value == 255:
+        value = factor
+    elif value == 0:
+        value = 0
+    else:
+        value = (int(value) * int(factor)) / 255
+    return value
+    
+def multiplyPicturesRGB(self):
+    compare = Comparer()
+    biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
+    if biggerPicture != 0 and smallerPicture != 0:
+        self.pic1, self.pic2 = self.getUnifiedPictures()
+    # get the values
+    tempName = smallerPicture.getPictureName()
+    length1, width1, matrix1, pictureName1 = self.getPictureParameters(self.pic1)
+    length2, width2, matrix2, pictureName2 = self.getPictureParameters(self.pic2)
+    pictureName1 = tempName
+
+    result = np.ones((length1, width1, 3), np.uint8)
+
+    fmin = 255
+    fmax = 0
+
+    for l in range(length1):
+        for w in range(width1):
+            R = self.assignRGBvalue(int(matrix1[l, w][0]), int(matrix2[l, w][0]))
+            G = self.assignRGBvalue(int(matrix1[l, w][1]), int(matrix2[l, w][1]))
+            B = self.assignRGBvalue(int(matrix1[l, w][2]), int(matrix2[l, w][2]))
+
+            result[w, l][0] = np.ceil(R)
+            result[w, l][1] = np.ceil(G)
+            result[w, l][2] = np.ceil(B)
+
+            # Search for maximum and minimum
+            if fmin > min([R, G, B]):
+                fmin = min([R, G, B])
+            if fmax < max([R, G, B]):
+                fmax = max([R, G, B])
+
+    # save picture multiplied by picture to png file (without normalization)
+    path = self.ex + str(pictureName1) + '_multiplied_' + str(pictureName2) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+
+    for l in range(length1):
+        for w in range(width1):
+            result[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
+            result[l, w][1] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
+            result[l, w][2] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
+
+    # save picture multiplied by picture to png file (with normalization)
+    path = self.ex + str(pictureName1) + '_multiplied_' + str(pictureName2) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Mieszanie obrazów z określonym współczynnikiem}
+\subsection*{Opis algorytmu}
+\par Mieszanie dwóch obrazów polega na sumowaniu ich z wagami \(\alpha\) i \(1-\alpha\) według wzoru: \[f_{m}=f\alpha+f^{I}(1-\alpha)\] gdzie \(\alpha\in[0,1]\). Płynna zmiana parametru \(\alpha\) w przedziale \([0,1]\) powoduje efekt przechodzenia obrazu \(f\) w obraz \(f^{I}\).
+\begin{enumerate}
+\item Weź dwa obrazy szare o takim samym rozmiarze (po ujednoliceniu rozdzielczościowym) \(P_{1}\) i \(P_{2}\).
+\item Określ współczynnik mieszania obrazów \(\alpha\) wyrażony jako liczba rzeczywista z przedziału \([0,1]\), gdzie 0 reprezentuje przezroczystość, a 1 reprezentuje nieprzezroczystość.
+\item Dla wszystkich piksli w obrazach wejściowych wykonaj: \[Q[l,w]=\alpha*P_{1}[l,w]+(1-\alpha)*P_{2}[l,w]\]
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/14/kawa_morze_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/33/kawa_blended_0.6_morze.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/33/kawa_blended_0.6_morze_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy 1, barwowy obraz wejściowy 2 [Od lewej, rząd 2] Obraz po mieszaniu ze współczynnikiem \(\alpha=0.6\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/14/morze_stogi_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/33/morze_blended_0.3_stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/33/morze_blended_0.3_stogi_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy 1, barwowy obraz wejściowy 2 [Od lewej, rząd 2] Obraz po mieszaniu ze współczynnikiem \(\alpha=0.3\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def getUnifiedPictures(self):
+    resolutionUni = ResolutionUnificationRGB(self.name1, self.name2)
+    resolutionUni.resolutionUnificationRGB()
+    pic1Path, pic2Path = resolutionUni.getOutputPaths()
+    pic1 = ImageHelper(pic1Path, self.pictureType)
+    pic2 = ImageHelper(pic2Path, self.pictureType)
+    return pic1, pic2
+
+def blendPictures(self, alfa):
+    compare = Comparer()
+    biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
+    if biggerPicture != 0 and smallerPicture != 0:
+        self.pic1, self.pic2 = self.getUnifiedPictures()
+    # get the values
+    tempName = smallerPicture.getPictureName()
+    length1, width1, matrix1, pictureName1 = self.getPictureParameters(self.pic1)
+    length2, width2, matrix2, pictureName2 = self.getPictureParameters(self.pic2)
+    pictureName1 = tempName
+
+    result = np.ones((length1, width1, 3), np.uint8)
+
+    fmin = 255
+    fmax = 0
+
+    for l in range(length1):
+        for w in range(width1):
+            R = (float(matrix1[l, w][0]) * alfa) + (float(matrix2[l, w][0]) * (1 - alfa))
+            G = (float(matrix1[l, w][1]) * alfa) + (float(matrix2[l, w][1]) * (1 - alfa))
+            B = (float(matrix1[l, w][2]) * alfa) + (float(matrix2[l, w][2]) * (1 - alfa))
+
+            result[w, l][0] = np.ceil(R)
+            result[w, l][1] = np.ceil(G)
+            result[w, l][2] = np.ceil(B)
+
+            # Search for maximum and minimum
+            if fmin > min([R, G, B]):
+                fmin = min([R, G, B])
+            if fmax < max([R, G, B]):
+                fmax = max([R, G, B])
+
+    # save picture multiplied by picture to png file (without normalization)
+    path = self.ex + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+
+    for l in range(length1):
+        for w in range(width1):
+            result[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
+            result[l, w][1] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
+            result[l, w][2] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
+
+    # save picture multiplied by picture to png file (with normalization)
+    path = self.ex + str(pictureName1) + '_blended_' + str(alfa) + '_' + str(pictureName2) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Potęgowanie obrazu z zadaną potęgą}
+\subsection*{Opis algorytmu}
+\par Algorytm potęgowania obrazu barwowego do określoną stałej jest szczególnym przypadkiem mnożenia obrazów. Aby uniknąć wykroczenia poza zakres, skorzystano ze znormalizowanego wzoru: \[f_{m}=255*\Big(\frac{f(x,y)}{f_{max}}\Big)^{\alpha},  \alpha>0\]
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/34/kawa_power_3.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/34/kawa_power_3_normalized.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po podniesieniu do potęgi \(\alpha=2\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/34/stogi_power_5.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/34/stogi_power_5_normalized.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po podniesieniu do potęgi \(\alpha=5\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def raiseToPower(self, power):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getRGBMatrix()
+    result = np.zeros((length, width, 3), np.uint8)
+
+    maxPicture = 0
+    fmin = 255
+    fmax = 0
+
+    for l in range(length):
+        for w in range(width):
+            R = int(matrix[l, w][0])
+            G = int(matrix[l, w][1])
+            B = int(matrix[l, w][2])
+            if maxPicture < max([R, G, B]):
+                maxPicture = max([R, G, B])
+
+    for l in range(length):
+        for w in range(width):
+            R = int(matrix[l, w][0])
+            G = int(matrix[l, w][1])
+            B = int(matrix[l, w][2])
+
+            if R == 0:
+                R = 0
+            else:
+                R = np.power(int(R) / maxPicture, power) * 255
+
+            if G == 0:
+                G = 0
+            else:
+                G = np.power(int(G) / maxPicture, power) * 255
+
+            if B == 0:
+                B = 0
+            else:
+                B = np.power(int(B) / maxPicture, power) * 255
+
+            result[w, l][0] = np.ceil(R)
+            result[w, l][1] = np.ceil(G)
+            result[w, l][2] = np.ceil(B)
+
+            # Search for maximum and minimum
+            if fmin > min([R, G, B]):
+                fmin = min([R, G, B])
+            if fmax < max([R, G, B]):
+                fmax = max([R, G, B])
+
+    # save picture raised to constant power to png file (without normalization)
+    path = self.ex + str(pictureName) + '_power_' + str(power) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+
+    for l in range(length):
+        for w in range(width):
+            result[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
+            result[l, w][1] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
+            result[l, w][2] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
+
+    # save picture raised to constant power to png file (with normalization)
+    path = self.ex + str(pictureName) + '_power_' + str(power) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Dzielenie obrazów barwowych}
 \subsection{Dzielenie obrazu przez zadaną stałą}
 \subsection{Dzielenie obrazu przez inny obraz}
