@@ -137,7 +137,7 @@ if __name__ == '__main__':
     print('Starting ex. 4.1 Move by vector')
     vec = Vector(name=kawa, pictureType='RGB')
     vec.relocateVector(30, 80)
-    '''
+    
     print('Starting ex. 4.2 Scaling')
     sc = Scaling(name=morze, pictureType='RGB')
     #wsc.homogeneousScaling(1.5)
@@ -146,7 +146,7 @@ if __name__ == '__main__':
     sc = Scaling(name=tecza, pictureType='RGB')
     #sc.homogeneousScaling(2)
     sc.heterogeneousScaling(1, 3)
-    '''
+    
     print('Starting ex. 4.3 Angle')
     a = Angle(name=kawa, pictureType='RGB')
     a.angleMove(45)
@@ -155,13 +155,13 @@ if __name__ == '__main__':
     sym = Symmetry(name=morze, pictureType='RGB')
     sym.symmetryX()
     sym.symmetryY()
-    sym.symmetryLineDiagonal()
     sym.symmetryLineHorizontal()
+    sym.symmetryLineVertical()
     
     print('Starting ex. 4.5 Cut part of a picture')
     cut = CutPiece(name=morze, pictureType='RGB')
     cut.cutPiece(160, 400, 300, 500)
-    
+    '''
     print('Starting ex. 4.6 Copy part of a picture')
     copy = CopyPiece(name=morze, pictureType='RGB')
     copy.copyPiece(160, 400, 300, 500)
@@ -171,5 +171,5 @@ if __name__ == '__main__':
     print('Starting ex. 4.6 Copy part of a picture')
     copy = CopyPiece(name=kawa, pictureType='RGB')
     copy.copyPiece(70, 140, 160, 200)
-    '''
+
 

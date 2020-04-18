@@ -2179,11 +2179,175 @@ def angleRGB(self, angle):
     self.saver.savePictureFromArray(result, self.pictureType, path)
 \end{lstlisting}
 
-\section{Symetrie obrazu}
+\section{Symetrie obrazu względem osi układu}
 \subsection{Symetra względem osi OX}
+\par Względem osi OX pikslem symetrycznym do piksla \(P_{1}(x,y)\) jest \(P_{2}(x,-y)\).
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/44/kawa_X.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po obróceniu symetrycznym względem osi OX}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/44/morze_X.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po obróceniu symetrycznym względem osi OX}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def symmetryX(self):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getRGBMatrix()
+    result = np.ones((length, width, 3), np.uint8)
+    pomLength = length - 1
+
+    for l in range(length):
+        for w in range(width):
+            result[w, l] = matrix[pomLength - l, w]
+
+    path = self.ex + str(pictureName) + '_X.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \subsection{Symetria względem osi OY}
+\par Względem osi OY pikslem symetrycznym do piksla \(P_{1}(x,y)\) jest \(P_{2}(-x,y)\).
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/44/kawa_Y.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po obróceniu symetrycznym względem osi OY}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/44/morze_Y.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po obróceniu symetrycznym względem osi OY}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def symmetryY(self):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getRGBMatrix()
+    result = np.ones((length, width, 3), np.uint8)
+    pomLength = length - 1
+    for l in range(length):
+        for w in range(width):
+            result[w, l] = matrix[pomLength - l, w]
+    path = self.ex + str(pictureName) + '_Y.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \subsection{Symetria względem zadanej prostej}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/44/kawa_vertical.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po obróceniu symetrycznym względem pionowej prostej poprowadzonej przez środek obrazu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/44/morze_vertical.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po obróceniu symetrycznym względem pionowej prostej poprowadzonej przez środek obrazu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def symmetryLineVertical(self):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getRGBMatrix()
+    result = np.ones((length, width, 3), np.uint8)
+    pomLength = length - 1
+    paramL = length / 2
+    for l in range(length):
+        for w in range(width):
+            if l < paramL:
+                result[w, l] = matrix[l, w]
+            else:
+                result[w, l] = matrix[pomLength - l, w]
+    path = self.ex + str(pictureName) + '_vertical.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/44/kawa_horizontal.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po obróceniu symetrycznym względem poziomej prostej poprowadzonej przez środek obrazu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/44/morze_horizontal.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po obróceniu symetrycznym względem poziomej prostej poprowadzonej przez środek obrazu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def symmetryLineHorizontal(self):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getRGBMatrix()
+    result = np.ones((length, width, 3), np.uint8)
+    pomWidth = width - 1
+    paramW = width / 2
+    for l in range(length):
+        for w in range(width):
+            if w < paramW:
+                result[w, l] = matrix[l, w]
+            else:
+                result[w, l] = matrix[l, pomWidth - w]
+    path = self.ex + str(pictureName) + '_horizontal.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Wycinanie fragmentów obrazów}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/45/kawa_(70,140),(160,200).png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy 256x256, obraz po przesunięciu o współrzędnych \(x_{min}=70\), \(x_{max}=140\), \(y_{min}=160\), \(y_{max}=200\)}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/45/stogi_(600,1000),(160,400).png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy 1025x1025, obraz po przesunięciu o współrzędnych \(x_{min}=600\), \(x_{max}=1000\), \(y_{min}=160\), \(y_{max}=400\)}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def cutPiece(self, yMin, yMax, xMin, xMax):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getGreyMatrix()
+    for x in range(length - xMax, length - xMin + 1):
+        for y in range(yMin, yMax+1):
+            matrix[x, y] = (0, 0, 0)
+    path = self.ex + str(pictureName) + '_(' + str(yMin) + ',' + str(yMax) + '),(' + str(xMin) + ',' + str(xMax) + ').png'
+    self.saver.savePictureFromArray(matrix, self.pictureType, path)
+\end{lstlisting}
+
 \section{Kopiowanie fragmentów obrazów}
 
 \chapter{Operacje na histogramie obrazu szarego}

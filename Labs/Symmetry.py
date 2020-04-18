@@ -15,12 +15,12 @@ class Symmetry:
     def symmetryX(self):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getRGBMatrix()
-        result = np.ones((length, width, 3), np.uint8)
-        pomLength = length - 1
+        result = np.zeros((length, width, 3), np.uint8)
+        pomWidth = width - 1
 
         for l in range(length):
             for w in range(width):
-                result[w, l] = matrix[pomLength - l, w]
+                result[w, l] = matrix[l, pomWidth - w]
 
         path = self.ex + str(pictureName) + '_X.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
@@ -29,16 +29,16 @@ class Symmetry:
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getRGBMatrix()
         result = np.ones((length, width, 3), np.uint8)
-        pomWidth = width - 1
+        pomLength = length - 1
 
         for l in range(length):
             for w in range(width):
-                result[w, l] = matrix[l, pomWidth - w]
+                result[w, l] = matrix[pomLength - l, w]
 
         path = self.ex + str(pictureName) + '_Y.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
-    def symmetryLineHorizontal(self):
+    def symmetryLineVertical(self):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getRGBMatrix()
         result = np.ones((length, width, 3), np.uint8)
@@ -52,10 +52,10 @@ class Symmetry:
                 else:
                     result[w, l] = matrix[pomLength - l, w]
 
-        path = self.ex + str(pictureName) + '_horizontal.png'
+        path = self.ex + str(pictureName) + '_vertical.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
 
-    def symmetryLineDiagonal(self):
+    def symmetryLineHorizontal(self):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getRGBMatrix()
         result = np.ones((length, width, 3), np.uint8)
@@ -69,5 +69,5 @@ class Symmetry:
                 else:
                     result[w, l] = matrix[l, pomWidth - w]
 
-        path = self.ex + str(pictureName) + '_diagonal.png'
+        path = self.ex + str(pictureName) + '_horizontal.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
