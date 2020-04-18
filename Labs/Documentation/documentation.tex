@@ -1199,7 +1199,7 @@ def addConstRGB(self, constant):
     \qquad
     \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/31/morze_added_stogi.png} }}%
     \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/31/morze_added_stogi_normalized.png} }}%
-    \caption{[Od lewej, rząd 1] Szary obraz wejściowy 1, szary obraz wejściowy 2 [Od lewej, rząd 2] Obraz po sumowaniu obrazów 1 i 2, obraz po normalizacji}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy 1, Barwowy obraz wejściowy 2 [Od lewej, rząd 2] Obraz po sumowaniu obrazów 1 i 2, obraz po normalizacji}%
     \label{fig:geo_after_grey1}%
 \end{figure}
 \FloatBarrier
@@ -1210,7 +1210,7 @@ def addConstRGB(self, constant):
     \qquad
     \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/31/kawa_added_stogi.png} }}%
     \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/31/kawa_added_stogi_normalized.png} }}%
-    \caption{[Od lewej, rząd 1] Szary obraz wejściowy 1, szary obraz wejściowy 2 [Od lewej, rząd 2] Obraz po sumowaniu obrazów 1 i 2, obraz po normalizacji}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy 1, Barwowy obraz wejściowy 2 [Od lewej, rząd 2] Obraz po sumowaniu obrazów 1 i 2, obraz po normalizacji}%
     \label{fig:geo_after_grey1}%
 \end{figure}
 \FloatBarrier
@@ -1451,7 +1451,7 @@ def multiplyPicturesRGB(self):
 \subsection*{Opis algorytmu}
 \par Mieszanie dwóch obrazów polega na sumowaniu ich z wagami \(\alpha\) i \(1-\alpha\) według wzoru: \[f_{m}=f\alpha+f^{I}(1-\alpha)\] gdzie \(\alpha\in[0,1]\). Płynna zmiana parametru \(\alpha\) w przedziale \([0,1]\) powoduje efekt przechodzenia obrazu \(f\) w obraz \(f^{I}\).
 \begin{enumerate}
-\item Weź dwa obrazy szare o takim samym rozmiarze (po ujednoliceniu rozdzielczościowym) \(P_{1}\) i \(P_{2}\).
+\item Weź dwa obrazy barwowe o takim samym rozmiarze (po ujednoliceniu rozdzielczościowym) \(P_{1}\) i \(P_{2}\).
 \item Określ współczynnik mieszania obrazów \(\alpha\) wyrażony jako liczba rzeczywista z przedziału \([0,1]\), gdzie 0 reprezentuje przezroczystość, a 1 reprezentuje nieprzezroczystość.
 \item Dla wszystkich piksli w obrazach wejściowych wykonaj: \[Q[l,w]=\alpha*P_{1}[l,w]+(1-\alpha)*P_{2}[l,w]\]
 \end{enumerate}
@@ -1699,16 +1699,486 @@ def divideConstRGB(self, constant):
     self.saver.savePictureFromArray(result, self.pictureType, path)
 \end{lstlisting}
 
-\subsection{Dzielenie obrazu przez inny obraz}
+\section{Dzielenie obrazu przez inny obraz}
+\subsection*{Opis algorytmu}
+\begin{enumerate}
+\item Policz sumę wartości składowej barwowej piksla obrazu \(P_{1}\) z odpowiadającym wartością składową piksla obrazu \(P_{2}\).
+\item Spośród obliczonych sum wybierz \(Q_{max}=max(R_{S},G_{S},B_{S})\) - największą sumę.
+\item Wartość wynikową policz z następującego wzoru: \[Q_{R}[l,w]=(R_{S}*255)/Q_{max}\]\[Q_{G}[l,w]=(G_{S}*255)/Q_{max}\]\[Q_{B}[l,w]=(B_{S}*255)/Q_{max}\]Wynik zaokrąglij w górę do najbliższej liczby całkowitej.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/14/kawa_stogi_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/35/kawa_dividedBy_stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/35/kawa_dividedBy_stogi_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy 1, barwowy obraz wejściowy 2 [Od lewej, rząd 2] Obraz powstały w wyniku dzielenia obrazów 1 i 2, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/1/14/morze_stogi_withInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/35/morze_dividedBy_stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/3/35/morze_dividedBy_stogi_normalized.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy 1, barwowy obraz wejściowy 2 [Od lewej, rząd 2] Obraz powstały w wyniku dzielenia obrazów 1 i 2, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def getUnifiedPictures(self):
+    resolutionUni = ResolutionUnificationRGB(self.name1, self.name2)
+    resolutionUni.resolutionUnificationRGB()
+    pic1Path, pic2Path = resolutionUni.getOutputPaths()
+    pic1 = ImageHelper(pic1Path, self.pictureType)
+    pic2 = ImageHelper(pic2Path, self.pictureType)
+    return pic1, pic2
+
+def dividePicturesRGB(self):
+    compare = Comparer()
+    biggerPicture, smallerPicture = compare.comparePictures(self.pic1, self.pic2)
+    if biggerPicture != 0 and smallerPicture != 0:
+        self.pic1, self.pic2 = self.getUnifiedPictures()
+    # get the values
+    tempName = smallerPicture.getPictureName()
+    length1, width1, matrix1, pictureName1 = self.getPictureParameters(self.pic1)
+    length2, width2, matrix2, pictureName2 = self.getPictureParameters(self.pic2)
+    pictureName1 = tempName
+
+    result = np.ones((length1, width1, 3), np.uint8)
+
+    fmin = 255
+    fmax = 0
+    sumMax = 0
+
+    for l in range(length1):
+        for w in range(width1):
+            R = int(matrix1[l, w][0]) + int(matrix2[l, w][0])
+            G = int(matrix1[l, w][1]) + int(matrix2[l, w][1])
+            B = int(matrix1[l, w][2]) + int(matrix2[l, w][2])
+            if sumMax < max([R, G, B]):
+                sumMax = max([R, G, B])
+
+    for l in range(length1):
+        for w in range(width1):
+            R_pom = int(matrix1[l, w][0]) + int(matrix2[l, w][0])
+            G_pom = int(matrix1[l, w][1]) + int(matrix2[l, w][1])
+            B_pom = int(matrix1[l, w][2]) + int(matrix2[l, w][2])
+
+            R = (R_pom * 255) / sumMax
+            G = (G_pom * 255) / sumMax
+            B = (B_pom * 255) / sumMax
+
+            result[w, l][0] = np.ceil(R)
+            result[w, l][1] = np.ceil(G)
+            result[w, l][2] = np.ceil(B)
+            # Search for maximum and minimum
+            if fmin > min([R, G, B]):
+                fmin = min([R, G, B])
+            if fmax < max([R, G, B]):
+                fmax = max([R, G, B])
+
+    # save picture divided by picture to png file (without normalization)
+    path = self.ex + str(pictureName1) + '_dividedBy_' + str(pictureName2) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+
+    normalized = np.zeros((length1, width1, 3), np.uint8)
+    for l in range(length1):
+        for w in range(width1):
+            normalized[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
+            normalized[l, w][0] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
+            normalized[l, w][0] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
+
+    # save picture divided by picture to png file (with normalization)
+    path = self.ex + str(pictureName1) + '_dividedBy_' + str(pictureName2) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Pierwiastkowanie obrazu}
+\subsection*{Opis algorytmu}
+\par Algorytm pierwiastkowania obrazu barwowego jest szczególnym przypadkiem wykorzystania algorytmu potęgowania obrazu przez określoną stałą, która jest ułamkiem. Aby uniknąć wykroczenia poza zakres, skorzystano ze znormalizowanego wzoru: \[f_{m}=255*\Big(\frac{f(x,y)}{f_{max}}\Big)^{\alpha},  \alpha>0\]
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/36/kawa_root_2.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/36/kawa_root_2_normalized.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po podniesieniu do potęgi \(\alpha=1/2\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/36/stogi_root_6.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/36/stogi_root_6_normalized.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po podniesieniu do potęgi \(\alpha=1/6\), obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def rootRGB(self, power):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getRGBMatrix()
+    result = np.zeros((length, width, 3), np.uint8)
+    factorial = 1 / power
+
+    maxPicture = 0
+    fmin = 255
+    fmax = 0
+
+    for l in range(length):
+        for w in range(width):
+            R = int(matrix[l, w][0])
+            G = int(matrix[l, w][1])
+            B = int(matrix[l, w][2])
+            if maxPicture < max([R, G, B]):
+                maxPicture = max([R, G, B])
+
+    for l in range(length):
+        for w in range(width):
+            R = int(matrix[l, w][0])
+            G = int(matrix[l, w][1])
+            B = int(matrix[l, w][2])
+
+            if R == 0:
+                R = 0
+            else:
+                R = np.power(int(R) / maxPicture, factorial) * 255
+
+            if G == 0:
+                G = 0
+            else:
+                G = np.power(int(G) / maxPicture, factorial) * 255
+
+            if B == 0:
+                B = 0
+            else:
+                B = np.power(int(B) / maxPicture, factorial) * 255
+
+            result[w, l][0] = np.ceil(R)
+            result[w, l][1] = np.ceil(G)
+            result[w, l][2] = np.ceil(B)
+
+            # Search for maximum and minimum
+            if fmin > min([R, G, B]):
+                fmin = min([R, G, B])
+            if fmax < max([R, G, B]):
+                fmax = max([R, G, B])
+
+    # save picture raised to constant factorial to png file (without normalization)
+    path = self.ex + str(pictureName) + '_root_' + str(power) + '.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+
+    for l in range(length):
+        for w in range(width):
+            result[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
+            result[l, w][1] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
+            result[l, w][2] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
+
+    # save picture raised to constant factorial to png file (with normalization)
+    path = self.ex + str(pictureName) + '_root_' + str(power) + '_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Logarytmowanie obrazu}
+\subsection*{Opis algorytmu}
+\par Algorytm logarytmowania obrazu barwowego powoduje rozjaśnienie i zróżnicowanie najciemniejszych obszarów obrazu. Aby uniknąć wykroczenia poza zakres, skorzystano ze znormalizowanego wzoru: \[f_{m}=255*\Big(\frac{log(1+f(x,y))}{log(1+f_{max})}\Big)\]Przsunięcie funkcji obrazu o 1 w górę wynika z nieokreśloności logarytmu w zerze.
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/37/morze_log.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/37/morze_log_normalized.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po logarytmowaniu logarytmem naturalnym, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/37/stogi_log.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/3/37/stogi_log_normalized.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po logarytmowaniu logarytmem naturalnym, obraz po normalizacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+    def logharitmRGB(self):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getRGBMatrix()
+    result = np.zeros((length, width, 3), np.uint8)
+
+    maxPicture = 0
+    fmin = 255
+    fmax = 0
+
+    for l in range(length):
+        for w in range(width):
+            R = int(matrix[l, w][0])
+            G = int(matrix[l, w][1])
+            B = int(matrix[l, w][2])
+            if maxPicture < max([R, G, B]):
+                maxPicture = max([R, G, B])
+
+    for l in range(length):
+        for w in range(width):
+            R = int(matrix[l, w][0])
+            G = int(matrix[l, w][1])
+            B = int(matrix[l, w][2])
+
+            if R == 0:
+                R = 0
+            else:
+                R = (np.log(1 + R) / np.log(1 + maxPicture)) * 255
+
+            if G == 0:
+                G = 0
+            else:
+                G = (np.log(1 + G) / np.log(1 + maxPicture)) * 255
+
+            if B == 0:
+                B = 0
+            else:
+                B = (np.log(1 + B) / np.log(1 + maxPicture)) * 255
+
+            result[w, l][0] = np.ceil(R)
+            result[w, l][1] = np.ceil(G)
+            result[w, l][2] = np.ceil(B)
+            # Search for maximum and minimum
+            if fmin > min([R, G, B]):
+                fmin = min([R, G, B])
+            if fmax < max([R, G, B]):
+                fmax = max([R, G, B])
+
+    # save picture raised to constant power to png file (without normalization)
+    path = self.ex + str(pictureName) + '_log.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+
+    for l in range(length):
+        for w in range(width):
+            result[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
+            result[l, w][1] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
+            result[l, w][2] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
+
+    # save picture raised to constant power to png file (with normalization)
+    path = self.ex + str(pictureName) + '_log_normalized.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
 
 \chapter{Operacje geometryczne na obrazie}
+Operacje geometryczne na obrazach są szczególnie wykorzystywane w przypadku dopasowywania obrazu do układu współrzędnych oraz w przypadku eliminowania zniekształceń geometrycznych obrazu. W przedstawionych operacjach obrazy umieszczone są w pierwszej ćwiartce układu współrzędnych.
 \section{Przemieszczanie obrazu o zadany wektor}
-\section{Skalowanie obrazu}
-\subsection{Skalowanie jednorodne}
-\subsection{Skalowanie niejednorodne}
+\subsection*{Opis algorytmu}
+\par Przemieszczanie obrazu o dany wektor polega na przesunięciu każdego piksla obrazu o określoną wartość zgodnie z zależnościami:\[x^{I}=x_{o}+\Delta x\]\[y^{I}=y_{o}+\Delta y\]gdzie \((x_{o},y_{o})\) są współrzędnymi początkowymi piksla, \((\Delta x,\Delta y)\) są wartościami przesunięcia, a  \((x^{I},y^{I})\) są współrzędnymi piksla po przesunięciu.
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/41/kawa_moved_[30,80].png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po przesunięciu o wektor [30, 80]}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/41/stogi_moved_[100,10].png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po przesunięciu o wektor [100, 10]}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def relocateByVectorRGB(self, x, y):
+        length, width, pictureName = self.pic.getPictureParameters()
+        matrix = self.pic.getRGBMatrix()
+        deltaX = 0 - x
+        result = np.zeros((length, width, 3), np.uint8)
+
+        for l in range(length):
+            for w in range(width):
+                if 0 < l + y < length and 0 < w + deltaX < width:
+                    result[w + deltaX, l + y] = matrix[l, w]
+
+        path = self.ex + str(pictureName) + '_moved_[' + str(x) + ',' + str(y) + '].png'
+        self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
+\section{Skalowanie jednorodne obrazu}
+\subsection*{Opis algorytmu}
+\par Skalowanie jednorodne obrazu polega na pomnożeniu każdego piksla obrazu przez współczynnik skalowanie \(S\) według zależności:\[x^{I}=x_{o}*S\]\[y^{I}=y_{o}*S\]
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/42/morze_homogeneous_1.5_withoutInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/42/morze_homogeneous_1.5_withInterpolation.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po skalowaniu jednorodnym ze współczynnikiem \(S=1.5\), obraz po interpolacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/tecza.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/42/tecza_homogeneous_2_withoutInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/42/tecza_homogeneous_2_withInterpolation.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po skalowaniu jednorodnym ze współczynnikiem \(S=2\), obraz po interpolacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def homogeneousScalingRGB(self, scale):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getRGBMatrix()
+    result = np.zeros((length, width, 3), np.uint8)
+    for l in range(length):
+        for w in range(width):
+            if scale * l < length and scale * w < width:
+                result[int(scale * w), int(scale * l)] = matrix[l, w]
+    path = self.ex + str(pictureName) + '_homogeneous_' + str(scale) + '_withoutInterpolation.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+    for l in range(length):
+        for w in range(width):
+            r, g, b = 0, 0, 0
+            n = 1
+            if result[l, w][0] < 1 and result[l, w][1] < 1 and result[l, w][2] < 1:
+                for lOff in range(-1, 2):
+                    for wOff in range(-1, 2):
+                        lSave = l if ((l + lOff) > (length - 2)) | ((l + lOff) < 0) else (l + lOff)
+                        wSave = w if ((w + wOff) > (width - 2)) | ((w + wOff) < 0) else (w + wOff)
+                        if result[lSave, wSave][0] > 0 or result[lSave, wSave][1] > 0 or result[lSave, wSave][2] > 0:
+                            r += result[lSave, wSave][0]
+                            g += result[lSave, wSave][1]
+                            b += result[lSave, wSave][2]
+                            n += 1
+                result[l, w] = (r / n, g / n, b / n)
+    path = self.ex + str(pictureName) + '_homogeneous_' + str(scale) + '_withInterpolation.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
+\section{Skalowanie niejednorodne obrazu}
+\subsection*{Opis algorytmu}
+\par Skalowanie niejednorodne obrazu polega na pomnożeniu każdego piksla obrazu przez współczynnik skalowanie \(S_{x}\), \(S_{y}\) według zależności:\[x^{I}=x_{o}*S_{x}\]\[y^{I}=y_{o}*S_{y}\]
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/42/morze_heterogeneous_[3,1]_withoutInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/42/morze_heterogeneous_[3,1]_withInterpolation.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po skalowaniu niejednorodnym ze współczynnikiem \(S_{x}=3\) i  \(S_{y}=1\), obraz po interpolacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/tecza.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/42/tecza_heterogeneous_[1,3]_withoutInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/42/tecza_heterogeneous_[1,3]_withInterpolation.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po skalowaniu niejednorodnym ze współczynnikiem \(S_{x}=1\) i  \(S_{y}=3\), obraz po interpolacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def heterogeneousScalingRGB(self, scaleY, scaleX):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getRGBMatrix()
+    result = np.zeros((length, width, 3), np.uint8)
+    for l in range(length):
+        for w in range(width):
+            if scaleY * l < length and scaleX * w < width:
+                result[int(scaleX * w), int(scaleY * l)] = matrix[l, w]
+    path = self.ex + str(pictureName) + '_heterogeneous_[' + str(scaleY) + ',' + str(
+        scaleX) + ']_withoutInterpolation.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+    for l in range(length):
+        for w in range(width):
+            r, g, b = 0, 0, 0
+            n = 0
+            if result[l, w][0] < 1 and result[l, w][1] < 1 and result[l, w][2] < 1:
+                for lOff in range(-1, 2):
+                    for wOff in range(-1, 2):
+                        lSave = l if ((l + lOff) > (length - 2)) | ((l + lOff) < 0) else (l + lOff)
+                        wSave = w if ((w + wOff) > (width - 2)) | ((w + wOff) < 0) else (w + wOff)
+                        if result[lSave, wSave][0] > 0 or result[lSave, wSave][1] > 0 or result[lSave, wSave][
+                            2] > 0:
+                            r += result[lSave, wSave][0]
+                            g += result[lSave, wSave][1]
+                            b += result[lSave, wSave][2]
+                            n += 1
+                result[l, w] = (r / n, g / n, b / n)
+    path = self.ex + str(pictureName) + '_heterogeneous_[' + str(scaleY) + ',' + str(
+        scaleX) + ']_withInterpolation.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Obracanie obrazu o dowolny kąt}
+\subsection*{Opis algorytmu}
+\par Obracanie obrazu o dowolny kąt dookoła początku układu współrzędnych wykonuje się zgodnie ze wzorem: \[x^{I}=x_{o}*cos\alpha-y_{o}*sin\alpha\]\[y^{I}=x_{o}*sin\alpha-y_{o}*con\alpha\]gdzie \((x_{o},y_{o})\) - współrzędne początkowe piksla, \(\alpha\) to kąt obrotu, \((x^{I},y^{I})\) to współrzędne piksla po obrocie.
+\par W przedstawionych przykładach punkt obrotu został przesunięty na środek obrazu według wzoru:\[new_{x}=(x-width/2)*cos(\alpha_{r})-(y-height/2)*sin(\alpha_{r})+(width/2)\]\[new_{y}=(x-width/2)*sin(\alpha_{r})+(y-height/2)*cos(\alpha_{r})+(height/2)\]
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/43/morze_angle_60_withoutInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/43/morze_angle_60_withInterpolation.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po obrocie o kąt \(\alpha=60^{o}\), obraz po interpolacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/43/kawa_angle_45_withoutInterpolation.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/43/kawa_angle_45_withInterpolation.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, obraz po obrocie o kąt \(\alpha=45^{o}\), obraz po interpolacji}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def angleRGB(self, angle):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getRGBMatrix()
+    result = np.ones((length, width, 3), np.uint8)
+    angleRadians = np.radians(angle)
+    for l in range(length):
+        for w in range(width):
+            newW = (w - width / 2) * np.cos(angleRadians) - (l - length / 2) * np.sin(angleRadians) + (width / 2)
+            newL = (w - width / 2) * np.sin(angleRadians) + (l - length / 2) * np.cos(angleRadians) + (length / 2)
+            if 0 <= newL < length and 0 <= newW < width:
+                result[int(newL), int(newW)] = matrix[l, w]
+    path = self.ex + str(pictureName) + '_angle_' + str(angle) + '_withoutInterpolation.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+    for l in range(length):
+        for w in range(width):
+            r, g, b = 0, 0, 0
+            n = 1
+            if result[l, w][0] == 1 and result[l, w][1] == 1 and result[l, w][2] == 1:
+                for lOff in range(-1, 2):
+                    for wOff in range(-1, 2):
+                        lSave = l if ((l + lOff) > (length - 2)) | ((l + lOff) < 0) else (l + lOff)
+                        wSave = w if ((w + wOff) > (width - 2)) | ((w + wOff) < 0) else (w + wOff)
+                        if result[lSave, wSave][0] > 1 or result[lSave, wSave][1] > 1 or result[lSave, wSave][
+                            2] > 1:
+                            r += result[lSave, wSave][0]
+                            g += result[lSave, wSave][1]
+                            b += result[lSave, wSave][2]
+                            n += 1
+                result[l, w] = (r / n, g / n, b / n)
+    path = self.ex + str(pictureName) + '_angle_' + str(angle) + '_withInterpolation.png'
+    self.saver.savePictureFromArray(result, self.pictureType, path)
+\end{lstlisting}
+
 \section{Symetrie obrazu}
 \subsection{Symetra względem osi OX}
 \subsection{Symetria względem osi OY}

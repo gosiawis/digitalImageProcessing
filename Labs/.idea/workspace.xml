@@ -2,10 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/3/35/morze_dividedBy_stogi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/3/35/morze_dividedBy_stogi_normalized.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/morze_heterogeneous_[3,1]_withInterpolation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/morze_heterogeneous_[3,1]_withoutInterpolation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/morze_homogeneous_1.5_withInterpolation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/morze_homogeneous_1.5_withoutInterpolation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/tecza_heterogeneous_[1,3]_withInterpolation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/tecza_heterogeneous_[1,3]_withoutInterpolation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/tecza_homogeneous_2_withInterpolation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/tecza_homogeneous_2_withoutInterpolation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/images/RawPictures/tecza.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Documentation/documentation.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/documentation.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Documentation/documentation.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/documentation.synctex.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Documentation/documentation.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/documentation.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/AndrzejZamoyski_heterogenous_[3,1]_witInterpolation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/AndrzejZamoyski_heterogenous_[3,1]_withoutInterpolation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/AndrzejZamoyski_homogenous_0.75_withInterpolation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/AndrzejZamoyski_homogenous_0.75_withoutInterpolation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/kawa_heterogenous_[1,2]_witInterpolation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/kawa_heterogenous_[1,2]_withoutInterpolation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/kawa_homogenous_1.5_withInterpolation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/kawa_homogenous_1.5_withoutInterpolation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/stogi_heterogenous_[2,1]_witInterpolation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/stogi_heterogenous_[2,1]_withoutInterpolation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/stogi_homogenous_2_withInterpolation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/images/ExEffects/4/42/stogi_homogenous_2_withoutInterpolation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scaling.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scaling.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

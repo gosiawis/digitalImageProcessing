@@ -33,6 +33,7 @@ if __name__ == '__main__':
     fotograf = './Documentation/images/RawPictures/fotograf.png'
     morze_szare = './Documentation/images/RawPictures/morze-szare.png'
     stogi_szare = './Documentation/images/RawPictures/stogi-szare.png'
+    tecza = './Documentation/images/RawPictures/tecza.png'
 
     '''
     print('Starting ex. 1.1 Geometric unification of two grey pictures')
@@ -112,17 +113,17 @@ if __name__ == '__main__':
     print('Starting ex. 3.3 Blending of two RGB pictures')
     blend = BlendingRGB(name1=kawa, name2=morze)
     blend.blendPictures(0.6)
-    '''
+    
     print('Starting ex. 3.4 Raising to the constant power of a RGB picture')
     exp = RaiseToPowerRGB(name=stogi)
     exp.raiseToPower(5)
-    '''
+    
     print('Starting ex. 3.5 Dividing of a RGB picture by a constant')
     div = DivisionRGB(name1=kawa)
     div.divideConstRGB(20)
-
+    
     print('Starting ex. 3.5 Dividing of a RGB picture by another picture')
-    div = DivisionRGB(name1=morze, name2=kawa)
+    div = DivisionRGB(name1=morze, name2=stogi)
     div.dividePicturesRGB()
     
     print('Starting ex. 3.6 Root of a RGB picture')
@@ -136,12 +137,16 @@ if __name__ == '__main__':
     print('Starting ex. 4.1 Move by vector')
     vec = Vector(name=kawa, pictureType='RGB')
     vec.relocateVector(30, 80)
-    
+    '''
     print('Starting ex. 4.2 Scaling')
-    sc = Scaling(name=andrzej, pictureType='L')
-    sc.homogeneousScaling(0.75)
+    sc = Scaling(name=morze, pictureType='RGB')
+    #wsc.homogeneousScaling(1.5)
     sc.heterogeneousScaling(3, 1)
-    
+    print('Starting ex. 4.2 Scaling')
+    sc = Scaling(name=tecza, pictureType='RGB')
+    #sc.homogeneousScaling(2)
+    sc.heterogeneousScaling(1, 3)
+    '''
     print('Starting ex. 4.3 Angle')
     a = Angle(name=kawa, pictureType='RGB')
     a.angleMove(45)
