@@ -24,6 +24,7 @@ class HistogramGrey:
         plt.yticks(fontsize=15)
         plt.ylabel('Frequency', fontsize=15)
         plt.savefig(path)
+        plt.close()
 
     def savePicture(self, result, path):
         img = Image.fromarray(result, mode='L')

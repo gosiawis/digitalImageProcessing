@@ -1,23 +1,27 @@
 \documentclass[a4paper,12pt, titlepage]{report}
 \usepackage{polski}
 \usepackage[polish]{babel}
-\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX
+\usepackage[utf8]{inputenc}
 \usepackage{placeins}
-\usepackage{graphicx} % support the \includegraphics command and options
-
-% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
 
 %%% PACKAGES
-\usepackage{booktabs} % for much better looking tables
-\usepackage{array} % for better arrays (eg matrices) in maths
-\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
-\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+}
 
 \usepackage[a4paper,width=150mm,top=20mm,bottom=20mm]{geometry}
 \usepackage{lmodern}  % for bold teletype font
 \usepackage{amsmath}  % for \hookrightarrow
 \usepackage{xcolor}   % for \textcolor
+
+% for Python listings
 \usepackage{listings}
 \lstset{
   basicstyle=\ttfamily,
@@ -26,19 +30,8 @@
   breaklines=true,
   postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
 }
-%%% HEADERS & FOOTERS
-\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
-\pagestyle{fancy} % options: empty , plain , fancy
-\renewcommand{\headrulewidth}{0pt} % customise the layout...
-\lhead{}\chead{}\rhead{}
-\lfoot{}\cfoot{\thepage}\rfoot{}
-\fancyfoot{}
-
-%%% SECTION TITLE APPEARANCE
-\usepackage{sectsty}
-\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
-% (This matches ConTeXt defaults)
-
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
 %%% ToC (table of contents) APPEARANCE
 \usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
 \usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
@@ -50,19 +43,23 @@
 \def\uczelnia{{Uniwersytet Kardynała Stefana Wyszyńskiego w~Warszawie}\\
 Wydział Matematyczno-Przyrodniczy \\ Szkoła Nauk Ścisłych}
 \def\nralbumu{107418}
-\title{Przetwarzanie obrazów\\Sprawozdanie z laboratorium}
-\author{Małgorzata Wiśniewska}
+\title{Wprowadzenie do Przetwarzanie obrazów\\Sprawozdanie z laboratorium}
+\author{Małgorzata Wiśniewska\\107418}
 \date{Warszawa, 2020} 
 
 \begin{document}
 \maketitle
 \tableofcontents
 \chapter{Wstęp}
+
 \section{Format obrazów}
+\par Portable Network Graphics (PNG) jest formatem pliku komputerowego do przechowywania obrazów grafiki rastrowej, stworzony jako odpowiedź na roszczenia patentowe dotyczące kompresji LZW, wykorzystywanej w formatach GIF i TIFF. \\\\PNG jest jedynym wieloplatformowym formatem bitmapowym, umożliwiającym zdefiniowanie stopnia przezroczystości (kanał \(\alpha\)). Obsługuje 48-bitową głębię kolorów czyli 16 bitów na kanał koloru. Dzięki tym dwóm cechom możliwe jest praktycznie bezstratne zapisanie dowolnej grafiki RGB oraz RGBA. Obsługuje także osadzone profile kolorów ICC, ICM i dane EXIF.
 \section{Instrukcja obsługi programu}
+
 
 \chapter{Operacje ujednolicania obrazów}
 Operacje ujednolicania obrazów dzieli się na dwa etapy. Pierwszym etapem jest ujednolicanie geometryczne, drugim jest ujednolicenie rozdzielczościowe. W prezentowanym programie ujednolicane są dwa obrazy, w taki sposób, że mniejszy z nich jest doprowadzany do takiego samego rozmiaru jak większy. Skutkuje to wygenerowaniem nowego obrazu o zwiększonej ilości piksli niż początkowa wartość. Dzięki zastosowaniu tego typu ujednolicania w efekcie nie następuje widoczny spadek jakości. 
+
 \section{Ujednolicanie obrazów szarych geometryczne}
 \subsection*{Opis algorytmu}
 \par Operacje geometrycznego ujednolicania polega na wyrównaniu liczby piksli w kolumnach i wierszach w obu obrazach, poprzez zwiększenie liczby piksli w kolumnach i wierszach mniejszego z obrazów.
@@ -424,7 +421,7 @@ def addConstGrey(self, constant):
 \begin{enumerate}
 \item Policz sumy wartości każdego piksla obrazu pierwszego \(P1[l,w]\) z odpowiadającym pikslem drugiego obrazu \(P2[l,w]\). Jeżeli suma przekracza 255 to konieczne jest
 \begin{itemize}
-\item Wybranie największej sumy odpowiadających piksli dwóch obrazów - \(Q_{max}\) 
+\item Wybranie największej sumy \(Q_{max}\) 
 \item Obliczenie \(D_{max}\) ze wzoru: \(D_{max}[l,w]=(Q_{max}[l,w]-255)\)
 \item Obliczenie \(X=D_{max}/255\)
 \end{itemize}
@@ -2324,7 +2321,7 @@ def symmetryLineHorizontal(self):
     \centering
     \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
     \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/45/kawa_(70,140),(160,200).png} }}%
-    \caption{[Od lewej] Barwowy obraz wejściowy 256x256, obraz po przesunięciu o współrzędnych \(x_{min}=70\), \(x_{max}=140\), \(y_{min}=160\), \(y_{max}=200\)}%
+    \caption{[Od lewej] Barwowy obraz wejściowy 256x256, obraz po wycięciu fragmentu o współrzędnych \(x_{min}=70\), \(x_{max}=140\), \(y_{min}=160\), \(y_{max}=200\)}%
     \label{fig:geo_after_grey1}%
 \end{figure}
 \FloatBarrier
@@ -2332,7 +2329,7 @@ def symmetryLineHorizontal(self):
     \centering
     \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
     \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/4/45/stogi_(600,1000),(160,400).png} }}%
-    \caption{[Od lewej] Barwowy obraz wejściowy 1025x1025, obraz po przesunięciu o współrzędnych \(x_{min}=600\), \(x_{max}=1000\), \(y_{min}=160\), \(y_{max}=400\)}%
+    \caption{[Od lewej] Barwowy obraz wejściowy 1025x1025, obraz po wycięciu fragmentu o współrzędnych \(x_{min}=600\), \(x_{max}=1000\), \(y_{min}=160\), \(y_{max}=400\)}%
     \label{fig:geo_after_grey1}%
 \end{figure}
 \FloatBarrier
@@ -2349,21 +2346,820 @@ def cutPiece(self, yMin, yMax, xMin, xMax):
 \end{lstlisting}
 
 \section{Kopiowanie fragmentów obrazów}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/46/kawa_withBlackFrame.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/46/kawa_(70,140),(160,200).png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy 256x256, wycięty fragment o współrzędnych \(x_{min}=70\), \(x_{max}=140\), \(y_{min}=160\), \(y_{max}=200\) na czarnym tle, wycięty fragment bez czarnego tła}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./RawPictures/stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/46/stogi_withBlackFrame.png} }}%
+    \subfloat{{\includegraphics[width=0.3\textwidth]{./ExEffects/4/46/stogi_(600,1000),(160,400).png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy 1025x1025, wycięty fragment o współrzędnych \(x_{min}=600\), \(x_{max}=1000\), \(y_{min}=160\), \(y_{max}=400\) na czarnym tle, wycięty fragment bez czarnego tła}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def copyPiece(self, yMin, yMax, xMin, xMax):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getGreyMatrix()
+    frame = np.zeros((length, width, 3), np.uint8)
+    for x in range(length - xMax, length - xMin + 1):
+        for y in range(yMin, yMax - 1):
+            frame[x, y] = matrix[x, y]
+    path = self.ex + str(pictureName) + '_withBlackFrame.png'
+    self.saver.savePictureFromArray(frame, self.pictureType, path)
+    copiedPiece = np.zeros((xMax - xMin - 1, yMax - yMin - 1, 3), np.uint8)
+    xPom = 0
+    for y in range(yMin, yMax - 1):
+        yPom = 0
+        print('x: ' + str(x))
+        for x in range(length - xMax, length - xMin - 1):
+            print('y: ' + str(y))
+            print('yMax: ' + str(yMax))
+            print('yPom: ' + str(yPom))
+            copiedPiece[yPom, xPom] = frame[x, y]
+            yPom += 1
+        xPom += 1
+    path = self.ex + str(pictureName) + '_(' + str(yMin) + ',' + str(yMax) + '),(' + str(xMin) + ',' + str(xMax) + ').png'
+    self.saver.savePictureFromArray(copiedPiece, self.pictureType, path)
+\end{lstlisting}
 
 \chapter{Operacje na histogramie obrazu szarego}
+\par Histogram to najprostszy opis całościowy obrazu. Jego obliczanie polega na odczytaniu poziomu szarości każdego piksla i rejestrowaniu jego wystąpienia. Wyniki obliczeń w przedstawianych zadaniach są opisane za pomocą wykresu słupkowego, gdzie oś OX reprezentuje poziomy szarości, a oś OY reprezentuje liczbę ich wystąpień. Na podstawie histogramu obrazu możemy odczytać dane o jasności i intensywności obrazu.
+
 \section{Obliczanie histogramu}
+\subsection*{Opis algorytmu}
+\par Histogram obrazu szarego jest wykresem częstości występowania wartości szarości piksli w obrazie tj. przyporządkowuje liczbę piskli do danego poziomu szarości.
+\begin{enumerate}
+\item Zaalokuj tablicę 256 elementową, wypełnioną zerami, gdzie każdy element odpowiada ilości wystąpień danego poziomu szarości.
+\item Dla każdego piksla zinkrementuj element tablicy o indeksie równym poziomowi szarości danego piksla.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze-szare.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/51/morze-szare_histogram.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, histogram obrazu wejściowego}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi-szare.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/51/stogi-szare_histogram.png} }}%
+    \caption{[Od lewej] Szary obraz wejściowy, histogram obrazu wejściowego}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def plotHistogram(self, bins, hist, path):
+    fig = plt.figure(figsize=[10, 8])
+    plt.bar(bins[:-1], hist, width=0.8, color='#0504aa')
+    plt.xlim(min(bins), max(bins))
+    plt.grid(axis='y', alpha=0.75)
+    plt.xlabel('Value', fontsize=15)
+    plt.ylabel('Frequency', fontsize=15)
+    plt.xticks(fontsize=15)
+    plt.yticks(fontsize=15)
+    plt.ylabel('Frequency', fontsize=15)
+    plt.savefig(path)
+
+def calculateHistogram(self, matrix, path):
+    length, width, pictureName = self.pic.getPictureParameters()
+    histogram = np.zeros(256, np.int64)
+    for l in range(length):
+        for w in range(width):
+            bin = matrix[l, w]
+            histogram[bin] += 1
+    bins = np.arange(257)
+    self.plotHistogram(bins, histogram, path)
+\end{lstlisting}
+
 \section{Przemieszczanie histogramu}
+\subsection*{Opis algorytmu}
+\par Przemieszczanie histogramu polega na dodaniu tej samej wartości od poziomu szarości każdego piksla w obrazie. W resultacie obraz jest równomiernie rozjaśniony bądź przciemniony. Dla każdej wartości piksla wykonaj:
+\begin{enumerate}
+\item Jeśli wartość piksla po operacji dodawania jest większa niż 255, przypisz mu wartość 255.
+\item Jeśli wartość piksla po operacji dodawania jest mniejsza niż 0, przypisz mu wartość 0.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze-szare.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/51/morze-szare_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/5/52/morze-szare_moved_100.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/52/morze-szare_moved_100_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po przesunięciu o 100, histogram obrazu po przesunięciu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi-szare.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/51/stogi-szare_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/5/52/stogi-szare_moved_-50.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/52/stogi-szare_moved_-50_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po przesunięciu o -50, histogram obrazu po przesunięciu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def moveHistogram(self, const):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getGreyMatrix()
+    ex = './Documentation/images/ExEffects/5/52/'
+    path = str(ex) + str(pictureName) + '_histogram.png'
+    self.calculateHistogram(matrix, path)
+    result = np.zeros((length, width), np.uint8)
+
+    for l in range(length):
+        for w in range(width):
+            pom = int(matrix[l, w]) + const
+            if pom > 255:
+                pom = 255
+            elif pom < 0:
+                pom = 0
+            result[l, w] = pom
+
+    path = str(ex) + str(pictureName) + '_moved_' + str(const) + '_histogram.png'
+    self.calculateHistogram(result, path)
+    path = str(ex) + str(pictureName) + '_moved_' + str(const) + '.png'
+    self.savePicture(result, path)
+\end{lstlisting}
+
 \section{Rozciąganie histogramu}
+\subsection*{Opis algorytmu}
+\par Rozciąganie histogramu dokonuje się na obrazie, którego poziomy szarości nie są rozpięte na cały możliwy zakres. W efekcie rozciągnięcia histogramu otrzymujemy obraz o poziomach szarości rozpiętych na cały możliwy zakres np. \([0,255]\)
+\begin{enumerate}
+\item Znajdź w obrazie najmniejszy i największy poziom szarości (wartość piksla).
+\item Dla każdego piksla w obrazie oblicz jego nową wartośc według wzoru: \[P_{n}=\frac{255}{(max-min)*(P_{o}-min)}\]
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze-szare.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/51/morze-szare_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/5/53/morze-szare_extended.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/53/morze-szare_extended_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po rozciągnięciu histogramu, histogram obrazu po przesunięciu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi-szare.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/51/stogi-szare_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/5/53/stogi-szare_extended.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/53/stogi-szare_extended_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po rozciągnięciu histogramu, histogram obrazu po przesunięciu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def extendHistogram(self):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getGreyMatrix()
+    # save basic histogram of modified picture
+    ex = './Documentation/images/ExEffects/5/53/'
+    path = str(ex) + str(pictureName) + '_histogram.png'
+    self.calculateHistogram(matrix, path)
+    result = np.zeros((length, width), np.uint8)
+    vMax = 0
+    vMin = 255
+    for l in range(length):
+        for w in range(width):
+            pom = matrix[l, w]
+            if pom > vMax and pom != 255:
+                vMax = pom
+            if pom < vMin:
+                vMin = pom
+    for l in range(length):
+        for w in range(width):
+            pom = ((int(matrix[l, w]) - vMin) * 255) / (vMax - vMin)
+            if pom > 255:
+                pom = 255
+            elif pom < 0:
+                pom = 0
+            result[l, w] = pom
+    path = str(ex) + str(pictureName) + '_extended_histogram.png'
+    self.calculateHistogram(result, path)
+    path = str(ex) + str(pictureName) + '_extended.png'
+    self.savePicture(result, path)
+\end{lstlisting}
+
 \section{Progowanie lokalne}
+\subsection*{Opis algorytmu}
+\par Progowanie lokalne oblicza wartość progową dla każdego piksla z osobna. Jest to jedna z metod binaryzacji obrazu, która w wyniku dokładniej odwzorowuje kształt obiektu na obrazie.
+\begin{enumerate}
+\item Zdeﬁniuj wielkość otoczenia piksla (musi być nieparzysta, po to, aby mógł istnieć piksel środkowy).
+\item Dla każdego piksla w obrazie oblicz wartość progową jako średnią wartość piksli w otoczeniu danego piksla:
+\begin{itemize}
+\item jeżeli wartość piksla środkowego jest mniejsza niż 0 to przypisz mu wartość 0.
+\item jeżeli wartość piksla środkowego jest większa niż 0 to przypisz mu wartość 255. 
+\end{itemize}
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze-szare.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/51/morze-szare_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/5/54/morze-szare_local.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/54/morze-szare_local_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po progowaniu lokalnym, histogram obrazu po progowaniu lokalnym}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi-szare.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/51/stogi-szare_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/5/54/stogi-szare_local.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/54/stogi-szare_local_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po progowaniu lokalnym, histogram obrazu po progowaniu lokalnym}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def localHistogram(self):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getGreyMatrix()
+    # save basic histogram of modified picture
+    ex = './Documentation/images/ExEffects/5/54/'
+    path = str(ex) + str(pictureName) + '_histogram.png'
+    self.calculateHistogram(matrix, path)
+    result = np.zeros((length, width), np.uint8)
+    left, right = -(int(round(3 / 2))), int(round(3 / 2) + 1)
+    for l in range(length):
+        for w in range(width):
+            n = 0
+            threshold = 0
+            pom = matrix[l, w]
+            for lOff in range(left, right):
+                for wOff in range(left, right):
+                    lSafe = l if ((l + lOff) > (left + length)) else (l + lOff)
+                    wSafe = w if ((w + wOff) > (left + width)) else (w + wOff)
+                    threshold += matrix[lSafe, wSafe]
+                    n += 1
+            threshold = int(round(threshold / n))
+            result[l, w] = 0 if (pom < threshold) else 255
+    path = str(ex) + str(pictureName) + '_local_histogram.png'
+    self.calculateHistogram(result, path)
+    path = str(ex) + str(pictureName) + '_local.png'
+    self.savePicture(result, path)
+\end{lstlisting}
+
 \section{Progowanie globalne}
+\subsection*{Opis algorytmu}
+\par Progowanie globalne jest jedną z metod binaryzacji obrazu, która w wyniku daje obraz binarny. Wartość progowa jest ustalana globalnie biorąc pod uwagę wartość każdego piksla w obrazie, po czym stosuje wyliczony próg, aby nadać nową wartość każdemu pikslowi.
+\begin{enumerate}
+\item Oblicz wartość progową \(T\), jako wartość średnią wartość z wszystkich piksli w obrazie.
+\item Dla każdego piksla w obrazie:
+\begin{itemize}
+\item jeżeli wartość piksla środkowego jest mniejsza niż \(T\) to przypisz mu wartość 0.
+\item jeżeli wartość piksla środkowego jest większa niż \(T\) to przypisz mu wartość 255. 
+\end{itemize}
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/fotograf.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/55/fotograf_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/5/55/fotograf_global.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/55/fotograf_global_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po progowaniu globalnym, histogram obrazu po progowaniu globalnym}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi-szare.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/51/stogi-szare_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/5/55/stogi-szare_global.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/5/55/stogi-szare_global_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Szary obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po progowaniu globalnym, histogram obrazu po progowaniu globalnym}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def globalHistogram(self):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getGreyMatrix()
+    # save basic histogram of modified picture
+    ex = './Documentation/images/ExEffects/5/55/'
+    path = str(ex) + str(pictureName) + '_histogram.png'
+    self.calculateHistogram(matrix, path)
+    result = np.zeros((length, width), np.uint8)
+    sum = 0
+    for l in range(length):
+        for w in range(width):
+            sum += matrix[l, w]
+    mean = int(round(sum / (length * width)))
+    for l in range(length):
+        for w in range(width):
+            pom = matrix[l, w]
+            result[l, w] = 0 if (pom < mean) else 255
+    path = str(ex) + str(pictureName) + '_global_histogram.png'
+    self.calculateHistogram(result, path)
+    path = str(ex) + str(pictureName) + '_global.png'
+    self.savePicture(result, path)
+\end{lstlisting}
 
 \chapter{Operacje na histogramie obrazu barwowego}
+\par Histogram to najprostszy opis całościowy obrazu. Jego obliczanie polega na odczytaniu poziomu barwy każdego piksla i rejestrowaniu jego wystąpienia. Wyniki obliczeń w przedstawianych zadaniach są opisane za pomocą wykresu słupkowego, gdzie oś OX reprezentuje poziomy barwy, a oś OY reprezentuje liczbę ich wystąpień. Na podstawie histogramu obrazu możemy odczytać dane o jasności i intensywności obrazu.
+
 \section{Obliczanie histogramu}
+\subsection*{Opis algorytmu}
+\par Histogram obrazu barwowego jest wykresem częstości występowania wartości barwowej piksli w obrazie tj. przyporządkowuje liczbę piskli do danego poziomu natężenia barwy.
+\begin{enumerate}
+\item Zaalokuj tablicę 256 elementową (każdy element to 3 elementowa tablica wypełniona zerami), gdzie każdy element odpowiada poziomom natężenia barw piksla.
+\item Dla każdego piksla zinkrementuj element tablicy o indeksie równym poziomowi barwy danego piksla.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/61/kawa_histogram.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, histogram obrazu wejściowego}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/stogi.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/61/stogi_histogram.png} }}%
+    \caption{[Od lewej] Barwowy obraz wejściowy, histogram obrazu wejściowego}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def calculateHistogram(self, matrix, path):
+    length, width, pictureName = self.pic.getPictureParameters()
+    histogram = np.zeros((3, 256), np.int64)
+    for l in range(length):
+        for w in range(width):
+            r = matrix[l, w][0]
+            g = matrix[l, w][1]
+            b = matrix[l, w][2]
+            histogram[0][r] += 1
+            histogram[1][g] += 1
+            histogram[2][b] += 1
+    bins = np.arange(257)
+    self.plotHistogram(bins, histogram, path)
+    
+def plotHistogram(self, bins, hist, path):
+    plt.figure(figsize=[10, 8])
+    plt.bar(bins[:-1], hist[0], width=0.8, color='red')
+    plt.bar(bins[:-1], hist[1], width=0.8, color='green')
+    plt.bar(bins[:-1], hist[2], width=0.8, color='blue')
+    plt.xlim(min(bins), max(bins))
+    plt.grid(axis='y', alpha=0.75)
+    plt.xlabel('Value', fontsize=15)
+    plt.ylabel('Frequency', fontsize=15)
+    plt.xticks(fontsize=15)
+    plt.yticks(fontsize=15)
+    plt.ylabel('Frequency', fontsize=15)
+    plt.savefig(path)
+\end{lstlisting}
+
 \section{Przemieszczanie histogramu}
+\subsection*{Opis algorytmu}
+\par Przemieszczanie histogramu polega na dodaniu tej samej wartości od poziomu natęzenia kązdej barwy każdego piksla w obrazie. W resultacie obraz jest równomiernie rozjaśniony bądź przciemniony. Dla każdej wartości barwy każdego piksla wykonaj:
+\begin{enumerate}
+\item Jeśli wartość barwy po operacji dodawania jest większa niż 255, przypisz jej wartość 255.
+\item Jeśli wartość barwy po operacji dodawania jest mniejsza niż 0, przypisz jej wartość 0.
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/62/kawa_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/6/62/kawa_moved_100.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/62/kawa_moved_100_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po przesunięciu o 100, histogram obrazu po przesunięciu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/62/morze_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/6/62/morze_moved_-50.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/62/morze_moved_-50_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po przesunięciu o -50, histogram obrazu po przesunięciu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def moveHistogram(self, const):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getGreyMatrix()
+    ex = './Documentation/images/ExEffects/6/62/'
+    path = str(ex) + str(pictureName) + '_histogram.png'
+    self.calculateHistogram(matrix, path)
+    result = np.zeros((length, width, 3), np.uint8)
+    for l in range(length):
+        for w in range(width):
+            r = int(matrix[l, w][0]) + const
+            if r > 255:
+                r = 255
+            elif r < 0:
+                r = 0
+            result[l, w][0] = r
+            g = int(matrix[l, w][1]) + const
+            if g > 255:
+                g = 255
+            elif g < 0:
+                g = 0
+            result[l, w][1] = g
+            b = int(matrix[l, w][2]) + const
+            if b > 255:
+                b = 255
+            elif b < 0:
+                b = 0
+            result[l, w][2] = b
+    path = str(ex) + str(pictureName) + '_moved_' + str(const) + '_histogram.png'
+    self.calculateHistogram(result, path)
+    path = str(ex) + str(pictureName) + '_moved_' + str(const) + '.png'
+    self.savePicture(result, path)
+\end{lstlisting}
+
 \section{Rozciąganie histogramu}
-\section{Progowanie 1 progowe lokalne}
+\subsection*{Opis algorytmu}
+\par Rozciąganie histogramu dokonuje się na obrazie, którego poziomy natężenia barw nie są rozpięte na cały możliwy zakres. W efekcie rozciągnięcia histogramu otrzymujemy obraz o poziomach natężenia barw rozpiętych na cały możliwy zakres np. \([0,255]\)
+\begin{enumerate}
+\item Znajdź w obrazie najmniejszy i największy poziom natężenia barwy (wartość piksla odpowiadająca natężeniu barwy).
+\item Dla każdego piksla w obrazie oblicz jego nową wartośc według wzoru: \[P_{Rn}=\frac{255}{(max_{R}-min_{R})*(P_{Ro}-min_{R})}\]\[P_{Bn}=\frac{255}{(max_{B}-min_{B})*(P_{Bo}-min_{B})}\]\[P_{Gn}=\frac{255}{(max_{G}-min_{G})*(P_{Go}-min_{G})}\]
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/63/kawa_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/6/63/kawa_extended.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/63/kawa_extended_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po rozciągnięciu histogramu, histogram obrazu po przesunięciu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/63/morze_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/6/63/morze_extended.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/63/morze_extended_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po rozciągnięciu histogramu, histogram obrazu po przesunięciu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def extendHistogram(self):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getGreyMatrix()
+    # save basic histogram of modified picture
+    ex = './Documentation/images/ExEffects/6/63/'
+    path = str(ex) + str(pictureName) + '_histogram.png'
+    self.calculateHistogram(matrix, path)
+    result = np.zeros((length, width, 3), np.uint8)
+    vMax = [0] * 3
+    vMin = [255] * 3
+    for color in range(3):
+        for l in range(length):
+            for w in range(width):
+                pom = matrix[l, w][color]
+                if pom > vMax[color] and pom != 255:
+                    vMax[color] = pom
+                if pom < vMin[color]:
+                    vMin[color] = pom
+    for color in range(3):
+        for l in range(length):
+            for w in range(width):
+                pom = ((int(matrix[l, w][color]) - vMin[color]) * 255) / (vMax[color] - vMin[color])
+                if pom > 255:
+                    pom = 255
+                elif pom < 0:
+                    pom = 0
+                result[l, w][color] = pom
+    path = str(ex) + str(pictureName) + '_extended_histogram.png'
+    self.calculateHistogram(result, path)
+    path = str(ex) + str(pictureName) + '_extended.png'
+    self.savePicture(result, path)
+\end{lstlisting}
+
+\section{Progowanie 1-progowe lokalne}
+\subsection*{Opis algorytmu}
+\par Progowanie 1-progowe lokalne oblicza wartość progową dla każdego piksla z osobna. W wyniku takiego progowania obraz dokładniej odzwzorowuje kształt obiektu. Próg obliczany jest jako średnia wartość piksli w obrazie, dla każdego piksla z osobna.
+\begin{enumerate}
+\item Zdefiniuj wielkość otoczenia piksla - wartość musi być nieparzysta, aby mógł istnieć piksel środkowy).
+\item Dla każdego piksla (\(P\)):
+\begin{itemize}
+\item Dla każdego kanału (\(C\)):
+\begin{itemize}
+\item Oblicz wartość progową \(T_{c}\) jako średnią wartość piksli \(P_{c}\) w otoczeniu danego piksla \(P\).
+\item Jeśli wartość piksla \(P_{c}\) jest mniejsza niż \(T_{c}\) to przypisz mu wartość 0.
+\item Jeśli wartość piksla \(P_{c}\) jest większa niż \(T_{c}\) to przypisz mu wartość 255.
+\end{itemize}
+\end{itemize}
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/63/kawa_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/6/64/kawa_oneThresholdLocal.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/64/kawa_oneThresholdLocal_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po progowaniu 1-progowym lokalnym histogramu, histogram obrazu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/63/morze_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/6/64/morze_oneThresholdLocal.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/64/morze_oneThresholdLocal_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po progowaniu 1-progowym lokalnym histogramu, histogram obrazu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def oneThresholdLocalHistogram(self, dim=3):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getGreyMatrix()
+    # save basic histogram of modified picture
+    ex = './Documentation/images/ExEffects/6/64/'
+    path = str(ex) + str(pictureName) + '_histogram.png'
+    self.calculateHistogram(matrix, path)
+    result = np.zeros((length, width, 3), np.uint8)
+    low, up = -(int(dim / 2)), (int(dim / 2) + 1)
+    for color in range(3):
+        for l in range(length):
+            for w in range(width):
+                n = 0
+                threshold = 0
+                pom = matrix[l, w][color]
+                for lOff in range(low, up):
+                    for wOff in range(low, up):
+                        lSafe = l if ((l + lOff) > (low + length)) else (l + lOff)
+                        wSafe = w if ((w + wOff) > (low + width)) else (w + wOff)
+                        threshold += matrix[lSafe, wSafe][color]
+                        n += 1
+                threshold = int(round(threshold / n))
+                result[l, w][color] = 0 if (pom < threshold) else 255
+    path = str(ex) + str(pictureName) + '_oneThresholdLocal_histogram.png'
+    self.calculateHistogram(result, path)
+    path = str(ex) + str(pictureName) + '_oneThresholdLocal.png'
+    self.savePicture(result, path)
+\end{lstlisting}
+
 \section{Progowanie 1 progowe globalne}
+\subsection*{Opis algorytmu}
+\par Progowanie 1-progowe globalne oblicza wartość progową dla każdego kanału z osobna, biorąc pod uwagę wartość każdego piksla w obrazie. Następnie, tak wyliczona wartość progowa jest stosowana do nadania każdemu pikslowi nowej wartości.
+\begin{enumerate}
+\item Zdefiniuj wielkość otoczenia piksla - wartość musi być nieparzysta, aby mógł istnieć piksel środkowy).
+\item Zdefiniuj ilość progów (\(T\)).
+\item Dla każdego piksla (\(P\)):
+\begin{itemize}
+\item Dla każdego kanału (\(C\)):
+\begin{itemize}
+\item Znajdź \(MAX(P_{c})\) i \(MIN(P_{c})\).
+\item Oblicz skalę \(S_{c}\) według wzoru: \[S_{c}=\frac{MAX(P_{c})}{(T-1)}\]
+\item Jeśli skala \(S_{c}\) jest 0przypisz jej wartość 1, aby uniknąć dzielenia przez 0.
+\end{itemize}
+\end{itemize}
+\item Wylicz nową wartość piksla (\(P_{c_{n}}\)) wg. wzoru: \[P_{c_{n}}=\Big\lceil\frac{P_{c}}{S_{c}}\Big\rceil*S_{c}\]
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/62/kawa_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/6/66/kawa_oneThresholdGlobal.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/66/kawa_oneThresholdGlobal_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po progowaniu 1-progowym globalnym histogramu, histogram obrazu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/62/morze_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/6/66/morze_oneThresholdGlobal.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/66/morze_oneThresholdGlobal_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po progowaniu 1-progowym globalnym histogramu, histogram obrazu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def oneThresholdGlobalHistogram(self):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getGreyMatrix()
+    # save basic histogram of modified picture
+    ex = './Documentation/images/ExEffects/6/66/'
+    path = str(ex) + str(pictureName) + '_histogram.png'
+    self.calculateHistogram(matrix, path)
+    result = np.zeros((length, width, 3), np.uint8)
+    added = [0] * 3
+    mean = [0] * 3
+    for color in range(3):
+        for l in range(length):
+            for w in range(width):
+                pom = matrix[l, w][color]
+                added[color] += pom
+        mean[color] = int(round(added[color] / (length * width)))
+    for color in range(3):
+        for l in range(length):
+            for w in range(width):
+                pom = matrix[l, w][color]
+                result[l, w][color] = 0 if (pom < mean[color]) else 255
+    path = str(ex) + str(pictureName) + '_oneThresholdGlobal_histogram.png'
+    self.calculateHistogram(result, path)
+    path = str(ex) + str(pictureName) + '_oneThresholdGlobal.png'
+    self.savePicture(result, path)
+\end{lstlisting}
+
 \section{Progowanie wieloprogowe lokalne}
+\subsection*{Opis algorytmu}
+\par Progowanie wieloprogowe globalne oblicza wartość progową dla każdego piksla z osobna. W wyniku takiego progowania obraz ma mniejszą ilość kolorów w obrazie. Progi obliczane są dla każdego kanału z osobna.
+\begin{enumerate}
+\item Zdefiniuj wielkość otoczenia piksla - wartość musi być nieparzysta, aby mógł istnieć piksel środkowy).
+\item Zdefiniuj ilość progów (\(T\)).
+\item Dla każdego piksla (\(P\)):
+\begin{itemize}
+\item Dla każdego kanału (\(C\)):
+\begin{itemize}
+\item Znajdź \(MAX(P_{c})\) i \(MIN(P_{c})\).
+\item Oblicz skalę \(S_{c}\) według wzoru: \[S_{c}=\frac{MAX(P_{c})}{(T-1)}\]
+\item Jeśli skala \(S_{c}\) jest 0przypisz jej wartość 1, aby uniknąć dzielenia przez 0.
+\end{itemize}
+\end{itemize}
+\item Wylicz nową wartość piksla (\(P_{c_{n}}\)) wg. wzoru: \[P_{c_{n}}=\Big\lceil\frac{P_{c}}{S_{c}}\Big\rceil*S_{c}\]
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/62/kawa_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/6/65/kawa_4ThresholdLocal.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/65/kawa_4ThresholdLocal_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po progowaniu wieloprogowym lokalnym histogramu, histogram obrazu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/62/morze_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/6/65/morze_4ThresholdLocal.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/65/morze_4ThresholdLocal_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po progowaniu wieloprogowym lokalnym histogramu, histogram obrazu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def multiThresholdLocalHistogram(self, dim=3, bins=4):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getGreyMatrix()
+    # save basic histogram of modified picture
+    ex = './Documentation/images/ExEffects/6/65/'
+    path = str(ex) + str(pictureName) + '_histogram.png'
+    self.calculateHistogram(matrix, path)
+    result = np.zeros((length, width, 3), np.uint8)
+    low, up = -(int(dim / 2)), (int(dim / 2) + 1)
+    for l in range(length):
+        for w in range(width):
+            pom = matrix[l, w]
+            vMax = [0] * 3
+            vMin = [255] * 3
+            for lOff in range(low, up):
+                for wOff in range(low, up):
+                    lSafe = l if ((l + lOff) > (low + length)) else (l + lOff)
+                    wSafe = w if ((w + wOff) > (low + width)) else (w + wOff)
+                    pom = matrix[lSafe, wSafe]
+                    for k in range(3):
+                        vMax[k] = max(vMax[k], pom[k])
+                        vMin[k] = min(vMin[k], pom[k])
+            scale = [0] * 3
+            for k in range(3):
+                scale[k] = vMax[k] / (bins - 1)
+                if scale[k] == 0:
+                    scale[k] = 1
+            for k in range(3):
+                pom[k] = int(round(pom[k] / scale[k])) * scale[k]
+            result[l, w] = pom
+    path = str(ex) + str(pictureName) + '_' + str(bins) + 'ThresholdLocal_histogram.png'
+    self.calculateHistogram(result, path)
+    path = str(ex) + str(pictureName) + '_' + str(bins) + 'ThresholdLocal.png'
+    self.savePicture(result, path)
+\end{lstlisting}
+
 \section{Progowanie wieloprogowe globalne}
+\subsection*{Opis algorytmu}
+\par Progowanie wieloprogowe globalne oblicza wartość progową dla każdego kanału z osobna, biorąc pod uwagę wartość każdego piksla w obrazie. Następnie, tak wyliczona wartość progowa jest stosowana do nadania każdemu pikslowi nowej wartości.
+\begin{enumerate}
+\item Zdefiniuj ilość progów (\(T\)).
+\item Dla każdego piksla (\(P\)):
+\begin{itemize}
+\item Dla każdego kanału (\(C\)):
+\begin{itemize}
+\item Znajdź \(MAX(P_{c})\) i \(MIN(P_{c})\).
+\item Oblicz skalę \(S_{c}\) według wzoru: \[S_{c}=\frac{MAX(P_{c})}{(T-1)}\]
+\item Jeśli skala \(S_{c}\) jest 0przypisz jej wartość 1, aby uniknąć dzielenia przez 0.
+\end{itemize}
+\end{itemize}
+\item Wylicz nową wartość piksla (\(P_{c_{n}}\)) wg. wzoru: \[P_{c_{n}}=\Big\lceil\frac{P_{c}}{S_{c}}\Big\rceil*S_{c}\]
+\end{enumerate}
+\subsection*{Efekty wykorzystania algorytmu}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/kawa.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/62/kawa_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/6/67/kawa_multiThresholdGlobal.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/67/kawa_multiThresholdGlobal_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po progowaniu wieloprogowym globalnym histogramu, histogram obrazu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./RawPictures/morze.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/62/morze_histogram.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=0.4\textwidth]{./ExEffects/6/67/morze_multiThresholdGlobal.png} }}%
+    \subfloat{{\includegraphics[width=0.5\textwidth]{./ExEffects/6/67/morze_multiThresholdGlobal_histogram.png} }}%
+    \caption{[Od lewej, rząd 1] Barwowy obraz wejściowy, histogram obrazu wejściowego [Od lewej, rząd 2] Obraz po progowaniu wieloprogowym globalnym histogramu, histogram obrazu}%
+    \label{fig:geo_after_grey1}%
+\end{figure}
+\FloatBarrier
+\subsection*{Kod źródłowy algorytmu}
+\begin{lstlisting}[language=Python]
+def multiThresholdGlobalHistogram(self, bins=4):
+    length, width, pictureName = self.pic.getPictureParameters()
+    matrix = self.pic.getGreyMatrix()
+    # save basic histogram of modified picture
+    ex = './Documentation/images/ExEffects/6/67/'
+    path = str(ex) + str(pictureName) + '_histogram.png'
+    self.calculateHistogram(matrix, path)
+    result = np.zeros((length, width, 3), np.uint8)
+    vMax = [0] * 3
+    vMin = [255] * 3
+    scale = [0] * 3
+    for color in range(3):
+        for l in range(length):
+            for w in range(width):
+                pom = matrix[l, w][color]
+                if pom > vMax[color]:
+                    vMax[color] = pom
+                if pom > vMin[color]:
+                    vMin[color] = pom
+    for color in range(3):
+        scale[color] = vMax[color] / (bins - 1)
+    for color in range(3):
+        for l in range(length):
+            for w in range(width):
+                pom = matrix[l, w][color]
+                result[l, w][color] = int(round(pom) / scale[color]) * scale[color]
+    path = str(ex) + str(pictureName) + '_multiThresholdGlobal_histogram.png'
+    self.calculateHistogram(result, path)
+    path = str(ex) + str(pictureName) + '_multiThresholdGlobal.png'
+    self.savePicture(result, path)
+\end{lstlisting}
 
 \end{document}

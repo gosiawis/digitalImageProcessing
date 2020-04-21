@@ -6,6 +6,8 @@ from CopyPiece import CopyPiece
 from CutPiece import CutPiece
 from DivisionGrey import DivisionGrey
 from DivisionRGB import DivisionRGB
+from HistogramGrey import HistogramGrey
+from HistogramRGB import HistogramRGB
 from LogharitmGrey import LogharitmGrey
 from LogharitmRGB import LogharitmRGB
 from MultiplicationGrey import MultiplicationGrey
@@ -24,6 +26,7 @@ from Symmetry import Symmetry
 from Vector import Vector
 
 if __name__ == '__main__':
+    # provide raw pictures
     kobietaDziecko = './Documentation/images/RawPictures/kobietaDziecko.png'
     andrzej = './Documentation/images/RawPictures/AndrzejZamoyski.png'
     kawa = './Documentation/images/RawPictures/kawa.png'
@@ -34,7 +37,6 @@ if __name__ == '__main__':
     morze_szare = './Documentation/images/RawPictures/morze-szare.png'
     stogi_szare = './Documentation/images/RawPictures/stogi-szare.png'
     tecza = './Documentation/images/RawPictures/tecza.png'
-
     '''
     print('Starting ex. 1.1 Geometric unification of two grey pictures')
     geo = GeometricUnificationGrey(kobietaDziecko, andrzej)
@@ -146,11 +148,11 @@ if __name__ == '__main__':
     sc = Scaling(name=tecza, pictureType='RGB')
     #sc.homogeneousScaling(2)
     sc.heterogeneousScaling(1, 3)
-    
+    '''
     print('Starting ex. 4.3 Angle')
     a = Angle(name=kawa, pictureType='RGB')
     a.angleMove(45)
-    
+    '''
     print('Starting ex. 4.4 Symmetry')
     sym = Symmetry(name=morze, pictureType='RGB')
     sym.symmetryX()
@@ -161,7 +163,7 @@ if __name__ == '__main__':
     print('Starting ex. 4.5 Cut part of a picture')
     cut = CutPiece(name=morze, pictureType='RGB')
     cut.cutPiece(160, 400, 300, 500)
-    '''
+
     print('Starting ex. 4.6 Copy part of a picture')
     copy = CopyPiece(name=morze, pictureType='RGB')
     copy.copyPiece(160, 400, 300, 500)
@@ -171,5 +173,30 @@ if __name__ == '__main__':
     print('Starting ex. 4.6 Copy part of a picture')
     copy = CopyPiece(name=kawa, pictureType='RGB')
     copy.copyPiece(70, 140, 160, 200)
+    
+    print('Starting ex. 5 - histogram grey')
+    plot = HistogramGrey()
+    pictureName = plot.pic.getPictureName()
+    matrix = plot.pic.getGreyMatrix()
+    path = './Documentation/images/ExEffects/5/51/' + str(pictureName) + '_histogram.png'
+    plot.calculateHistogram(matrix, path)
+    plot.moveHistogram(100)
+    plot.extendHistogram()
+    plot.localHistogram()
+    plot.globalHistogram()
 
-
+    print('Starting ex. 6 - histogram RGB')
+    plot = HistogramRGB()
+    pictureName = plot.pic.getPictureName()
+    matrix = plot.pic.getGreyMatrix()
+    path = './Documentation/images/ExEffects/6/61/' + str(pictureName) + '_histogram.png'
+    plot.calculateHistogram(matrix, path)
+    plot.moveHistogram(-50)
+    plot.extendHistogram()
+    plot.oneThresholdLocalHistogram()
+    plot.oneThresholdGlobalHistogram()
+    plot.multiThresholdLocalHistogram()
+    plot.multiThresholdGlobalHistogram()
+    plot2 = HistogramRGB(kawa)
+    plot2.multiThresholdGlobalHistogram()
+    '''

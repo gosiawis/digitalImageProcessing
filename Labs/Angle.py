@@ -53,20 +53,17 @@ class Angle:
 
     def angleRGB(self, angle):
         length, width, pictureName = self.pic.getPictureParameters()
-        matrix = self.pic.getRGBMatrix()
+        matrix = self.pic.getGreyMatrix()
         result = np.ones((length, width, 3), np.uint8)
         angleRadians = np.radians(angle)
-
         for l in range(length):
             for w in range(width):
                 newW = (w - width / 2) * np.cos(angleRadians) - (l - length / 2) * np.sin(angleRadians) + (width / 2)
                 newL = (w - width / 2) * np.sin(angleRadians) + (l - length / 2) * np.cos(angleRadians) + (length / 2)
                 if 0 <= newL < length and 0 <= newW < width:
                     result[int(newL), int(newW)] = matrix[l, w]
-
         path = self.ex + str(pictureName) + '_angle_' + str(angle) + '_withoutInterpolation.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
-
         for l in range(length):
             for w in range(width):
                 r, g, b = 0, 0, 0
@@ -83,6 +80,5 @@ class Angle:
                                 b += result[lSave, wSave][2]
                                 n += 1
                     result[l, w] = (r / n, g / n, b / n)
-
         path = self.ex + str(pictureName) + '_angle_' + str(angle) + '_withInterpolation.png'
         self.saver.savePictureFromArray(result, self.pictureType, path)
