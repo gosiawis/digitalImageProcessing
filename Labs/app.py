@@ -37,7 +37,7 @@ if __name__ == '__main__':
     morze_szare = './Documentation/images/RawPictures/morze-szare.png'
     stogi_szare = './Documentation/images/RawPictures/stogi-szare.png'
     tecza = './Documentation/images/RawPictures/tecza.png'
-    '''
+
     print('Starting ex. 1.1 Geometric unification of two grey pictures')
     geo = GeometricUnificationGrey(kobietaDziecko, andrzej)
     geo.geoUnificationGrey()
@@ -173,7 +173,7 @@ if __name__ == '__main__':
     print('Starting ex. 4.6 Copy part of a picture')
     copy = CopyPiece(name=kawa, pictureType='RGB')
     copy.copyPiece(70, 140, 160, 200)
-    
+
     print('Starting ex. 5 - histogram grey')
     plot = HistogramGrey()
     pictureName = plot.pic.getPictureName()
@@ -199,4 +199,3 @@ if __name__ == '__main__':
     plot.multiThresholdGlobalHistogram()
     plot2 = HistogramRGB(kawa)
     plot2.multiThresholdGlobalHistogram()
-    '''

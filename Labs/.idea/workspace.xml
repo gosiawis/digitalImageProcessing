@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cc1729-95a9-42cc-8f41-5ec93696e4ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/3/36/stogi_root_20.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Documentation/images/ExEffects/3/36/stogi_root_20_normalized.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Angle.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/documentation.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/documentation.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/documentation.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/documentation.synctex.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/documentation.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/documentation.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HistogramGrey.py" beforeDir="false" afterPath="$PROJECT_DIR$/HistogramGrey.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HistogramRGB.py" beforeDir="false" afterPath="$PROJECT_DIR$/HistogramRGB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
