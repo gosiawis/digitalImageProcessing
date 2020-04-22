@@ -32,11 +32,10 @@
 }
 \usepackage{titlesec}
 \newcommand{\sectionbreak}{\clearpage}
-%%% ToC (table of contents) APPEARANCE
-\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
-\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\usepackage[nottoc,notlof,notlot]{tocbibind}
+\usepackage[titles,subfigure]{tocloft}
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
-\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape}
 
 \graphicspath{ {./images/} }
 
@@ -51,11 +50,43 @@ Wydział Matematyczno-Przyrodniczy \\ Szkoła Nauk Ścisłych}
 \maketitle
 \tableofcontents
 \chapter{Wstęp}
-
 \section{Format obrazów}
-\par Portable Network Graphics (PNG) jest formatem pliku komputerowego do przechowywania obrazów grafiki rastrowej, stworzony jako odpowiedź na roszczenia patentowe dotyczące kompresji LZW, wykorzystywanej w formatach GIF i TIFF. \\\\PNG jest jedynym wieloplatformowym formatem bitmapowym, umożliwiającym zdefiniowanie stopnia przezroczystości (kanał \(\alpha\)). Obsługuje 48-bitową głębię kolorów czyli 16 bitów na kanał koloru. Dzięki tym dwóm cechom możliwe jest praktycznie bezstratne zapisanie dowolnej grafiki RGB oraz RGBA. Obsługuje także osadzone profile kolorów ICC, ICM i dane EXIF.
+\par Portable Network Graphics (PNG) jest formatem pliku komputerowego do przechowywania obrazów grafiki rastrowej, stworzony jako odpowiedź na roszczenia patentowe dotyczące kompresji LZW, wykorzystywanej w formatach GIF i TIFF. \\\\PNG jest jedynym wieloplatformowym formatem bitmapowym, umożliwiającym zdefiniowanie stopnia przezroczystości (kanał \(\alpha\)). Obsługuje 48-bitową głębię kolorów czyli 16 bitów na kanał koloru. Dzięki tym dwóm cechom możliwe jest praktycznie bezstratne zapisanie dowolnej grafiki RGB oraz RGBA. Obsługuje także osadzone profile kolorów ICC, ICM i dane EXIF. Format PNG zapisuje tylko pojedyncze pliki graficzne - nie ma animacji.
+\subsection*{Struktura pliku PNG}
+\par Plik PNG podzielony jest na dwie części:
+\begin{enumerate}
+\item nagłówek pliku obrazowego
+\begin{itemize}
+\item zaczyna się 8 bajtowych podpisem
+\item \textbf{89} - wysoki bit ustawiony w celu rozpoznania systemów, które nie wspierają 8 bitowych danych i odróżnienia plików tekstowych od plików PNG
+\item \textbf{50 4E 47} - kod ASCII odpowiadający literom PNG pozwala na rozpoznanie pliku PNG ludziom
+\item \textbf{0D 0A} - znak końca linii w stylu DOS, aby rozpoznać DOSowo-Unixowe zakończenia linii w konwersji danych
+\item \textbf{1A} - bit kończący plik w DOS
+\item \textbf{0A} - bit kończący plik w Unix
+\end{itemize}
+\item katalog pliku obrazowego
+\begin{itemize}
+\item składa się z kawałków (ang. \textit{chunks})
+\item każdy kawałek składa się z czterech części: długości (4 bajty), typu kawałka (4 bajty), danych (tyle bajtów ile zadeklarowano w długości) oraz sumy kontrolnej (4 bajty, ang. \textit{CRC, checksum})
+\item najważniejsze, krytyczne dla poprawnego działania kawałki:
+\begin{itemize}
+\item \textbf{IHDR} - zawiera informacje o szerokośći, wysokości, głębokości, barwie, metodzie kompresji, metodzie filtracji i metodzie przeplotu w obrazie.
+\item \textbf{PLTE} - zawiera listę kolorów
+\item \textbf{IDAT} - zawiera obraz, który może być podzielony między wiele kawałków IDAT
+\item \textbf{IEND} - oznacza koniec obrazu
+\end{itemize}
+\end{itemize}
+\end{enumerate}
+\subsection*{Przykładowa struktura prostego pliku PNG}
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=1\textwidth]{./examplePNG.png} }}%
+    \caption{Przykładowa struktura pliku PNG [żródło: wikipedia.org]}%
+    \label{fig:geo_before_grey1}%
+\end{figure}
+\FloatBarrier
 \section{Instrukcja obsługi programu}
-
+Implementacja zadań została napisana w języku Python3. Wykorzystane biblioteki to numpy, matplotlib oraz Pillow. Przykład instalacji biblioteki: \\\\ \textbf{\textit{pip install}} numpy\\ \textbf{\textit{pip install}} matplotlib\\ \textbf{\textit{pip install}} pillow\\\\Aby wystartować program i rozpocząć otrzymywanie wyników przetwarzania pozczególnych obrazów należy uruchomić plik app.py Przykład uruchomienia programu: \\\\ \textbf{\textit{python}} app.py
 
 \chapter{Operacje ujednolicania obrazów}
 Operacje ujednolicania obrazów dzieli się na dwa etapy. Pierwszym etapem jest ujednolicanie geometryczne, drugim jest ujednolicenie rozdzielczościowe. W prezentowanym programie ujednolicane są dwa obrazy, w taki sposób, że mniejszy z nich jest doprowadzany do takiego samego rozmiaru jak większy. Skutkuje to wygenerowaniem nowego obrazu o zwiększonej ilości piksli niż początkowa wartość. Dzięki zastosowaniu tego typu ujednolicania w efekcie nie następuje widoczny spadek jakości. 
