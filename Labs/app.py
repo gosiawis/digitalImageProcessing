@@ -27,16 +27,16 @@ from Vector import Vector
 
 if __name__ == '__main__':
     # provide raw pictures
-    kobietaDziecko = './Documentation/images/RawPictures/kobietaDziecko.png'
-    andrzej = './Documentation/images/RawPictures/AndrzejZamoyski.png'
-    kawa = './Documentation/images/RawPictures/kawa.png'
-    morze = './Documentation/images/RawPictures/morze.png'
-    stogi = './Documentation/images/RawPictures/stogi.png'
-    rys = './Documentation/images/RawPictures/rys.png'
-    fotograf = './Documentation/images/RawPictures/fotograf.png'
-    morze_szare = './Documentation/images/RawPictures/morze-szare.png'
-    stogi_szare = './Documentation/images/RawPictures/stogi-szare.png'
-    tecza = './Documentation/images/RawPictures/tecza.png'
+    kobietaDziecko = './images/RawPictures/kobietaDziecko.png'
+    andrzej = './images/RawPictures/AndrzejZamoyski.png'
+    kawa = './images/RawPictures/kawa.png'
+    morze = './images/RawPictures/morze.png'
+    stogi = './images/RawPictures/stogi.png'
+    rys = './images/RawPictures/rys.png'
+    fotograf = './images/RawPictures/fotograf.png'
+    morze_szare = './images/RawPictures/morze-szare.png'
+    stogi_szare = './images/RawPictures/stogi-szare.png'
+    tecza = './images/RawPictures/tecza.png'
 
     print('Starting ex. 1.1 Geometric unification of two grey pictures')
     geo = GeometricUnificationGrey(kobietaDziecko, andrzej)
@@ -178,7 +178,7 @@ if __name__ == '__main__':
     plot = HistogramGrey()
     pictureName = plot.pic.getPictureName()
     matrix = plot.pic.getGreyMatrix()
-    path = './Documentation/images/ExEffects/5/51/' + str(pictureName) + '_histogram.png'
+    path = './images/ExEffects/5/51/' + str(pictureName) + '_histogram.png'
     plot.calculateHistogram(matrix, path)
     plot.moveHistogram(100)
     plot.extendHistogram()
@@ -189,7 +189,7 @@ if __name__ == '__main__':
     plot = HistogramRGB()
     pictureName = plot.pic.getPictureName()
     matrix = plot.pic.getGreyMatrix()
-    path = './Documentation/images/ExEffects/6/61/' + str(pictureName) + '_histogram.png'
+    path = './images/ExEffects/6/61/' + str(pictureName) + '_histogram.png'
     plot.calculateHistogram(matrix, path)
     plot.moveHistogram(-50)
     plot.extendHistogram()

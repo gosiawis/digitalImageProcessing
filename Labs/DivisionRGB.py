@@ -8,14 +8,14 @@ from ResolutionUnificationRGB import ResolutionUnificationRGB
 
 class DivisionRGB:
 
-    def __init__(self, name1='./Documentation/images/RawPictures/kawa.png', name2='./Documentation/images/RawPictures/stogi.png', pictureType='RGB'):
+    def __init__(self, name1='./images/RawPictures/kawa.png', name2='./images/RawPictures/stogi.png', pictureType='RGB'):
         self.pic1 = ImageHelper(name1, pictureType)
         self.pic2 = ImageHelper(name2, pictureType)
         self.pictureType = pictureType
         self.name1 = name1
         self.name2 = name2
         self.saver = PictureSaver()
-        self.ex = './Documentation/images/ExEffects/3/35/'
+        self.ex = './images/ExEffects/3/35/'
 
     def getPictureParameters(self, pic):
         return pic.getLength(), pic.getWidth(), pic.getRGBMatrix(), pic.getPictureName()

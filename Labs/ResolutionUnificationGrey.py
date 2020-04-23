@@ -18,7 +18,7 @@ class ResolutionUnificationGrey:
         self.matrix = self.smallerPicture.getGreyMatrix()
         self.maxLength, self.maxWidth, self.biggerPictureName = self.biggerPicture.getPictureParameters()
         self.minLength, self.minWidth, self.smallerPictureName = self.smallerPicture.getPictureParameters()
-        self.ex = './Documentation/images/ExEffects/1/12/'
+        self.ex = './images/ExEffects/1/12/'
 
 
     def resolutionUnificationGrey(self):

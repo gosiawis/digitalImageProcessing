@@ -17,7 +17,7 @@ class ResolutionUnificationRGB:
         self.matrix = self.smallerPicture.getRGBMatrix()
         self.maxLength, self.maxWidth, self.biggerPictureName = self.biggerPicture.getPictureParameters()
         self.minLength, self.minWidth, self.smallerPictureName = self.smallerPicture.getPictureParameters()
-        self.ex = './Documentation/images/ExEffects/1/14/'
+        self.ex = './images/ExEffects/1/14/'
 
     def resolutionUnificationRGB(self):
         if self.biggerPicture == 0 and self.smallerPicture == 0:

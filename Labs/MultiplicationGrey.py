@@ -8,7 +8,7 @@ from ResolutionUnificationGrey import ResolutionUnificationGrey
 
 class MultiplicationGrey:
 
-    def __init__(self, name1='./Documentation/images/RawPictures/rys.png', name2='./Documentation/images/RawPictures/fotograf.png',
+    def __init__(self, name1='./images/RawPictures/rys.png', name2='./images/RawPictures/fotograf.png',
                  pictureType='L'):
         self.pic1 = ImageHelper(name1, pictureType)
         self.pic2 = ImageHelper(name2, pictureType)
@@ -16,7 +16,7 @@ class MultiplicationGrey:
         self.name1 = name1
         self.name2 = name2
         self.saver = PictureSaver()
-        self.ex = './Documentation/images/ExEffects/2/22/'
+        self.ex = './images/ExEffects/2/22/'
 
     def checkPictureBits(self, pic):
         matrix = pic.getGreyMatrix()

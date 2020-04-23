@@ -8,7 +8,7 @@ from ResolutionUnificationRGB import ResolutionUnificationRGB
 
 class BlendingRGB:
 
-    def __init__(self, name1='./Documentation/images/RawPictures/morze.png', name2='./Documentation/images/RawPictures/kawa.png',
+    def __init__(self, name1='./images/RawPictures/morze.png', name2='./images/RawPictures/kawa.png',
                  pictureType='RGB'):
         self.pic1 = ImageHelper(name1, pictureType)
         self.pic2 = ImageHelper(name2, pictureType)
@@ -16,7 +16,7 @@ class BlendingRGB:
         self.name1 = name1
         self.name2 = name2
         self.saver = PictureSaver()
-        self.ex = './Documentation/images/ExEffects/3/33/'
+        self.ex = './images/ExEffects/3/33/'
 
     def getPictureParameters(self, pic):
         return pic.getLength(), pic.getWidth(), pic.getRGBMatrix(), pic.getPictureName()

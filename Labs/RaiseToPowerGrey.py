@@ -6,12 +6,12 @@ from PictureSaver import PictureSaver
 
 class RaiseToPowerGrey:
 
-    def __init__(self, name='./Documentation/images/RawPictures/rys.png'):
+    def __init__(self, name='./images/RawPictures/rys.png'):
         self.pictureType = 'L'
         self.pic = ImageHelper(name, self.pictureType)
         self.name = name
         self.saver = PictureSaver()
-        self.ex = './Documentation/images/ExEffects/2/24/'
+        self.ex = './images/ExEffects/2/24/'
 
     def checkPictureBits(self, pic):
         matrix = pic.getGreyMatrix()

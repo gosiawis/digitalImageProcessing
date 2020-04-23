@@ -5,12 +5,12 @@ from PictureSaver import PictureSaver
 
 
 class Angle:
-    def __init__(self, name='./Documentation/images/RawPictures/kawa.png', pictureType='RGB'):
+    def __init__(self, name='./images/RawPictures/kawa.png', pictureType='RGB'):
         self.pic = ImageHelper(name, pictureType)
         self.pictureType = pictureType
         self.name = name
         self.saver = PictureSaver()
-        self.ex = './Documentation/images/ExEffects/4/43/'
+        self.ex = './images/ExEffects/4/43/'
 
     def angleMove(self, x):
         if self.pictureType == 'RGB':

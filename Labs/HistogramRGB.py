@@ -54,7 +54,7 @@ class HistogramRGB:
     def moveHistogram(self, const):
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
-        ex = './Documentation/images/ExEffects/6/62/'
+        ex = './images/ExEffects/6/62/'
         path = str(ex) + str(pictureName) + '_histogram.png'
         self.calculateHistogram(matrix, path)
         result = np.zeros((length, width, 3), np.uint8)
@@ -89,7 +89,7 @@ class HistogramRGB:
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         # save basic histogram of modified picture
-        ex = './Documentation/images/ExEffects/6/63/'
+        ex = './images/ExEffects/6/63/'
         path = str(ex) + str(pictureName) + '_histogram.png'
         self.calculateHistogram(matrix, path)
         result = np.zeros((length, width, 3), np.uint8)
@@ -125,7 +125,7 @@ class HistogramRGB:
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         # save basic histogram of modified picture
-        ex = './Documentation/images/ExEffects/6/64/'
+        ex = './images/ExEffects/6/64/'
         path = str(ex) + str(pictureName) + '_histogram.png'
         self.calculateHistogram(matrix, path)
 
@@ -157,7 +157,7 @@ class HistogramRGB:
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         # save basic histogram of modified picture
-        ex = './Documentation/images/ExEffects/6/65/'
+        ex = './images/ExEffects/6/65/'
         path = str(ex) + str(pictureName) + '_histogram.png'
         self.calculateHistogram(matrix, path)
         result = np.zeros((length, width, 3), np.uint8)
@@ -195,7 +195,7 @@ class HistogramRGB:
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         # save basic histogram of modified picture
-        ex = './Documentation/images/ExEffects/6/66/'
+        ex = './images/ExEffects/6/66/'
         path = str(ex) + str(pictureName) + '_histogram.png'
         self.calculateHistogram(matrix, path)
 
@@ -225,7 +225,7 @@ class HistogramRGB:
         length, width, pictureName = self.pic.getPictureParameters()
         matrix = self.pic.getGreyMatrix()
         # save basic histogram of modified picture
-        ex = './Documentation/images/ExEffects/6/67/'
+        ex = './images/ExEffects/6/67/'
         path = str(ex) + str(pictureName) + '_histogram.png'
         self.calculateHistogram(matrix, path)
 
@@ -261,7 +261,7 @@ if __name__ == '__main__':
     '''
     pictureName = plot.pic.getPictureName()
     matrix = plot.pic.getGreyMatrix()
-    path = './Documentation/images/ExEffects/6/61/' + str(pictureName) + '_histogram.png'
+    path = './images/ExEffects/6/61/' + str(pictureName) + '_histogram.png'
     plot.calculateHistogram(matrix, path)
     plot.moveHistogram(-50)
     plot.extendHistogram()
@@ -272,5 +272,5 @@ if __name__ == '__main__':
     '''
     plot = HistogramRGB()
     plot.multiThresholdGlobalHistogram()
-    plot2 = HistogramRGB('./Documentation/images/RawPictures/kawa.png')
+    plot2 = HistogramRGB('./images/RawPictures/kawa.png')
     plot2.multiThresholdGlobalHistogram()

@@ -5,12 +5,12 @@ from PictureSaver import PictureSaver
 
 
 class Symmetry:
-    def __init__(self, name='./Documentation/images/RawPictures/kawa.png', pictureType='RGB'):
+    def __init__(self, name='./images/RawPictures/kawa.png', pictureType='RGB'):
         self.pic = ImageHelper(name, pictureType)
         self.pictureType = pictureType
         self.name = name
         self.saver = PictureSaver()
-        self.ex = './Documentation/images/ExEffects/4/44/'
+        self.ex = './images/ExEffects/4/44/'
 
     def symmetryX(self):
         length, width, pictureName = self.pic.getPictureParameters()
