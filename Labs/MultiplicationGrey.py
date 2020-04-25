@@ -1,6 +1,7 @@
 import numpy as np
 
 from Comparer import Comparer
+from DivisionGrey import DivisionGrey
 from ImageHelper import ImageHelper
 from PictureSaver import PictureSaver
 from ResolutionUnificationGrey import ResolutionUnificationGrey
@@ -31,40 +32,46 @@ class MultiplicationGrey:
         return pic.getLength(), pic.getWidth(), pic.getGreyMatrix(), pic.getPictureName()
 
     def multiplyConstGrey(self, constant):
-        maxBitsColor = self.checkPictureBits(self.pic1)
-        length, width, matrix, pictureName = self.getPictureParameters(self.pic1)
-        result = np.ones((length, width), np.uint8)
+        if 0 < constant < 1:
+            # x * (1/2) = x / (1 / (1/2)) = x / 2 = x * (1/2)
+            # for constant in (0,1) start division by 1/constant
+            div = DivisionGrey(name1=self.name1)
+            div.divideConstGrey(1/constant)
+        else:
+            maxBitsColor = self.checkPictureBits(self.pic1)
+            length, width, matrix, pictureName = self.getPictureParameters(self.pic1)
+            result = np.ones((length, width), np.uint8)
 
-        fmin = maxBitsColor
-        fmax = 0
+            fmin = maxBitsColor
+            fmax = 0
 
-        for l in range(length):
-            for w in range(width):
-                pom = matrix[l, w]
-                if pom == maxBitsColor:
-                    result[l, w] = maxBitsColor
-                elif pom == 0:
-                    result[l, w] = 0
-                else:
-                    result[l, w] = np.ceil(((matrix[l, w] * constant) / maxBitsColor))
-                # Search for maximum and minimum
-                if fmin > result[l, w]:
-                    fmin = result[l, w]
+            for l in range(length):
+                for w in range(width):
+                    pom = matrix[l, w]
+                    if pom == maxBitsColor:
+                        result[l, w] = maxBitsColor
+                    elif pom == 0:
+                        result[l, w] = 0
+                    else:
+                        result[l, w] = np.ceil(((matrix[l, w] * constant) / maxBitsColor))
+                    # Search for maximum and minimum
+                    if fmin > result[l, w]:
+                        fmin = result[l, w]
 
-                if fmax < result[l, w]:
-                    fmax = result[l, w]
+                    if fmax < result[l, w]:
+                        fmax = result[l, w]
 
-        # save picture with added constant to png file (without normalization)
-        path = self.ex + str(pictureName) + '_constant_' + str(constant) + '.png'
-        self.saver.savePictureFromArray(result, self.pictureType, path)
+            # save picture with added constant to png file (without normalization)
+            path = self.ex + str(pictureName) + '_constant_' + str(constant) + '.png'
+            self.saver.savePictureFromArray(result, self.pictureType, path)
 
-        for l in range(length):
-            for w in range(width):
-                result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
+            for l in range(length):
+                for w in range(width):
+                    result[l, w] = maxBitsColor*((result[l, w] - fmin) / (fmax - fmin))
 
-        # save picture with added constant to png file (with normalization)
-        path = self.ex + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
-        self.saver.savePictureFromArray(result, self.pictureType, path)
+            # save picture with added constant to png file (with normalization)
+            path = self.ex + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
+            self.saver.savePictureFromArray(result, self.pictureType, path)
 
     def getUnifiedPictures(self):
         resolutionUni = ResolutionUnificationGrey(self.name1, self.name2)

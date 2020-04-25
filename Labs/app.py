@@ -65,8 +65,8 @@ if __name__ == '__main__':
     addPicture.addPictureGrey()
 
     print('Starting ex. 2.2 Multiplication of grey picture by constant')
-    multiplyConstant = MultiplicationGrey(name1=fotograf, pictureType='L')
-    multiplyConstant.multiplyConstGrey(100)
+    multiplyConstant = MultiplicationGrey(name1=rys, pictureType='L')
+    multiplyConstant.multiplyConstGrey(0.5)
 
     print('Starting ex. 2.2 Multiplication of grey picture by another picture')
     multiplyPicture = MultiplicationGrey(name1=andrzej, name2=fotograf, pictureType='L')
@@ -74,7 +74,7 @@ if __name__ == '__main__':
 
     print('Starting ex. 2.3 Blending of two grey pictures')
     blend = BlendingGrey(name1=fotograf, name2=andrzej, pictureType='L')
-    blend.blendPictures(0.3)
+    blend.blendPictures(30)
 
     print('Starting ex. 2.4 Raising to the constant power of a grey picture')
     exp = RaiseToPowerGrey(name=rys)
@@ -148,11 +148,11 @@ if __name__ == '__main__':
     sc = Scaling(name=tecza, pictureType='RGB')
     # sc.homogeneousScaling(2)
     sc.heterogeneousScaling(1, 3)
-    '''
+    
     print('Starting ex. 4.3 Angle')
     a = Angle(name=kawa, pictureType='RGB')
     a.angleMove(45)
-    '''
+    
     print('Starting ex. 4.4 Symmetry')
     sym = Symmetry(name=morze, pictureType='RGB')
     sym.symmetryX()

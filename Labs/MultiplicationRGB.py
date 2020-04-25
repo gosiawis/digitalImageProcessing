@@ -1,6 +1,7 @@
 import numpy as np
 
 from Comparer import Comparer
+from DivisionRGB import DivisionRGB
 from ImageHelper import ImageHelper
 from PictureSaver import PictureSaver
 from ResolutionUnificationRGB import ResolutionUnificationRGB
@@ -31,41 +32,47 @@ class MultiplicationRGB:
         return value
 
     def multiplyConstRGB(self, constant):
-        length, width, matrix, pictureName = self.getPictureParameters(self.pic1)
-        result = np.ones((length, width, 3), np.uint8)
+        if 0 < constant < 1:
+            # x * (1/2) = x / (1 / (1/2)) = x / 2 = x * (1/2)
+            # for constant in (0,1) start division by 1/constant
+            div = DivisionRGB(name1=self.name1)
+            div.divideConstRGB(1/constant)
+        else:
+            length, width, matrix, pictureName = self.getPictureParameters(self.pic1)
+            result = np.ones((length, width, 3), np.uint8)
 
-        fmin = 255
-        fmax = 0
+            fmin = 255
+            fmax = 0
 
-        for l in range(length):
-            for w in range(width):
-                R = self.assignRGBvalue(int(matrix[l, w][0]), constant)
-                G = self.assignRGBvalue(int(matrix[l, w][1]), constant)
-                B = self.assignRGBvalue(int(matrix[l, w][2]), constant)
+            for l in range(length):
+                for w in range(width):
+                    R = self.assignRGBvalue(int(matrix[l, w][0]), constant)
+                    G = self.assignRGBvalue(int(matrix[l, w][1]), constant)
+                    B = self.assignRGBvalue(int(matrix[l, w][2]), constant)
 
-                result[w, l][0] = np.ceil(R)
-                result[w, l][1] = np.ceil(G)
-                result[w, l][2] = np.ceil(B)
+                    result[w, l][0] = np.ceil(R)
+                    result[w, l][1] = np.ceil(G)
+                    result[w, l][2] = np.ceil(B)
 
-                # Search for maximum and minimum
-                if fmin > min([R, G, B]):
-                    fmin = min([R, G, B])
-                if fmax < max([R, G, B]):
-                    fmax = max([R, G, B])
+                    # Search for maximum and minimum
+                    if fmin > min([R, G, B]):
+                        fmin = min([R, G, B])
+                    if fmax < max([R, G, B]):
+                        fmax = max([R, G, B])
 
-        # save picture with added constant to png file (without normalization)
-        path = self.ex + str(pictureName) + '_constant_' + str(constant) + '.png'
-        self.saver.savePictureFromArray(result, self.pictureType, path)
+            # save picture with added constant to png file (without normalization)
+            path = self.ex + str(pictureName) + '_constant_' + str(constant) + '.png'
+            self.saver.savePictureFromArray(result, self.pictureType, path)
 
-        for l in range(length):
-            for w in range(width):
-                result[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
-                result[l, w][1] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
-                result[l, w][2] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
+            for l in range(length):
+                for w in range(width):
+                    result[l, w][0] = 255 * ((result[l, w][0] - fmin) / (fmax - fmin))
+                    result[l, w][1] = 255 * ((result[l, w][1] - fmin) / (fmax - fmin))
+                    result[l, w][2] = 255 * ((result[l, w][2] - fmin) / (fmax - fmin))
 
-        # save picture with added constant to png file (with normalization)
-        path = self.ex + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
-        self.saver.savePictureFromArray(result, self.pictureType, path)
+            # save picture with added constant to png file (with normalization)
+            path = self.ex + str(pictureName) + '_constant_' + str(constant) + '_normalized.png'
+            self.saver.savePictureFromArray(result, self.pictureType, path)
 
     def getUnifiedPictures(self):
         resolutionUni = ResolutionUnificationRGB(self.name1, self.name2)
